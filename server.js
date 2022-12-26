@@ -59,3 +59,77 @@ app.get("/logout", (req, res) => {              // terminate the session
     req.session.destroy();
     res.render("pages/logout");
 });
+
+/* POST REGISTER : rediredct to login ---------------------------------------------- */
+app.post('/register', async (req, res) => {
+
+    const hash = await bcrypt.hash(req.body.password, 8);
+
+    let query = `INSERT INTO users (username, password) VALUES ($1, $2);`;
+
+    db.none(query, [
+        req.body.username,
+        hash
+      ])
+        .then(function (data) {
+
+            /* start session */
+            users.username = req.body.username;
+            users.password = req.body.password;
+            req.session.user = users;
+            req.session.save();
+
+            /* Bring to Post-Registration Survey */
+            res.redirect('/registrationSurvey')
+        })
+        .catch(function (err) {
+          res.redirect('/register');
+          return console.log(err);
+        }); 
+});
+/* POST LOGIN : redirect to register ? survey? ------------------------------------- */
+app.post('/login', async (req, res) => {
+
+    let query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.one(query, [
+        req.body.username,
+        req.body.password
+    ])
+    .then(async (user) => {
+
+        const match = await bcrypt.compare(req.body.password, user.password);
+
+        if (match)
+        {
+            users.username = req.body.username;
+            users.password = req.body.password;
+            req.session.user = users;
+            req.session.save();
+            res.redirect('/dashboard');
+        }
+
+        else 
+        {
+            res.redirect('pages/login', {message: "Incorrect Password", error: true});
+        }
+    })
+
+    .catch (function (err) {
+
+        res.redirect('/register');
+
+        return console.log(err);
+    });
+});
+/* AUTHENTICATION ---------------------------------------------------------------------  */
+const auth = (req, res, next) => {
+    if (!req.session.user) {
+        // Default to register page.
+        return res.redirect('/register');
+    }
+    next();
+};
+
+// Authentication Required
+app.use(auth);
