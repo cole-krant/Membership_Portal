@@ -72,17 +72,6 @@ app.get("/logout", (req, res) => {              // terminate the session
     req.session.destroy();
     res.render("pages/logout");
 });
-app.get("/home", (req, res) => {
-    res.render("pages/home", {
-
-    });
-});
-app.get("/calendar", (req, res) => {
-    res.render("pages/calendar", {
-        
-    });
-});
-
 /* POST REGISTER : rediredct to login ---------------------------------------------- */
 app.post('/register', async (req, res) => {
 
@@ -103,7 +92,7 @@ app.post('/register', async (req, res) => {
             req.session.save();
 
             /* Bring to Post-Registration Survey */
-            res.redirect('/home')
+            res.redirect('/home');
         })
         .catch(function (err) {
           res.redirect('/register');
@@ -158,6 +147,31 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 
+/* ------------------------------------------------------------------------------------ */
+app.get("/home", (req, res) => {
+    res.render("pages/home", {
+
+    });
+});
+app.get("/calendar", (req, res) => {
+    res.render("pages/calendar", {
+
+    });
+});
+/* GET COMMUNITY -------------------------------------------------------------------- */
+app.get("/community", (req, res) => {
+
+    const query = `SELECT * FROM users;`;
+    db.any(query)
+        .then((community) => {
+            console.log(community);
+            res.render("pages/community", {community});
+        })
+        .catch((error) => {
+            console.log("ERROR:", error.message || error);
+        })
+    
+});
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);
 console.log("Server is listening on port 3000\n\n");
