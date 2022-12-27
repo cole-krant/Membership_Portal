@@ -39,6 +39,11 @@
                     font-size: 22px;
                     color: black;
                   }
+
+                  img {
+                    width:100%;
+                    max-width:424px;
+                  }
                   
                   button:hover, a:hover {
                     opacity: 0.7;
@@ -60,7 +65,7 @@
                           count_col = count_col + 1;                                  // incriment count
                           pseudo = pseudo + '<div class="card-group text-black">';    // begin the row row
                           pseudo = pseudo + '<div class="card">';                     // create a card
-                          pseudo = pseudo + '<img src="' + community.img + '" alt="Profile Picture" style="width:100%">';
+                          pseudo = pseudo + '<img width="100px" max-width="50px" src="' + community.img + '" alt="Profile Picture">';
                           pseudo = pseudo + '<h1>' + community.username + '</h1>';
                           pseudo = pseudo + '<p class="title">' + community.major + '</p>';
                           pseudo = pseudo + '</div>';
@@ -71,7 +76,7 @@
 
                           count_col = count_col + 1;                                  // incriment count
                           pseudo = pseudo + '<div class="card">';                     // same row, input card
-                          pseudo = pseudo + '<img src="' + community.img + '" alt="Profile Picture" style="width:100%">';
+                          pseudo = pseudo + '<img width="100px" max-width="50px" src="' + community.img + '" alt="Profile Picture" style="width:100%">';
                           pseudo = pseudo + '<h1>' + community.username + '</h1>';
                           pseudo = pseudo + '<p class="title">' + community.major + '</p>';
                           pseudo = pseudo + '</div>';
