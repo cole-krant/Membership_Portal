@@ -51,6 +51,7 @@
                   var start = 0;          // variable to limit 4 cards per row
                   var count_cmp = 4;      // variable to track how many cards have been input per row
                   var pseudo = '';        // variable to code html
+                  pseudo = pseudo + '<div class="container-fluid">';
 
               community.forEach(community => {
                   if(community) {
@@ -86,7 +87,9 @@
 
                       }
                   }
-                }) %>
+                }) 
+                pseudo = pseudo + '</div>';         // close the card group
+                %>
               <%- pseudo %>
             </div>
         </div>
