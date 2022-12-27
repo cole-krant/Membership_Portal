@@ -2,10 +2,12 @@
 /* INCLUDES */
 const express = require('express');
 const app = express();
-const pgp = require('pg-promise')();
 const bodyParser = require('body-parser');
-const session = require('express-session');
-
+const pgp = require('pg-promise')();
+const session = require("express-session");
+app.use(bodyParser.json());
+const bcrypt = require('bcryptjs');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = 80;
 
@@ -33,9 +35,6 @@ db.connect()
 /* SET THE VIEW ENGINE TO EJS */
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/'));
-
-/* Specify usage of JSON for parsing request body */
-app.use(bodyParser.json());
 
 /* INITIALIZE SESSION VARIABLES */
 app.use(
@@ -73,6 +72,16 @@ app.get("/logout", (req, res) => {              // terminate the session
     req.session.destroy();
     res.render("pages/logout");
 });
+app.get("/home", (req, res) => {
+    res.render("pages/home", {
+
+    });
+});
+app.get("/calendar", (req, res) => {
+    res.render("pages/calendar", {
+        
+    });
+});
 
 /* POST REGISTER : rediredct to login ---------------------------------------------- */
 app.post('/register', async (req, res) => {
@@ -94,7 +103,7 @@ app.post('/register', async (req, res) => {
             req.session.save();
 
             /* Bring to Post-Registration Survey */
-            res.redirect('/registrationSurvey')
+            res.redirect('/home')
         })
         .catch(function (err) {
           res.redirect('/register');
@@ -120,7 +129,7 @@ app.post('/login', async (req, res) => {
             users.password = req.body.password;
             req.session.user = users;
             req.session.save();
-            res.redirect('/dashboard');
+            res.redirect('/home');
         }
 
         else 
