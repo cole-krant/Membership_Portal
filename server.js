@@ -2,12 +2,10 @@
 /* INCLUDES */
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const pgp = require('pg-promise')();
-const session = require("express-session");
-app.use(bodyParser.json());
-const bcrypt = require('bcryptjs');
-app.use(bodyParser.urlencoded({ extended: true }));
+const bodyParser = require('body-parser');
+const session = require('express-session');
+
 
 const PORT = 80;
 
@@ -34,16 +32,32 @@ db.connect()
 
 /* SET THE VIEW ENGINE TO EJS */
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + '/'));
+
+/* Specify usage of JSON for parsing request body */
+app.use(bodyParser.json());
 
 /* INITIALIZE SESSION VARIABLES */
 app.use(
     session({
-        secret: "XASDASDA",
-        saveUninitialized: true,
-        resave: true,
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: false,
+        resave: false,
     })
 );
 
+/* ENCODE URL */
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
+
+/* USERS TABLE EJS REFERENCE */
+const users = {
+    username:undefined,
+    password:undefined
+}
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
 app.get('/', (req, res) => {                    // upon entry user goes to login
@@ -133,3 +147,8 @@ const auth = (req, res, next) => {
 
 // Authentication Required
 app.use(auth);
+
+
+/* ------------------------------------------------------------------------------------ */
+app.listen(3000);
+console.log("Server is listening on port 3000\n\n");
