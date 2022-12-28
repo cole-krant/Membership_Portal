@@ -149,9 +149,17 @@ app.use(auth);
 
 /* ------------------------------------------------------------------------------------ */
 app.get("/home", (req, res) => {
-    res.render("pages/home", {
 
-    });
+    const query = `SELECT * FROM users WHERE username = $1`;
+
+    db.any(query, [req.session.user.username])
+        .then((user) => {
+            console.log(user);
+            res.render("pages/home", {user, username: req.session.user.username, img: req.session.user.img, major: req.session.user.major});
+        })
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+        })
 });
 app.get("/calendar", (req, res) => {
     res.render("pages/calendar", {
@@ -162,13 +170,14 @@ app.get("/calendar", (req, res) => {
 app.get("/community", (req, res) => {
 
     const query = `SELECT * FROM users;`;
+
     db.any(query)
         .then((community) => {
             console.log(community);
             res.render("pages/community", {community});
         })
         .catch((error) => {
-            console.log("ERROR:", error.message || error);
+            console.log("ERROR: ", error.message || error);
         })
     
 });

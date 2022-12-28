@@ -2,7 +2,188 @@
 <%- include ('../partials/menu') %>
 
 <main>
-    
+    <header>
+        <style>
+            .background {
+                background-image: url('../../resources/img/Flatiron_Background.jpg');
+            }
+            h1 {
+                font-size: xx-large;
+                color:white;
+                text-align: center;
+            }
+            h3 {
+                font-size: x-large;
+                color:white;
+                text-align: center;
+            }
+            p {
+                font-size: normal;
+                color:white;
+                text-align: center;
+            }
+
+            /* COMMUNITY CARD CSS */
+            .card {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                max-width: 300px;
+                margin: auto;
+                text-align: center;
+                font-family: arial;
+            }
+            
+            .title {
+                color: white;
+                font-size: 18px;
+            }
+            
+            button {
+                border: none;
+                outline: 0;
+                display: inline-block;
+                padding: 8px;
+                color: white;
+                background-color: #000;
+                text-align: center;
+                cursor: pointer;
+                width: 100%;
+                font-size: 18px;
+            }
+            
+            a {
+                text-decoration: none;
+                font-size: 22px;
+                color: black;
+            }
+
+            img {
+                width:100%;
+                max-width:424px;
+            }
+            
+            button:hover, a:hover {
+                opacity: 0.7;
+            }
+
+
+        </style>
+    </header>
+    <body>
+        <!-- USER INFO -->
+        <div class="row">
+            <div class="w3-container w3-padding-64 w3-center" id="user">
+
+                <h1> YOUR PROFILE </h1>
+                <p> Potential New Member </p>
+
+                <div class="row">
+                    <div class="w3-quarter">
+                        <img src="<%= img ? img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3><%= username ? username : 'Name Unknown' %></h3>
+                        <p><%= major ? major : 'Major Unkown' %></p>
+                        
+                        
+                        <!-- UPDATE PROFILE :: W3-Library -->
+                        <div class="w3-container">
+                            <button onclick="document.getElementById('review').style.display='block'" class="w3-button w3-green w3-large">Update Profile</button>
+                        
+                            <!-- PROFILE MODAL -->
+                            <div id="review" class="w3-modal">
+                                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+                            
+                                    <!-- PROFILE MODAL HEADER -->
+                                    <div class="w3-center"><br>
+                                        <span onclick="document.getElementById('review').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                                        <img src="<%= img ? img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Picture" style="width:30%" class="w3-circle w3-margin-top">
+                                    </div>
+                            
+                                    <!-- PROFILE MODAL FORM -->
+                                    <form class="w3-container" action="/update_profile" method="POST">
+                                        <div class="w3-section">
+                                            
+                                            <input type = "hidden" name = "user_id" value = "<% user.user_id %>"></input>
+
+                                            <label style="text-align:left" for="username"><b>Username</b></label>
+                                            <input class="w3-input w3-border" type="text" name = "username" required></input>
+
+                                            <label style="text-align:left" for="img"><b>Profile Picture</b></label>
+                                            <input class="w3-input w3-border" type="text" placeholder="Paste a URL from the Internet" name="img" required>
+
+                                            <label style="text-align:left" for="class"><b>Class</b></label>
+                                            <input class="w3-input w3-border" type="text" placeholder="Freshman, Sophomore, Junior or Senior" name="class" required>
+
+                                            <label style="text-align:left" for="major"><b>Major</b></label>
+                                            <input class="w3-input w3-border" type="text" placeholder="If Business, include Emphasis" name="major" required>
+
+                                            <label style="text-align:left" for="committee"><b>Committee</b></label>
+                                            <input class="w3-input w3-border" type="text" placeholder="Once assigned, state committee. Otherwise list 'N/A'" name="committee" required>
+
+                                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">  Submit Changes  </button>
+
+                                        </div>
+                                    </form>
+                            
+                                    <!-- REVIEW MODAL FOOTTER  -->
+                                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                        <button onclick="document.getElementById('review').style.display='none'" type="button" class="w3-button w3-block w3-red w3-section w3-padding">Cancel</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--  MEET THE TEAM CONTAINER  -->
+        <div class="background">
+            
+            <div class="w3-container w3-padding-64 w3-center" id="team">
+                <h1> OUR TEAM </h1>
+                <p> Meet the Bridge Education Committee </p>
+                
+                <div class="row">
+                    <div class="w3-quarter">
+                        <img src="../../resources/pfp/Cole_Krant.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3>Cole Krant</h3>
+                        <p>VP of Membership</p>
+                    </div>
+                </div>
+
+                <!--  BRIDGE COMMITEE  -->
+                <div class="w3-row"><br>
+
+                    <div class="w3-quarter">
+                        <img src="../../resources/pfp/Default_Avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3>TBD</h3>
+                        <p>Pledge Educator</p>
+                    </div>
+                    
+                    <div class="w3-quarter">
+                        <img src="../../resources/pfp/Default_Avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3>TBD</h3>
+                        <p>Committee Coordinator</p>
+                    </div>
+                    
+                    <div class="w3-quarter">
+                        <img src="../../resources/pfp/Default_Avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3>TBD</h3>
+                        <p>Networking Director</p>
+                    </div>
+
+                    <div class="w3-quarter">
+                        <img src="../../resources/pfp/Default_Avatar.jpg" alt="Boss" style="width:45%" class="w3-circle w3-hover-opacity">
+                        <h3>TBD</h3>
+                        <p>Professional Development Coordinator</p>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+
+    </body>
 </main>
 
 <%- include ('../partials/footer') %>
