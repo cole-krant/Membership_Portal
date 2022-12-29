@@ -53,9 +53,17 @@ app.use(
 );
 
 /* USERS TABLE EJS REFERENCE */
-const users = {
+const user = {
+    user_id:undefined,
     username:undefined,
-    password:undefined
+    password:undefined,
+    admin:undefined,
+    img:undefined,
+    class:undefined,
+    major:undefined,
+    committee:undefined,
+    net_group:undefined,
+    brother_interviews:undefined
 }
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
@@ -76,63 +84,57 @@ app.get("/logout", (req, res) => {              // terminate the session
 app.post('/register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
+    const query = `INSERT INTO users (username, password, img) VALUES ($1, $2, $3);`;
 
-    let query = `INSERT INTO users (username, password) VALUES ($1, $2);`;
-
-    db.none(query, [
-        req.body.username,
-        hash
-      ])
-        .then(function (data) {
-
-            /* start session */
-            users.username = req.body.username;
-            users.password = req.body.password;
-            req.session.user = users;
+    db.none(query, [req.body.username, hash, '../../resources/pfp/Default_Avatar.jpg'])
+        .then((data) => {
+            user.username = req.body.username;
+            user.password = req.body.password;
+            user.img = '../../resources/pfp/Default_Avatar.jpg';
+            
+            req.session.user = user;
             req.session.save();
-
-            /* Bring to Post-Registration Survey */
-            res.redirect('/home');
+            res.redirect("/login");
         })
-        .catch(function (err) {
-          res.redirect('/register');
-          return console.log(err);
-        }); 
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+            res.redirect("/register");
+        });
 });
 /* POST LOGIN : redirect to register ? survey? ------------------------------------- */
 app.post('/login', async (req, res) => {
 
-    let query = `SELECT * FROM users WHERE username = $1;`;
+    const query = `SELECT * FROM users WHERE username = $1;`;
 
-    db.one(query, [
-        req.body.username,
-        req.body.password
-    ])
-    .then(async (user) => {
+    db.one(query, [req.body.username, req.body.password])
+        .then(async (client) => {
 
-        const match = await bcrypt.compare(req.body.password, user.password);
+            const match = await bcrypt.compare(req.body.password, client.password);
 
-        if (match)
-        {
-            users.username = req.body.username;
-            users.password = req.body.password;
-            req.session.user = users;
-            req.session.save();
-            res.redirect('/home');
-        }
+            if (match) {
+                user.user_id = client.user_id;
+                user.username = req.body.username;
+                user.password = req.body.password;
+                user.admin = client.admin;
+                user.img = client.img;
+                user.class = client.class;
+                user.major = client.major;
+                user.committee = client.committee;
+                user.net_group = client.net_group;
+                user.brother_interviews = client.brother_interviews;
 
-        else 
-        {
-            res.redirect('pages/login', {message: "Incorrect Password", error: true});
-        }
-    })
-
-    .catch (function (err) {
-
-        res.redirect('/register');
-
-        return console.log(err);
-    });
+                req.session.user = user;
+                req.session.save();
+                res.redirect('/home');
+            }
+            else {
+                res.redirect('pages/login', {message: "Incorrect Password", error: true});
+            }
+        })
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+            res.redirect("/register");
+        });
 });
 /* AUTHENTICATION ---------------------------------------------------------------------  */
 const auth = (req, res, next) => {
@@ -141,26 +143,31 @@ const auth = (req, res, next) => {
         return res.redirect('/register');
     }
     next();
-};
-
-// Authentication Required
-app.use(auth);
-
-
+};  app.use(auth);  // Authentication Required
 /* ------------------------------------------------------------------------------------ */
 app.get("/home", (req, res) => {
 
     const query = `SELECT * FROM users WHERE username = $1`;
 
     db.any(query, [req.session.user.username])
-        .then((user) => {
-            console.log(user);
-            res.render("pages/home", {user, username: req.session.user.username, img: req.session.user.img, major: req.session.user.major});
+        .then((home) => {
+            console.log(home);
+            res.render("pages/home", {
+                home,
+                user_id: req.session.user.user_id,
+                username: req.session.user.username, 
+                img: req.session.user.img, 
+                major: req.session.user.major,
+                committee: req.session.user.committee,
+                net_group: req.session.user.net_group,
+                brother_interviews: req.session.user.brother_interviews
+            });
         })
         .catch((error) => {
             console.log("ERROR: ", error.message || error);
         })
 });
+/* ------------------------------------------------------------------------------------ */
 app.get("/calendar", (req, res) => {
     res.render("pages/calendar", {
 
@@ -173,6 +180,7 @@ app.get("/community", (req, res) => {
 
     db.any(query)
         .then((community) => {
+            req.session.save();
             console.log(community);
             res.render("pages/community", {community});
         })
@@ -181,6 +189,47 @@ app.get("/community", (req, res) => {
         })
     
 });
+/* UPDATE PROFILE -------------------------------------------------------------------- */
+app.post("/update_profile", (req, res) => {
+
+    const user_id = parseInt(req.session.user.user_id);
+    const values = [req.body.username, req.body.img, req.body.class, req.body.major, req.body.committee, user_id];
+
+    console.log("USER_ID = " + user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        username = $1,
+        img = $2,
+        class = $3,
+        major = $4,
+        committee = $5
+    WHERE
+        user_id = $6;`;
+
+    
+    db.none(query, values)
+        .then((update) => {
+
+            user.username = values[0];
+            user.img = values[1];
+            user.class = values[2];
+            user.major = values[3];
+            user.committee = values[4];
+
+            req.session.user = user;
+            req.session.save();
+
+            console.log("Successful Update: \n", user);
+            res.redirect("/home");
+        })
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+        })
+
+});
+
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);
 console.log("Server is listening on port 3000\n\n");
