@@ -189,6 +189,22 @@ app.get("/community", (req, res) => {
         })
     
 });
+/* GET COMMUNITY -------------------------------------------------------------------- */
+app.get("/bridge", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((bridge) => {
+            req.session.save();
+            console.log(bridge);
+            res.render("pages/bridge", {bridge, username: req.session.user.username});
+        })
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+        })
+    
+});
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile", (req, res) => {
 
@@ -208,7 +224,6 @@ app.post("/update_profile", (req, res) => {
     WHERE
         user_id = $6;`;
 
-    
     db.none(query, values)
         .then((update) => {
 
@@ -229,7 +244,31 @@ app.post("/update_profile", (req, res) => {
         })
 
 });
+/* SUBMIT BROTHER INTERVIEW --------------------------------------------------------- */
+app.post("/submit_interview", (req, res) => {
 
+    const query = `
+    INSERT INTO
+        brother_interviews(username, brother, family, proof)
+    VALUES
+        ($1, $2, $3, $4);`;
+
+    db.none(query, [req.session.user.username, req.body.brother, req.body.family, req.body.proof])
+        .then((update) => {
+
+            user.brother_interviews = user.brother_interviews + 1;
+
+            req.session.user = user;
+            req.session.save();
+
+            console.log("Successful Update: \n", user);
+            res.redirect("/bridge");
+        })
+        .catch((error) => {
+            console.log("ERROR: ", error.message || error);
+        })
+
+});
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);
 console.log("Server is listening on port 3000\n\n");

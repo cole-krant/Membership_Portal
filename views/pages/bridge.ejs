@@ -6,10 +6,39 @@
 
     </header>
     <body>
+        <div class="container">
+            <!-- BROTHER INTERVIEW SUBMISSIONS -->
+            <form action="/submit_interview" method="POST">
 
-        <!-- BROTHER INTERVIEW SUBMISSIONS -->
-        
+                <input type="hidden" name="username" value="<%= username %>"></input>
 
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="brother">Brother</label>
+                    <input class="w3-input w3-border" type="text" placeholder="Be sure to spell correctly" name="brother" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="family">Family</label>
+                    <select class="form-select" id="family" name="family">
+                    <option selected>Choose...</option>
+                    <option value="1">Antosh</option>
+                    <option value="2">Coleman</option>
+                    <option value="3">Cooley</option>
+                    <option value="4">Gates</option>
+                    <option value="5">RK</option>
+                    <option value="6">Rizer</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Brother Interview Picture</label>
+                    <input class="form-control" type="file" id="proof" name="proof">
+                </div>
+
+                <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">  Submit Changes  </button>
+
+            </form>
+        </div>
     </body>
 </main>
 
