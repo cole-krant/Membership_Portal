@@ -97,7 +97,7 @@ app.post('/register', async (req, res) => {
             res.redirect("/login");
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
             res.redirect("/register");
         });
 });
@@ -132,7 +132,7 @@ app.post('/login', async (req, res) => {
             }
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
             res.redirect("/register");
         });
 });
@@ -164,7 +164,7 @@ app.get("/home", (req, res) => {
             });
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
         })
 });
 /* ------------------------------------------------------------------------------------ */
@@ -185,11 +185,11 @@ app.get("/community", (req, res) => {
             res.render("pages/community", {community});
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
         })
     
 });
-/* GET COMMUNITY -------------------------------------------------------------------- */
+/* GET BRIDGE -------------------------------------------------------------------- */
 app.get("/bridge", (req, res) => {
 
     const query = `SELECT * FROM users WHERE username = $1;`;
@@ -201,7 +201,23 @@ app.get("/bridge", (req, res) => {
             res.render("pages/bridge", {bridge, username: req.session.user.username});
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
+        })
+    
+});
+/* GET SUBMISSIONS -------------------------------------------------------------------- */
+app.get("/submission", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((submissions) => {
+            req.session.save();
+            console.log(submissions);
+            res.render("pages/submission", {submissions, user_id: req.session.user.user_id});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
         })
     
 });
@@ -236,11 +252,11 @@ app.post("/update_profile", (req, res) => {
             req.session.user = user;
             req.session.save();
 
-            console.log("Successful Update: \n", user);
+            console.log("\n\nSuccessful Update: \n", user);
             res.redirect("/home");
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
         })
 
 });
@@ -251,21 +267,28 @@ app.post("/submit_interview", (req, res) => {
     INSERT INTO
         brother_interviews(username, brother, family, proof)
     VALUES
-        ($1, $2, $3, $4);`;
+        ('${req.session.user.username}', $1, $2, $3);
+        
+    UPDATE
+        users
+    SET
+        brother_interviews = ${req.session.user.brother_interviews + 1};`;
 
-    db.none(query, [req.session.user.username, req.body.brother, req.body.family, req.body.proof])
+    db.none(query, [req.body.brother, req.body.family, req.body.proof])
         .then((update) => {
+
+            console.log("\nNumber of Brother Interviews = " + (user.brother_interviews + 1));
 
             user.brother_interviews = user.brother_interviews + 1;
 
             req.session.user = user;
             req.session.save();
 
-            console.log("Successful Update: \n", user);
+            console.log("\n\nSuccessful Update: \n", user);
             res.redirect("/bridge");
         })
         .catch((error) => {
-            console.log("ERROR: ", error.message || error);
+            console.log("\n\nERROR: ", error.message || error);
         })
 
 });
