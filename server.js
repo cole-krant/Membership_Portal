@@ -63,6 +63,12 @@ const user = {
     major:undefined,
     committee:undefined,
     net_group:undefined,
+    preliminary_forms:undefined,
+    big_brother_mentor:undefined,
+    getting_to_know_you:undefined,
+    informational_interviews:undefined,
+    resume:undefined,
+    domingos: undefined,
     brother_interviews:undefined,
     points:undefined
 }
@@ -86,14 +92,26 @@ app.get("/logout", (req, res) => {              // terminate the session
 app.post('/register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
-    const query = `INSERT INTO users (username, password, img, points) VALUES ($1, $2, $3, $4);`;
+    const query = `INSERT INTO users (username, password, admin, img, points) VALUES ($1, $2, $3, $4, $5);`;
 
-    db.none(query, [req.body.username, hash, '../../resources/pfp/Default_Avatar.jpg', 0])
+    db.none(query, [req.body.username, hash, 'false', '../../resources/pfp/Default_Avatar.jpg', 0])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
-                password:req.body.password,
+                password:hash,
+                admin:'false',
                 img:'../../resources/pfp/Default_Avatar.jpg',
+                class:'',
+                major:'',
+                committee:'',
+                net_group:'',
+                preliminary_forms:'false',
+                big_brother_mentor:'false',
+                getting_to_know_you:'false',
+                informational_interviews:'false',
+                resume:'',
+                domingos: 0,
+                brother_interviews: 0,
                 points: 0
             }
 
@@ -114,18 +132,25 @@ app.post('/login', async (req, res) => {
         .then(async (client) => {
 
             const match = await bcrypt.compare(req.body.password, client.password);
+            const hash = await bcrypt.hash(req.body.password, 8);
 
             if (match) {
                 req.session.user = {
                     user_id: client.user_id,
                     username: req.body.username,
-                    password: req.body.password,
+                    password: hash,
                     admin: client.admin,
                     img: client.img,
                     class: client.class,
                     major: client.major,
                     committee: client.committee,
                     net_group: client.net_group,
+                    preliminary_forms: client.preliminary_forms,
+                    big_brother_mentor: client.big_brother_mentor,
+                    getting_to_know_you: client.getting_to_know_you,
+                    informational_interviews: client.informational_interviews,
+                    resume: client.resume,
+                    domingos: client.domingos,
                     brother_interviews: client.brother_interviews,
                     points: client.points
                 }
@@ -301,30 +326,18 @@ app.post("/submit_interview", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin", (req, res) => {
 
-    if(req.session.user.admin === 'true') {
+    if(req.session.user.admin === 'false') {
         res.redirect("pages/home");
     }
     
-    const query = `SELECT * FROM users;`;
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC`;
 
     db.any(query)
         .then((admin) => {
             console.log(admin);
             res.render("pages/admin", {
-                admin,
-                user_id: req.session.user.user_id,
-                username: req.session.user.username,
-                password: req.session.user.password,
-                admin: req.session.user.admin,
-                img: req.session.user.img,
-                class: req.session.user.class,
-                major: req.session.user.major,
-                committee: req.session.user.committee,
-                net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews,
-                points: req.session.user.points,
-
-                action: "delete"
+                admin: admin,
+                action: "delete",
             });
         })
         .catch((error) => {
@@ -334,42 +347,27 @@ app.get("/admin", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.post("/admin/delete", (req, res) => {
 
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC;`
+
     /* Execute Task */
     db.task("delete-user", (task) => {
 
         return task.batch([
-
             db.none(
-                `DELETE FROM
-                    users
-                WHERE
-                    user_id = $1,
-                    username = $2,
-                    password = $3,
-                    admin = $4,
-                    img = $5,
-                    class = $6,
-                    major = $7,
-                    committee = $8,
-                    net_group = $9,
-                    preliminary_forms = $10,
-                    big_brother_mentor = $11,
-                    getting_to_know_you = $12,
-                    informational_interviews = $13, 
-                    resume = $14,
-                    domingos = $15,
-                    brother_interviews = $16,
-                    points = $17;`,
-                [req.body.user_id, 
-                    req.body.username, req.body.password, req.body.admin, req.body.img, req.body.class, req.body.major, req.body.committee, net_group,
-                    req.body.preliminary_forms, req.body.big_brother_mentor, req.body.getting_to_know_you, req.body.informational_interviews, 
-                    req.body.resume, req.body.domingos, req.body.brother_interviews, req.body.points]
+                `DELETE FROM users WHERE user_id = $1 AND username = $2 AND admin = $3 AND img = $4 AND class = $5 AND major = $6 AND committee = $7 AND net_group = $8 AND preliminary_forms = $9 AND big_brother_mentor = $10 AND getting_to_know_you = $11 AND informational_interviews = $12 AND resume = $13 AND domingos = $14 AND brother_interviews = $15 AND points = $16 AND password = $17;`,
+                [parseInt(req.body.user_id), req.body.username, req.body.admin, 
+                    req.body.img, req.body.class, req.body.major, 
+                    req.body.committee, req.body.net_group, req.body.preliminary_forms, 
+                    req.body.big_brother_mentor, req.body.getting_to_know_you, req.body.informational_interviews, 
+                    req.body.resume, parseInt(req.body.domingos), parseInt(req.body.brother_interviews), parseInt(req.body.points),
+                    req.session.user.password]
             ), // END OF db.none
-            task.any(muscle_recent, [req.session.user.username])
+            task.any(query, [req.session.user.username])
         ]) //END OF task.batch
         
     })  // END OF db.task
     .then(([, users]) => {
+        console.log("BATCH SUCCESS");
         console.info(users);
         res.redirect("/admin");
     })

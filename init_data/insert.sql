@@ -23,7 +23,7 @@ INSERT INTO users(
 VALUES(
     60, 
     'Katie McDonald', 
-    '1627', 
+    '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'true', 
     '../../resources/pfp/Default_Avatar.jpg', 
     'Sophomore', 
@@ -31,6 +31,7 @@ VALUES(
     
     'Bridge Education Committee', 'Pledge Team', 'true', 'true', 'true', 'true', NULL, 0, 0, 0);
 
+-- Password --> pledgeteam1234
 
 INSERT INTO users(
     user_id, 
@@ -40,8 +41,8 @@ INSERT INTO users(
 VALUES(
     70, 
     'Emma Kochenderfer', 
-    '1627', 
-    'true', 
+    '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
+    'false', 
     '../../resources/pfp/Default_Avatar.jpg', 
     'Senior', 
     'Business?',
@@ -57,8 +58,8 @@ INSERT INTO users(
 VALUES(
     80, 
     'Nathan Brown', 
-    '1627', 
-    'true', 
+    '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
+    'false', 
     '../../resources/pfp/Default_Avatar.jpg', 
     'Freshman', 
     'Business?',
@@ -74,8 +75,8 @@ INSERT INTO users(
 VALUES(
     90, 
     'Harrison Klein', 
-    '1627', 
-    'true', 
+    '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
+    'false', 
     '../../resources/pfp/Default_Avatar.jpg', 
     'Freshman', 
     'Business?',
