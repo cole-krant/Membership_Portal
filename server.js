@@ -63,7 +63,8 @@ const user = {
     major:undefined,
     committee:undefined,
     net_group:undefined,
-    brother_interviews:undefined
+    brother_interviews:undefined,
+    points:undefined
 }
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
@@ -81,18 +82,21 @@ app.get("/logout", (req, res) => {              // terminate the session
     res.render("pages/logout");
 });
 /* POST REGISTER : rediredct to login ---------------------------------------------- */
+/* NEED TO IMPLIMENT CONSTRAINT WHERE USERNAMES ARE THE SAME */
 app.post('/register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
-    const query = `INSERT INTO users (username, password, img) VALUES ($1, $2, $3);`;
+    const query = `INSERT INTO users (username, password, img, points) VALUES ($1, $2, $3, $4);`;
 
-    db.none(query, [req.body.username, hash, '../../resources/pfp/Default_Avatar.jpg'])
+    db.none(query, [req.body.username, hash, '../../resources/pfp/Default_Avatar.jpg', 0])
         .then((data) => {
-            user.username = req.body.username;
-            user.password = req.body.password;
-            user.img = '../../resources/pfp/Default_Avatar.jpg';
-            
-            req.session.user = user;
+            req.session.user = {
+                username:req.body.username,
+                password:req.body.password,
+                img:'../../resources/pfp/Default_Avatar.jpg',
+                points: 0
+            }
+
             req.session.save();
             res.redirect("/login");
         })
@@ -112,18 +116,20 @@ app.post('/login', async (req, res) => {
             const match = await bcrypt.compare(req.body.password, client.password);
 
             if (match) {
-                user.user_id = client.user_id;
-                user.username = req.body.username;
-                user.password = req.body.password;
-                user.admin = client.admin;
-                user.img = client.img;
-                user.class = client.class;
-                user.major = client.major;
-                user.committee = client.committee;
-                user.net_group = client.net_group;
-                user.brother_interviews = client.brother_interviews;
-
-                req.session.user = user;
+                req.session.user = {
+                    user_id: client.user_id,
+                    username: req.body.username,
+                    password: req.body.password,
+                    admin: client.admin,
+                    img: client.img,
+                    class: client.class,
+                    major: client.major,
+                    committee: client.committee,
+                    net_group: client.net_group,
+                    brother_interviews: client.brother_interviews,
+                    points: client.points
+                }
+                
                 req.session.save();
                 res.redirect('/home');
             }
@@ -291,6 +297,86 @@ app.post("/submit_interview", (req, res) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin", (req, res) => {
+
+    if(req.session.user.admin === 'true') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM users;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin", {
+                admin,
+                user_id: req.session.user.user_id,
+                username: req.session.user.username,
+                password: req.session.user.password,
+                admin: req.session.user.admin,
+                img: req.session.user.img,
+                class: req.session.user.class,
+                major: req.session.user.major,
+                committee: req.session.user.committee,
+                net_group: req.session.user.net_group,
+                brother_interviews: req.session.user.brother_interviews,
+                points: req.session.user.points,
+
+                action: "delete"
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/delete", (req, res) => {
+
+    /* Execute Task */
+    db.task("delete-user", (task) => {
+
+        return task.batch([
+
+            db.none(
+                `DELETE FROM
+                    users
+                WHERE
+                    user_id = $1,
+                    username = $2,
+                    password = $3,
+                    admin = $4,
+                    img = $5,
+                    class = $6,
+                    major = $7,
+                    committee = $8,
+                    net_group = $9,
+                    preliminary_forms = $10,
+                    big_brother_mentor = $11,
+                    getting_to_know_you = $12,
+                    informational_interviews = $13, 
+                    resume = $14,
+                    domingos = $15,
+                    brother_interviews = $16,
+                    points = $17;`,
+                [req.body.user_id, 
+                    req.body.username, req.body.password, req.body.admin, req.body.img, req.body.class, req.body.major, req.body.committee, net_group,
+                    req.body.preliminary_forms, req.body.big_brother_mentor, req.body.getting_to_know_you, req.body.informational_interviews, 
+                    req.body.resume, req.body.domingos, req.body.brother_interviews, req.body.points]
+            ), // END OF db.none
+            task.any(muscle_recent, [req.session.user.username])
+        ]) //END OF task.batch
+        
+    })  // END OF db.task
+    .then(([, users]) => {
+        console.info(users);
+        res.redirect("/admin");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect("/admin");
+    })
 });
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);

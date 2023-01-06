@@ -6,7 +6,7 @@ CREATE TABLE users(
 	password CHAR(60) NOT NULL,
 	admin BOOLEAN,
 	img VARCHAR(300),					-- profile picture
-	class VARCHAR(50),					-- freshman, sophomore, junior or senior
+	class VARCHAR(10),					-- freshman, sophomore, junior or senior
 	major VARCHAR(50),					-- major
 	committee VARCHAR(50),				-- chapter committee
 	net_group VARCHAR(50),				-- weekly networking group
@@ -18,9 +18,10 @@ CREATE TABLE users(
 	informational_interviews BOOLEAN,
 
 	-- Statistics --
-	resume VARCHAR(50),
+	resume VARCHAR(100),
 	domingos INT,
-	brother_interviews INT
+	brother_interviews INT,
+	points INT NOT NULL
 );
 
 CREATE TABLE brother_interviews(
