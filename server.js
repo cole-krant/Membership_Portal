@@ -258,6 +258,24 @@ app.get("/submission", (req, res) => {
         })
     
 });
+/* GET BRIDGE -------------------------------------------------------------------- */
+app.get("/interviews", (req, res) => {
+
+    const query = `SELECT * FROM brother_interviews WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((interviews) => {
+            req.session.save();
+            console.log("INTERVIEWS: ", interviews);
+            res.render("pages/bridge", {
+                interviews, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile", (req, res) => {
 
