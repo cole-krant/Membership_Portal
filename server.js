@@ -92,9 +92,13 @@ app.get("/logout", (req, res) => {              // terminate the session
 app.post('/register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
-    const query = `INSERT INTO users (username, password, admin, img, points) VALUES ($1, $2, $3, $4, $5);`;
+    const query = `
+    INSERT INTO
+        users(username, password, admin, img, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points)
+    VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`;
 
-    db.none(query, [req.body.username, hash, 'false', '../../resources/pfp/Default_Avatar.jpg', 0])
+    db.none(query, [req.body.username, hash, 'false', '../../resources/pfp/Default_Avatar.jpg', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
@@ -182,7 +186,7 @@ app.get("/home", (req, res) => {
 
     db.any(query, [req.session.user.username])
         .then((home) => {
-            console.log(home);
+            //console.log(home);
             res.render("pages/home", {
                 home,
                 user_id: req.session.user.user_id,
@@ -212,7 +216,7 @@ app.get("/community", (req, res) => {
     db.any(query)
         .then((community) => {
             req.session.save();
-            console.log(community);
+            //console.log(community);
             res.render("pages/community", {community});
         })
         .catch((error) => {
@@ -228,13 +232,15 @@ app.get("/bridge", (req, res) => {
     db.any(query, [req.session.user.username])
         .then((bridge) => {
             req.session.save();
-            console.log(bridge);
-            res.render("pages/bridge", {bridge, username: req.session.user.username});
+            console.log("BRIDGE: ", bridge);
+            res.render("pages/bridge", {
+                bridge, 
+                username: req.session.user.username
+            });
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
-    
 });
 /* GET SUBMISSIONS -------------------------------------------------------------------- */
 app.get("/submission", (req, res) => {
@@ -303,19 +309,21 @@ app.post("/submit_interview", (req, res) => {
     UPDATE
         users
     SET
-        brother_interviews = ${req.session.user.brother_interviews + 1};`;
+        brother_interviews = ${req.session.user.brother_interviews + 1}
+    WHERE
+        user_id = ${req.session.user.user_id};`;
 
     db.none(query, [req.body.brother, req.body.family, req.body.proof])
         .then((update) => {
 
             console.log("\nNumber of Brother Interviews = " + (user.brother_interviews + 1));
 
-            user.brother_interviews = user.brother_interviews + 1;
-
-            req.session.user = user;
+            req.session.user = {
+                brother_interviews: user.brother_interviews+1
+            }
             req.session.save();
 
-            console.log("\n\nSuccessful Update: \n", user);
+            console.log("\n\nSuccessful Update: \n");
             res.redirect("/bridge");
         })
         .catch((error) => {
@@ -354,21 +362,15 @@ app.post("/admin/delete", (req, res) => {
 
         return task.batch([
             db.none(
-                `DELETE FROM users WHERE user_id = $1 AND username = $2 AND admin = $3 AND img = $4 AND class = $5 AND major = $6 AND committee = $7 AND net_group = $8 AND preliminary_forms = $9 AND big_brother_mentor = $10 AND getting_to_know_you = $11 AND informational_interviews = $12 AND resume = $13 AND domingos = $14 AND brother_interviews = $15 AND points = $16 AND password = $17;`,
-                [parseInt(req.body.user_id), req.body.username, req.body.admin, 
-                    req.body.img, req.body.class, req.body.major, 
-                    req.body.committee, req.body.net_group, req.body.preliminary_forms, 
-                    req.body.big_brother_mentor, req.body.getting_to_know_you, req.body.informational_interviews, 
-                    req.body.resume, parseInt(req.body.domingos), parseInt(req.body.brother_interviews), parseInt(req.body.points),
-                    req.session.user.password]
+                `DELETE FROM users WHERE user_id = $1;`,
+                [parseInt(req.body.user_id)]
             ), // END OF db.none
             task.any(query, [req.session.user.username])
         ]) //END OF task.batch
-        
     })  // END OF db.task
     .then(([, users]) => {
-        console.log("BATCH SUCCESS");
-        console.info(users);
+        console.log("ADMIN:  BATCH SUCCESS\n\n");
+        //console.info(users);
         res.redirect("/admin");
     })
     .catch((err) => {

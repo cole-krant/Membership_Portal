@@ -4,6 +4,12 @@
 <main>
     <header>
         <style>
+            .flatiron_bg {
+                background-image: url('../../resources/img/Flatiron_Birdseye.jpg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover
+            }
             .submission_card {
                 text-align: center;
                 /* background-color: rgba(241, 156, 121); */
@@ -16,76 +22,120 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 100vw;
-                height: 100vh
+                width: 50vw;
+                height: 50vh;
             }
         </style>
     </header>
-    <body>
+    <body class="flatiron_bg">
         <div class="container">
-            <div class="submission_card">
 
-                <div class="container" style="background-color: rgb(11, 0, 77);">
-                
-                    <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
-                    <table class="table-primary">
+            <div class="col">
 
-                        <thead>
-                            <th scope="col">Brother Interview Submissions</th>
-                        </thead>
-                        <tbody>
-                            <form action="/submit_interview" method="POST">
 
-                                <tr>
-                                    <td>
-                                        <select class="form-select" id="brother" name="brother">
-                                            <option selected>Choose...</option>
-                                            <option value="Cole Krant">Cole Krant</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <select class="form-select" id="family" name="family">
-                                            <option selected>Choose...</option>
-                                            <option value="1">Antosh</option>
-                                            <option value="2">Coleman</option>
-                                            <option value="3">Cooley</option>
-                                            <option value="4">Gates</option>
-                                            <option value="5">RK</option>
-                                            <option value="6">Rizer</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input class="form-control" type="file" id="proof" name="proof">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button
-                                        action="submit"
-                                        class="btn default"
-                                        style="background-color: rgb(4, 125, 153); color: white">
-                                        Submit
-                                        </button>
-                                    </td>
-                                </tr>
-                            </form>
-                        </tbody>
-                    </table>
-                    
+                <div class="submission_card">
+                    <div class="container" style="background-color: rgb(11, 0, 77);">
+                        <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
+                        <table class="table-primary">
+                            <thead><th scope="col">Brother Interview Submissions</th></thead>
+                            <tbody>
+                                <form action="/submit_interview" method="POST">
+                                    <tr>
+                                        <td>
+                                            <select class="form-select" id="brother" name="brother">
+                                                <option selected>Choose...</option>
+                                                <option value="Cole Krant">Cole Krant</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-select" id="family" name="family">
+                                                <option selected>Choose...</option>
+                                                <option value="1">Antosh</option>
+                                                <option value="2">Coleman</option>
+                                                <option value="3">Cooley</option>
+                                                <option value="4">Gates</option>
+                                                <option value="5">RK</option>
+                                                <option value="6">Rizer</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" type="file" id="proof" name="proof">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                            action="submit"
+                                            class="btn default"
+                                            style="background-color: rgb(4, 125, 153); color: white">
+                                            Submit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+    
                 </div>
-
+            </div>
+            <div class="col">
+                <div class="submission_card">
+                    <div class="container" style="background-color: rgb(11, 0, 77);">
+                        <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
+                        <table class="table-primary">
+                            <thead><th scope="col">Networking Group Submission</th></thead>
+                            <tbody>
+                                <form action="" method="POST">
+                                    <tr>
+                                        <td>
+                                            <select class="form-select" id="Networking Group" name="brother">
+                                                <option selected>Choose...</option>
+                                                <option value="Group 1">Group 1</option>
+                                                <option value="Group 2">Group 2</option>
+                                                <option value="Group 3">Group 3</option>
+                                                <option value="Group 4">Group 4</option>
+                                                <option value="Group 5">Group 5</option>
+                                                <option value="Group 6">Group 6</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" type="file" id="proof" name="proof">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                            action="submit"
+                                            class="btn default"
+                                            style="background-color: rgb(4, 125, 153); color: white">
+                                            Submit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+    
+                </div>
             </div>
         </div>
-        
+
+
     </body>
 </main>
 
