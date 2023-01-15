@@ -1,0 +1,100 @@
+<%- include ('../partials/header') %>
+<%- include ('../partials/menu') %>
+
+<main>
+    <header>
+        <style>
+            .flatiron_bg {
+                background-image: url('../../resources/img/Flatiron_Birdseye.jpg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover
+            }
+            .submission_card {
+                text-align: center;
+                /* background-color: rgba(241, 156, 121); */
+                background-color: rgb(11, 0, 77);
+                max-width: 400px;
+                height: fit-content;
+                box-shadow: 10px 10px 3px;
+                font-family: Georgia, serif;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50vw;
+                height: 50vh;
+            }
+        </style>
+    </header>
+    <body class="flatiron_bg">
+        <div class="container">
+
+            <div class="col">
+
+
+                <div class="submission_card">
+                    <div class="container" style="background-color: rgb(11, 0, 77);">
+                        <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
+                        <table class="table-primary">
+                            <thead><th scope="col">Brother Interview Submissions</th></thead>
+                            <tbody>
+                                <form action="/submit_interview/post" method="POST">  
+
+                                    <tr>
+                                        <td>
+                                            <select class="form-select" id="brother" name="brother">
+                                                <option selected>Choose...</option>
+                                                <option value="Cole Krant">Cole Krant</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Antosh">Antosh</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <select class="form-select" id="family" name="family">
+                                                <option selected>Choose...</option>
+                                                <option value="1">Antosh</option>
+                                                <option value="2">Coleman</option>
+                                                <option value="3">Cooley</option>
+                                                <option value="4">Gates</option>
+                                                <option value="5">RK</option>
+                                                <option value="6">Rizer</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" type="file" id="proof" name="proof">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button
+                                            action="submit"
+                                            class="btn default"
+                                            style="background-color: rgb(4, 125, 153); color: white">
+                                            Submit
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                </form>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</main>
+
+<%- include ('../partials/footer') %>
