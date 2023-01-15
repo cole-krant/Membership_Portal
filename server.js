@@ -99,7 +99,7 @@ app.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, 8);
     const query = `
     INSERT INTO
-        users(username, password, admin, img, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points)
+        users(username, password, admin, imgPATH, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points)
     VALUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`;
 
@@ -306,30 +306,29 @@ app.get("/interviews", (req, res) => {
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const values = [req.body.username, req.file.buffer.toString('base64'), req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
+    const values = [req.file.buffer.toString('base64'), req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
     UPDATE
         users
     SET
-        username = $1,
-        imgHERE = $2,
-        class = $3,
-        major = $4,
-        committee = $5
+        imgHERE = $1,
+        class = $2,
+        major = $3,
+        committee = $4
     WHERE
-        user_id = $6;`;
+        user_id = $5;`;
 
     db.none(query, values)
         .then((update) => {
 
             req.session.user = {
-                username: values[0],
-                imgHERE: values[1],
-                class: values[2],
-                major: values[3],
-                committee: values[4]
+                username: req.session.user.username,
+                imgHERE: values[0],
+                class: values[1],
+                major: values[2],
+                committee: values[3]
             }
             req.session.save();
 
@@ -342,7 +341,7 @@ app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* U
 
 });
 /* SUBMIT BROTHER INTERVIEW --------------------------------------------------------- */
-app.post("/submit_interview/post", (req, res) => {
+app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 
     const query = `
     INSERT INTO
@@ -350,7 +349,7 @@ app.post("/submit_interview/post", (req, res) => {
     VALUES
         ('${req.session.user.username}', $1, $2, $3);`;
 
-    db.none(query, [req.body.brother, req.body.family, req.body.proof])
+    db.none(query, [req.body.brother, req.body.family, req.file.buffer.toString('base64')])
         .then((update) => {
 
             let new_interviews = (req.session.user.brother_interviews + 1);
@@ -361,7 +360,7 @@ app.post("/submit_interview/post", (req, res) => {
                 brother_interviews: new_interviews
             }
             req.session.save();
-            res.redirect("/home");
+            res.redirect("/interviews");
 
             console.log("\n\nSuccessful Update: \n");
         })

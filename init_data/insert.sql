@@ -9,7 +9,7 @@ VALUES(
     '$2a$08$ab8OIBS4PX1/ZkB8y0jcter8Awit4H6QAK7pesO4Zw64am7jZhPwa', 
     'true', 
     '',
-    '', 
+    '../../resources/pfp/Cole_Krant.jpg', 
     'Junior',
     'Computer Science',
 
@@ -27,7 +27,7 @@ VALUES(
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'true', 
     '',
-    '',  
+    '../../resources/pfp/Katie_McDonald.jpg',  
     'Sophomore', 
     'Business',
     
@@ -46,7 +46,7 @@ VALUES(
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'false', 
     '',
-    '', 
+    '../../resources/pfp/Default_Avatar.jpg', 
     'Senior', 
     'Business?',
 
@@ -64,7 +64,7 @@ VALUES(
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'false', 
     '',
-    '', 
+    '../../resources/pfp/Nathan_Brown.jpg', 
     'Freshman', 
     'Business?',
 
@@ -82,7 +82,7 @@ VALUES(
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'false', 
     '',
-    '', 
+    '../../resources/pfp/Harrison_Klein.jpg', 
     'Freshman', 
     'Business?',
 

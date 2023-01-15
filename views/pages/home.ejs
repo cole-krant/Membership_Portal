@@ -100,7 +100,7 @@
                         <div class="col">
                             <div class="w3-quarter" style="padding-left: 10px;">
                                 <div class="profile-card">
-                                    <img alt="Embedded Image" src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Default" style="width:80%" class="w3-circle w3-hover-opacity"></img>
+                                    <img alt="Upload a Profile Photo" src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Default" style="width:80%" class="w3-circle w3-hover-opacity"></img>
                                     <h1><%= username ? username : 'Name Unknown' %></h1>
                                     <h3><%= major ? major : 'Major Unkown' %></h3>
 
@@ -122,9 +122,9 @@
                                                 <div class="w3-section">
                                                     <form class="w3-container" enctype="multipart/form-data" action="/update_profile" method="POST"> <!-- ENCODING TYPE ALLOWS FOR IMAGE UPLOAD -->
             
-                                                        <label style="text-align:left" for="username"><b>Username</b></label>
-                                                        <input class="w3-input w3-border" type="text" name="username" required></input>
-            
+                                                        <label style="text-align:left"><b><%= username %></b></label>
+                                                        <br>
+
                                                         <label style="text-align:left" for="profile_img"><b>Profile Picture</b></label>
                                                         <input class="w3-input w3-border" type="file" name="profile_img" id="profile_img" required>
             

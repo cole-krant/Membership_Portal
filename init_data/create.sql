@@ -6,7 +6,7 @@ CREATE TABLE users(
 	password CHAR(60) NOT NULL,
 	admin BOOLEAN,
 	imgPATH TEXT,
-	imgHERE TEXT,					-- profile picture
+	imgHERE TEXT,						-- profile picture
 	class VARCHAR(10),					-- freshman, sophomore, junior or senior
 	major VARCHAR(50),					-- major
 	committee VARCHAR(50),				-- chapter committee
@@ -30,5 +30,5 @@ CREATE TABLE brother_interviews(
 	username VARCHAR(50) NOT NULL,
 	brother VARCHAR(50) NOT NULL,
 	family VARCHAR(20) NOT NULL,
-	proof VARCHAR(300) NOT NULL
+	proof TEXT NOT NULL
 );
