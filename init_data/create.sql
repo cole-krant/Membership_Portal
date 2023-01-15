@@ -5,7 +5,8 @@ CREATE TABLE users(
     username VARCHAR(50) NOT NULL,
 	password CHAR(60) NOT NULL,
 	admin BOOLEAN,
-	img VARCHAR(300),					-- profile picture
+	imgPATH TEXT,
+	imgHERE TEXT,					-- profile picture
 	class VARCHAR(10),					-- freshman, sophomore, junior or senior
 	major VARCHAR(50),					-- major
 	committee VARCHAR(50),				-- chapter committee

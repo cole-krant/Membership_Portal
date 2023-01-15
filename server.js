@@ -9,6 +9,10 @@ app.use(bodyParser.json());
 const bcrypt = require('bcryptjs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/* FILE UPLOAD NPM EXTENSION */
+const multer = require('multer');
+const upload = multer({storage:multer.memoryStorage()});
+
 const PORT = 80;
 
 /* DATABSE CONFIGURATION */
@@ -58,7 +62,8 @@ const user = {
     username:undefined,
     password:undefined,
     admin:undefined,
-    img:undefined,
+    imgPATH:undefined,
+    imgHERE:undefined,
     class:undefined,
     major:undefined,
     committee:undefined,
@@ -104,7 +109,8 @@ app.post('/register', async (req, res) => {
                 username:req.body.username,
                 password:hash,
                 admin:'false',
-                img:'../../resources/pfp/Default_Avatar.jpg',
+                imgPATH:undefined,
+                imgHERE:undefined,
                 class:'',
                 major:'',
                 committee:'',
@@ -144,7 +150,8 @@ app.post('/login', async (req, res) => {
                     username: req.body.username,
                     password: hash,
                     admin: client.admin,
-                    img: client.img,
+                    imgPATH: client.imgPATH,
+                    imgHERE: client.imgHERE,
                     class: client.class,
                     major: client.major,
                     committee: client.committee,
@@ -191,7 +198,7 @@ app.get("/home", (req, res) => {
                 home,
                 user_id: req.session.user.user_id,
                 username: req.session.user.username, 
-                img: req.session.user.img, 
+                imgHERE: req.session.user.imgHERE, 
                 major: req.session.user.major,
                 committee: req.session.user.committee,
                 net_group: req.session.user.net_group,
@@ -297,9 +304,9 @@ app.get("/interviews", (req, res) => {
         })
 });
 /* UPDATE PROFILE -------------------------------------------------------------------- */
-app.post("/update_profile", (req, res) => {
+app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const values = [req.body.username, req.body.img, req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
+    const values = [req.body.username, req.file.buffer.toString('base64'), req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
@@ -307,7 +314,7 @@ app.post("/update_profile", (req, res) => {
         users
     SET
         username = $1,
-        img = $2,
+        imgHERE = $2,
         class = $3,
         major = $4,
         committee = $5
@@ -317,13 +324,13 @@ app.post("/update_profile", (req, res) => {
     db.none(query, values)
         .then((update) => {
 
-            user.username = values[0];
-            user.img = values[1];
-            user.class = values[2];
-            user.major = values[3];
-            user.committee = values[4];
-
-            req.session.user = user;
+            req.session.user = {
+                username: values[0],
+                imgHERE: values[1],
+                class: values[2],
+                major: values[3],
+                committee: values[4]
+            }
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", user);
