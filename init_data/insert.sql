@@ -25,7 +25,7 @@ VALUES(
     'Katie McDonald', 
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'true', 
-    '../../resources/pfp/Default_Avatar.jpg', 
+    '../../resources/pfp/Katie_McDonald.jpg', 
     'Sophomore', 
     'Business',
     
@@ -77,7 +77,7 @@ VALUES(
     'Harrison Klein', 
     '$2a$08$ydefqM3IDKnVXX.l6/YWgOHpc4Cm4pU8.MjLLTh89/iTObK8ANohK', 
     'false', 
-    '../../resources/pfp/Default_Avatar.jpg', 
+    '../../resources/pfp/Harrison_Klein.jpg', 
     'Freshman', 
     'Business?',
 

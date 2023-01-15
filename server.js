@@ -225,15 +225,34 @@ app.get("/community", (req, res) => {
     
 });
 /* GET BRIDGE -------------------------------------------------------------------- */
-app.get("/bridge", (req, res) => {
+/* SUBMIT_INTERVIEW PAGE --------------------------------------------------- 
+*/
+app.get("/submit_interview", (req, res) => {
 
     const query = `SELECT * FROM users WHERE username = $1;`;
 
     db.any(query, [req.session.user.username])
         .then((bridge) => {
             req.session.save();
-            console.log("BRIDGE: ", bridge);
-            res.render("pages/bridge", {
+            res.render("pages/submit_interview", {
+                bridge, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* SUBMIT_INTERVIEW PAGE --------------------------------------------------- 
+*/
+app.get("/submit_networking", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((bridge) => {
+            req.session.save();
+            res.render("pages/submit_networking", {
                 bridge, 
                 username: req.session.user.username
             });
@@ -264,11 +283,12 @@ app.get("/interviews", (req, res) => {
     const query = `SELECT * FROM brother_interviews WHERE username = $1;`;
 
     db.any(query, [req.session.user.username])
-        .then((interviews) => {
+        .then((brothers) => {
             req.session.save();
-            console.log("INTERVIEWS: ", interviews);
-            res.render("pages/bridge", {
-                interviews, 
+            console.log("BROTHER INTERVIEWS: \n\n");
+            console.log(brothers);
+            res.render("pages/interviews", {
+                brothers, 
                 username: req.session.user.username
             });
         })
@@ -279,10 +299,9 @@ app.get("/interviews", (req, res) => {
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile", (req, res) => {
 
-    const user_id = parseInt(req.session.user.user_id);
-    const values = [req.body.username, req.body.img, req.body.class, req.body.major, req.body.committee, user_id];
+    const values = [req.body.username, req.body.img, req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
 
-    console.log("USER_ID = " + user_id);
+    console.log("USER_ID = " + req.session.user.user_id);
     const query = `
     UPDATE
         users
@@ -316,14 +335,38 @@ app.post("/update_profile", (req, res) => {
 
 });
 /* SUBMIT BROTHER INTERVIEW --------------------------------------------------------- */
-app.post("/submit_interview", (req, res) => {
+app.post("/submit_interview/post", (req, res) => {
 
     const query = `
     INSERT INTO
         brother_interviews(username, brother, family, proof)
     VALUES
-        ('${req.session.user.username}', $1, $2, $3);
-        
+        ('${req.session.user.username}', $1, $2, $3);`;
+
+    db.none(query, [req.body.brother, req.body.family, req.body.proof])
+        .then((update) => {
+
+            let new_interviews = (req.session.user.brother_interviews + 1);
+
+            console.log("\nNumber of Brother Interviews = " + new_interviews);
+
+            req.session.user = {
+                brother_interviews: new_interviews
+            }
+            req.session.save();
+            res.redirect("/home");
+
+            console.log("\n\nSuccessful Update: \n");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE USER DATABASE POST INTERVIEW SUBMISSION --------------------------------------------------------- */
+app.post("/update_users", (req, res) => {
+
+    const query = `
     UPDATE
         users
     SET
@@ -331,17 +374,12 @@ app.post("/submit_interview", (req, res) => {
     WHERE
         user_id = ${req.session.user.user_id};`;
 
-    db.none(query, [req.body.brother, req.body.family, req.body.proof])
+    db.none(query)
         .then((update) => {
 
-            console.log("\nNumber of Brother Interviews = " + (user.brother_interviews + 1));
-
-            req.session.user = {
-                brother_interviews: user.brother_interviews+1
-            }
             req.session.save();
 
-            console.log("\n\nSuccessful Update: \n");
+            console.log("\n\nSuccessful User Update: \n");
             res.redirect("/bridge");
         })
         .catch((error) => {
@@ -356,7 +394,7 @@ app.get("/admin", (req, res) => {
         res.redirect("pages/home");
     }
     
-    const query = `SELECT * FROM users ORDER BY users.user_id ASC`;
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC;`;
 
     db.any(query)
         .then((admin) => {

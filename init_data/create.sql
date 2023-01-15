@@ -29,5 +29,5 @@ CREATE TABLE brother_interviews(
 	username VARCHAR(50) NOT NULL,
 	brother VARCHAR(50) NOT NULL,
 	family VARCHAR(20) NOT NULL,
-	proof VARCHAR(50) NOT NULL
+	proof VARCHAR(300) NOT NULL
 );
