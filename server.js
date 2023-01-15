@@ -332,7 +332,7 @@ app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* U
             }
             req.session.save();
 
-            console.log("\n\nSuccessful Update: \n", user);
+            console.log("\n\nSuccessful Update: \n", req.session.user);
             res.redirect("/home");
         })
         .catch((error) => {
