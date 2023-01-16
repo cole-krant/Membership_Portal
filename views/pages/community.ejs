@@ -79,15 +79,15 @@
           var count_cmp = 4;      // variable to track how many cards have been input per row
           var index = 0;          // variable to track community array
           var pseudo = '';        // variable to code html
-          let image = "";
+          var image = "";
           pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
     
           community.forEach(community => {
-            if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
+            // if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
               if(count_col === start) {
 
-                  count_col = count_col + 1;                                        // incriment count
-                  image = "data:image/png;base64," + community.imgHERE;
+                  count_col = count_col + 1;
+                  image = "data:image/png;base64," + community.imghere;
                   console.log("COMMUNITY IMAGE: \n\n");
                   console.log(image);
                   pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
@@ -102,7 +102,7 @@
               else if(count_col < count_cmp) {
 
                   count_col = count_col + 1;                                  // incriment count
-                  image = "data:image/png;base64," + community.imgHERE;
+                  image = "data:image/png;base64," + community.imghere;
                   console.log("COMMUNITY IMAGE: \n\n");
                   console.log(image);
                   pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
@@ -116,7 +116,7 @@
               }
               else if(count_col === count_cmp) {
 
-                  image = "data:image/png;base64," + community.imgHERE;
+                image = "data:image/png;base64," + community.imghere;
                   console.log("COMMUNITY IMAGE: \n\n");
                   console.log(image);
                   pseudo = pseudo + '</div>';         // close the card
@@ -131,7 +131,8 @@
 
               }
             }
-          }) 
+          //}
+          ) 
         %>
         <%- pseudo %>
       </div>

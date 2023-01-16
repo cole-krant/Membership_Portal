@@ -18,49 +18,16 @@
                     <table class="table-primary">
                         <thead>
                             <tr>
-                                <th scope="col">Brother</th>
-                                <th scope="col">Family</th>
-                                <th scope="col">Selfie</th>
+                                <th scope="col">Brother Interviews</th>
+                                <th scope="col">Networking Group</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <form action="/submit_interview" method="POST">
-                                    <input type="hidden" name="user_id" value="<%= user_id %>"></input>
-                                    <td>    <!-- BROTHER -->
-                                        <select class="form-select" id="brother" name="brother">
-                                            <option selected>Choose...</option>
-                                            <option value="Cole Krant">Cole Krant</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                            <option value="Antosh">Antosh</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-select" id="family" name="family">
-                                            <option selected>Choose...</option>
-                                            <option value="1">Antosh</option>
-                                            <option value="2">Coleman</option>
-                                            <option value="3">Cooley</option>
-                                            <option value="4">Gates</option>
-                                            <option value="5">RK</option>
-                                            <option value="6">Rizer</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="file" id="proof" name="proof">
-                                    </td>
-                                    <td>
-                                        <button
-                                        action="submit"
-                                        class="btn default"
-                                        style="background-color: rgb(4, 125, 153); color: white">
-                                        Submit
-                                        </button>
-                                    </td>
-                                </form>
+                                <a href="/submit_interview">Submission</a>
+                            </tr>
+                            <tr>
+                                <a href="/submit_networking">Submission</a>
                             </tr>
                         </tbody>
                     </table>

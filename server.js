@@ -144,6 +144,8 @@ app.post('/login', async (req, res) => {
             const match = await bcrypt.compare(req.body.password, client.password);
             const hash = await bcrypt.hash(req.body.password, 8);
 
+            console.log("Logged in with USER_ID: " + client.user_id);
+
             if (match) {
                 req.session.user = {
                     user_id: client.user_id,
@@ -167,6 +169,9 @@ app.post('/login', async (req, res) => {
                 }
                 
                 req.session.save();
+
+                console.log("Stored USER_ID: " + req.session.user.user_id);
+
                 res.redirect('/home');
             }
             else {
@@ -189,15 +194,16 @@ const auth = (req, res, next) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/home", (req, res) => {
 
-    const query = `SELECT * FROM users WHERE username = $1`;
+    const user_id = req.session.user.user_id;
+    console.log("HOME USER_ID: " + user_id);
+    const query = `SELECT * FROM users WHERE user_id = ${user_id}`;
 
-    db.any(query, [req.session.user.username])
+    db.any(query)
         .then((home) => {
             //console.log(home);
             res.render("pages/home", {
                 home,
-                user_id: req.session.user.user_id,
-                username: req.session.user.username, 
+                username: req.session.user.username,
                 imgHERE: req.session.user.imgHERE, 
                 major: req.session.user.major,
                 committee: req.session.user.committee,
@@ -223,7 +229,8 @@ app.get("/community", (req, res) => {
     db.any(query)
         .then((community) => {
             req.session.save();
-            //console.log(community);
+            console.log("COMMUNITY: \n");
+            console.log(community);
             res.render("pages/community", {community});
         })
         .catch((error) => {
@@ -323,13 +330,17 @@ app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* U
     db.none(query, values)
         .then((update) => {
 
-            req.session.user = {
-                username: req.session.user.username,
-                imgHERE: values[0],
-                class: values[1],
-                major: values[2],
-                committee: values[3]
-            }
+            // console.log("Update Profile BATCH: \n");
+            // console.log(update);
+
+            req.session.user.imgHERE = values[0];
+            req.session.user.class = values[1];
+            req.session.user.major = values[2];
+            req.session.user.committee = values[3];
+
+            // console.log("Update Profile USER: \n");
+            // console.log(req.session.user);
+
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -356,13 +367,12 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 
             console.log("\nNumber of Brother Interviews = " + new_interviews);
 
-            req.session.user = {
-                brother_interviews: new_interviews
-            }
+            req.session.user.brother_interviews = new_interviews;
             req.session.save();
-            res.redirect("/interviews");
 
-            console.log("\n\nSuccessful Update: \n");
+            console.log("\n\nSuccessful Interview Submission: \n");
+
+            res.redirect("/interviews");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -372,21 +382,27 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 /* UPDATE USER DATABASE POST INTERVIEW SUBMISSION --------------------------------------------------------- */
 app.post("/update_users", (req, res) => {
 
+    let new_num = req.session.user.brother_interviews + 1;
+    const values = [new_num, req.session.user.imgHERE];
     const query = `
     UPDATE
         users
     SET
-        brother_interviews = ${req.session.user.brother_interviews + 1}
+        brother_interviews = $1,
+        imgHERE = $2
     WHERE
         user_id = ${req.session.user.user_id};`;
 
-    db.none(query)
+    db.none(query, values)
         .then((update) => {
+
+            req.session.user.brother_interviews = values[0];
+            req.session.user.imgHERE = values[1];
 
             req.session.save();
 
             console.log("\n\nSuccessful User Update: \n");
-            res.redirect("/bridge");
+            res.redirect("/home");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
