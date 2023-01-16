@@ -37,17 +37,20 @@
                         <table class="table-primary">
                             <thead><th scope="col">Networking Group Submission</th></thead>
                             <tbody>
-                                <form action="/submit_networking" method="POST">
+                                <form enctype="multipart/form-data" action="/submit_networking/post" method="POST">
                                     <tr>
                                         <td>
-                                            <select class="form-select" id="Networking Group" name="brother">
+                                            <select class="form-select" id="group_week" name="group_week">
                                                 <option selected>Choose...</option>
-                                                <option value="Group 1">Group 1</option>
-                                                <option value="Group 2">Group 2</option>
-                                                <option value="Group 3">Group 3</option>
-                                                <option value="Group 4">Group 4</option>
-                                                <option value="Group 5">Group 5</option>
-                                                <option value="Group 6">Group 6</option>
+                                                <option value="Week 1">Week 1</option>
+                                                <option value="Week 2">Week 2</option>
+                                                <option value="Week 3">Week 3</option>
+                                                <option value="Week 4">Week 4</option>
+                                                <option value="Week 5">Week 5</option>
+                                                <option value="Week 6">Week 6</option>
+                                                <option value="Week 7">Week 7</option>
+                                                <option value="Week 8">Week 8</option>
+                                                <option value="Week 9">Week 9</option>
                                             </select>
                                         </td>
                                     </tr>

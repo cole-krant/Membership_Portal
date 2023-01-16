@@ -32,3 +32,10 @@ CREATE TABLE brother_interviews(
 	family VARCHAR(20) NOT NULL,
 	proof TEXT NOT NULL
 );
+
+CREATE TABLE networking_groups(
+	net_id SERIAL PRIMARY KEY,
+	username VARCHAR(50) NOT NULL,
+	group_week VARCHAR(50) NOT NULL,
+	proof TEXT NOT NULL
+);

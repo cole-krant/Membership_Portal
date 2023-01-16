@@ -32,8 +32,9 @@
                         if(count_col === start) {
         
                             count_col = count_col + 1;                                        // incriment count
+                            image = "data:image/png;base64," + brothers.proof;
                             pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                            pseudo = pseudo + '<img src="' + brothers.proof + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
+                            pseudo = pseudo + '<img src="' + image + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
                             pseudo = pseudo + '<h1>' + brothers.brother + '</h1>';
                             pseudo = pseudo + '<p class="title">' + brothers.family + '</p>';
                             pseudo = pseudo + '</div>';
@@ -44,8 +45,9 @@
                         else if(count_col < count_cmp) {
         
                             count_col = count_col + 1;                                  // incriment count
-                            pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
-                            pseudo = pseudo + '<img src="' + brothers.proof + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
+                            image = "data:image/png;base64," + brothers.proof;
+                            pseudo = pseudo + '<div class="w3-quarter">';               // same row, input card
+                            pseudo = pseudo + '<img src="' + image + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
                             pseudo = pseudo + '<h1>' + brothers.brother + '</h1>';
                             pseudo = pseudo + '<p class="title">' + brothers.family + '</p>';
                             pseudo = pseudo + '</div>';
@@ -55,10 +57,11 @@
                         }
                         else if(count_col === count_cmp) {
         
+                            image = "data:image/png;base64," + brothers.proof;
                             pseudo = pseudo + '</div>';         // close the card
                             pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
                             pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                            pseudo = pseudo + '<img src="' + brothers.proof + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Proof">';
+                            pseudo = pseudo + '<img src="' + image + '" style="width:45%" class="w3-circle w3-hover-opacity" alt="Proof">';
                             pseudo = pseudo + '<h1>' + brothers.brother + '</h1>';
                             pseudo = pseudo + '<p class="title">' + brothers.family + '</p>';
                             pseudo = pseudo + '</div>';

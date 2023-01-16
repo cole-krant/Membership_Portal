@@ -86,48 +86,42 @@
             // if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
               if(count_col === start) {
 
-                  count_col = count_col + 1;
-                  image = "data:image/png;base64," + community.imghere;
-                  console.log("COMMUNITY IMAGE: \n\n");
-                  console.log(image);
-                  pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                  pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                  pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                  pseudo = pseudo + '<p class="title">' + community.major + '</p>';
-                  pseudo = pseudo + '</div>';
+                count_col = count_col + 1;
+                image = "data:image/png;base64," + community.imghere;
+                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
+                pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
+                pseudo = pseudo + '<h1>' + community.username + '</h1>';
+                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
+                pseudo = pseudo + '</div>';
 
-                  index++;
+                index++;
 
               }
               else if(count_col < count_cmp) {
 
-                  count_col = count_col + 1;                                  // incriment count
-                  image = "data:image/png;base64," + community.imghere;
-                  console.log("COMMUNITY IMAGE: \n\n");
-                  console.log(image);
-                  pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
-                  pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                  pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                  pseudo = pseudo + '<p class="title">' + community.major + '</p>';
-                  pseudo = pseudo + '</div>';
+                count_col = count_col + 1;                                  // incriment count
+                image = "data:image/png;base64," + community.imghere;
+                pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
+                pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
+                pseudo = pseudo + '<h1>' + community.username + '</h1>';
+                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
+                pseudo = pseudo + '</div>';
 
-                  index++;
+                index++;
 
               }
               else if(count_col === count_cmp) {
 
                 image = "data:image/png;base64," + community.imghere;
-                  console.log("COMMUNITY IMAGE: \n\n");
-                  console.log(image);
-                  pseudo = pseudo + '</div>';         // close the card
-                  pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
-                  pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                  pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                  pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                  pseudo = pseudo + '<p class="title">' + community.major + '</p>';
-                  pseudo = pseudo + '</div>';
-                  start = count_col;                  // indicate new row
-                  count_cmp = count_cmp + 4;          // set new ceiling
+                pseudo = pseudo + '</div>';         // close the card
+                pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
+                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
+                pseudo = pseudo + '<img src="' + image +'" style="width:45%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
+                pseudo = pseudo + '<h1>' + community.username + '</h1>';
+                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
+                pseudo = pseudo + '</div>';
+                start = count_col;                  // indicate new row
+                count_cmp = count_cmp + 4;          // set new ceiling
 
               }
             }

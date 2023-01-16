@@ -238,6 +238,7 @@ app.get("/community", (req, res) => {
         })
     
 });
+
 /* GET BRIDGE -------------------------------------------------------------------- */
 /* SUBMIT_INTERVIEW PAGE --------------------------------------------------- 
 */
@@ -310,6 +311,25 @@ app.get("/interviews", (req, res) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 });
+/* GET BRIDGE -------------------------------------------------------------------- */
+app.get("/networking", (req, res) => {
+
+    const query = `SELECT * FROM networking_groups WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((net_groups) => {
+            req.session.save();
+            console.log("NETWORKING GROUPS: \n\n");
+            console.log(net_groups);
+            res.render("pages/networking", {
+                net_groups, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
@@ -373,6 +393,28 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
             console.log("\n\nSuccessful Interview Submission: \n");
 
             res.redirect("/interviews");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* SUBMIT NETWORKING GROUP --------------------------------------------------------- */
+app.post("/submit_networking/post", upload.single('proof'), (req, res) => {
+
+    const query = `
+    INSERT INTO
+        networking_groups(username, group_week, proof)
+    VALUES
+        ('${req.session.user.username}', $1, $2);`;
+
+    db.none(query, [req.body.group_week, req.file.buffer.toString('base64')])
+        .then((update) => {
+            req.session.save();
+
+            console.log("\n\nSuccessful Networking Group Submission: \n");
+
+            res.redirect("/networking");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
