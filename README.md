@@ -9,20 +9,20 @@ My hope is that this platform will bring our community together through our Brid
 
 #### Functionality
 Potential new members will be able to:
- [] track and cherish their brother interview photos
- [] track and cherish their networking group photos
- [X] submit brother interviews
- [X] submit networking group photos
- [X] connect through the community page, displaying all registered accounts with personalized information
+* track and cherish their brother interview photos
+* track and cherish their networking group photos
+* submit brother interviews
+* submit networking group photos
+* connect through the community page, displaying all registered accounts with personalized information
 
 The Bridge Education Community will be able to:
- [] access the admin page containing all relevant information to all potential new members
- [] oversee progress of each new member
- [] edit user profiles and moderate poor etiquette
+* access the admin page containing all relevant information to all potential new members
+* oversee progress of each new member
+* edit user profiles and moderate poor etiquette
 
 The Software Development Team will have access to:
- [X] the entire backend repository, as well as related data EXCLUDING PASSWORDS (hashing and bycrypt)
- [X] continue development and adapt the platform as necessary.
+* the entire backend repository, as well as related data EXCLUDING PASSWORDS (hashing and bycrypt)
+* continue development and adapt the platform as necessary.
  
  ## *Recognition*
  #### Software Development Team
