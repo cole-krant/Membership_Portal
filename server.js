@@ -277,15 +277,15 @@ app.get("/submit_networking", (req, res) => {
         })
 });
 /* GET SUBMISSIONS -------------------------------------------------------------------- */
-app.get("/submission", (req, res) => {
+app.get("/bridge", (req, res) => {
 
-    const query = `SELECT * FROM users WHERE username = $1;`;
+    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id};`;
 
-    db.any(query, [req.session.user.username])
-        .then((submissions) => {
+    db.any(query)
+        .then((bridge) => {
             req.session.save();
-            console.log(submissions);
-            res.render("pages/submission", {submissions, user_id: req.session.user.user_id});
+            console.log(bridge);
+            res.render("pages/bridge", {bridge, user_id: req.session.user.user_id});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
