@@ -216,114 +216,23 @@ app.get("/home", (req, res) => {
         })
 });
 /* ------------------------------------------------------------------------------------ */
-app.get("/calendar", (req, res) => {
-    res.render("pages/calendar", {
+app.get("/profile", (req, res) => {
 
-    });
-});
-/* GET COMMUNITY -------------------------------------------------------------------- */
-app.get("/community", (req, res) => {
-
-    const query = `SELECT * FROM users;`;
+    const user_id = req.session.user.user_id;
+    console.log("HOME USER_ID: " + user_id);
+    const query = `SELECT * FROM users WHERE user_id = ${user_id}`;
 
     db.any(query)
-        .then((community) => {
-            req.session.save();
-            console.log("COMMUNITY: \n");
-            console.log(community);
-            res.render("pages/community", {community});
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-    
-});
-
-/* GET BRIDGE -------------------------------------------------------------------- */
-/* SUBMIT_INTERVIEW PAGE --------------------------------------------------- 
-*/
-app.get("/submit_interview", (req, res) => {
-
-    const query = `SELECT * FROM users WHERE username = $1;`;
-
-    db.any(query, [req.session.user.username])
-        .then((bridge) => {
-            req.session.save();
-            res.render("pages/submit_interview", {
-                bridge, 
-                username: req.session.user.username
-            });
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-});
-/* SUBMIT_INTERVIEW PAGE --------------------------------------------------- 
-*/
-app.get("/submit_networking", (req, res) => {
-
-    const query = `SELECT * FROM users WHERE username = $1;`;
-
-    db.any(query, [req.session.user.username])
-        .then((bridge) => {
-            req.session.save();
-            res.render("pages/submit_networking", {
-                bridge, 
-                username: req.session.user.username
-            });
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-});
-/* GET SUBMISSIONS -------------------------------------------------------------------- */
-app.get("/bridge", (req, res) => {
-
-    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id};`;
-
-    db.any(query)
-        .then((bridge) => {
-            req.session.save();
-            console.log(bridge);
-            res.render("pages/bridge", {bridge, user_id: req.session.user.user_id});
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-    
-});
-/* GET BRIDGE -------------------------------------------------------------------- */
-app.get("/interviews", (req, res) => {
-
-    const query = `SELECT * FROM brother_interviews WHERE username = $1;`;
-
-    db.any(query, [req.session.user.username])
-        .then((brothers) => {
-            req.session.save();
-            console.log("BROTHER INTERVIEWS: \n\n");
-            console.log(brothers);
-            res.render("pages/interviews", {
-                brothers, 
-                username: req.session.user.username
-            });
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-});
-/* GET BRIDGE -------------------------------------------------------------------- */
-app.get("/networking", (req, res) => {
-
-    const query = `SELECT * FROM networking_groups WHERE username = $1;`;
-
-    db.any(query, [req.session.user.username])
-        .then((net_groups) => {
-            req.session.save();
-            console.log("NETWORKING GROUPS: \n\n");
-            console.log(net_groups);
-            res.render("pages/networking", {
-                net_groups, 
-                username: req.session.user.username
+        .then((profile) => {
+            //console.log(home);
+            res.render("pages/profile", {
+                profile,
+                username: req.session.user.username,
+                imgHERE: req.session.user.imgHERE, 
+                major: req.session.user.major,
+                committee: req.session.user.committee,
+                net_group: req.session.user.net_group,
+                brother_interviews: req.session.user.brother_interviews
             });
         })
         .catch((error) => {
@@ -371,67 +280,17 @@ app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* U
         })
 
 });
-/* SUBMIT BROTHER INTERVIEW --------------------------------------------------------- */
-app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
-
-    const query = `
-    INSERT INTO
-        brother_interviews(username, brother, family, proof)
-    VALUES
-        ('${req.session.user.username}', $1, $2, $3);`;
-
-    db.none(query, [req.body.brother, req.body.family, req.file.buffer.toString('base64')])
-        .then((update) => {
-
-            let new_interviews = (req.session.user.brother_interviews + 1);
-
-            console.log("\nNumber of Brother Interviews = " + new_interviews);
-
-            req.session.user.brother_interviews = new_interviews;
-            req.session.save();
-
-            console.log("\n\nSuccessful Interview Submission: \n");
-
-            res.redirect("/interviews");
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-
-});
-/* SUBMIT NETWORKING GROUP --------------------------------------------------------- */
-app.post("/submit_networking/post", upload.single('proof'), (req, res) => {
-
-    const query = `
-    INSERT INTO
-        networking_groups(username, group_week, proof)
-    VALUES
-        ('${req.session.user.username}', $1, $2);`;
-
-    db.none(query, [req.body.group_week, req.file.buffer.toString('base64')])
-        .then((update) => {
-            req.session.save();
-
-            console.log("\n\nSuccessful Networking Group Submission: \n");
-
-            res.redirect("/networking");
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-
-});
 /* UPDATE USER DATABASE POST INTERVIEW SUBMISSION --------------------------------------------------------- */
 app.post("/update_users", (req, res) => {
 
-    let new_num = req.session.user.brother_interviews + 1;
-    const values = [new_num, req.session.user.imgHERE];
+    const values = [req.session.user.brother_interviews, req.session.user.imgHERE, req.session.user.points];
     const query = `
     UPDATE
         users
     SET
         brother_interviews = $1,
-        imgHERE = $2
+        imgHERE = $2,
+        points = $3
     WHERE
         user_id = ${req.session.user.user_id};`;
 
@@ -444,12 +303,212 @@ app.post("/update_users", (req, res) => {
             req.session.save();
 
             console.log("\n\nSuccessful User Update: \n");
-            res.redirect("/home");
+            res.redirect("/profile");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/update_profile", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id}`;
+
+    db.any(query)
+        .then((profile) => {
+            //console.log(home);
+            res.render("pages/update_profile", {
+                profile,
+                username: req.session.user.username,
+                imgHERE: req.session.user.imgHERE
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/calendar", (req, res) => {
+    res.render("pages/calendar", {
+
+    });
+});
+/* GET COMMUNITY -------------------------------------------------------------------- */
+app.get("/community", (req, res) => {
+
+    const query = `SELECT * FROM users;`;
+
+    db.any(query)
+        .then((community) => {
+            req.session.save();
+            console.log("COMMUNITY: \n");
+            console.log(community);
+            res.render("pages/community", {community});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+    
+});
+/* GET BRIDGE -------------------------------------------------------------------- */
+app.get("/bridge", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id};`;
+
+    db.any(query)
+        .then((bridge) => {
+            req.session.save();
+            console.log(bridge);
+            res.render("pages/bridge", {bridge, user_id: req.session.user.user_id});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+    
+});
+/* SUBMIT_INTERVIEW PAGE --------------------------------------------------------- */
+app.get("/submit_interview", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((bridge) => {
+
+            req.session.save();
+
+            res.render("pages/submit_interview", {
+                bridge, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* SUBMIT_INTERVIEW PAGE -------------------------------------------------------- */
+app.get("/submit_networking", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((bridge) => {
+
+            req.session.user.points = req.session.user.points + 2;
+            req.session.save();
+
+            res.render("pages/submit_networking", {
+                bridge, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* GET INTERVIEWS -------------------------------------------------------------------- */
+app.get("/interviews", (req, res) => {
+
+    const query = `SELECT * FROM brother_interviews WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((brothers) => {
+
+            req.session.save();
+
+            res.render("pages/interviews", {
+                brothers, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* SUBMIT BROTHER INTERVIEW ---------------- */
+app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
+
+    const query = `
+    INSERT INTO
+        brother_interviews(username, brother, family, proof)
+    VALUES
+        ('${req.session.user.username}', $1, $2, $3);`;
+
+    db.none(query, [req.body.brother, req.body.family, req.file.buffer.toString('base64')])
+        .then((update) => {
+
+            /* INDICATE SESSION INCRIMENT -- Updated later -> /update_users */
+            req.session.user.brother_interviews = req.session.user.brother_interviews + 1;
+            req.session.user.points = req.session.user.points + 2;
+            req.session.save();
+
+            console.log("\n\nSuccessful Interview Submission: \n");
+
+            res.redirect("/interviews");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* GET BRIDGE -------------------------------------------------------------------- */
+app.get("/networking", (req, res) => {
+
+    const query = `SELECT * FROM networking_groups WHERE username = $1;`;
+
+    db.any(query, [req.session.user.username])
+        .then((net_groups) => {
+            
+            req.session.save();
+
+            res.render("pages/networking", {
+                net_groups, 
+                username: req.session.user.username
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* SUBMIT NETWORKING GROUP ---------------- */
+app.post("/submit_networking/post", upload.single('proof'), (req, res) => {
+
+    const query = `
+    INSERT INTO
+        networking_groups(username, group_week, proof)
+    VALUES
+        ('${req.session.user.username}', $1, $2);`;
+
+    db.none(query, [req.body.group_week, req.file.buffer.toString('base64')])
+        .then((update) => {
+
+            req.session.user.points = req.session.user.points + 2;
+            req.session.save();
+
+            console.log("\n\nSuccessful Networking Group Submission: \n");
+            res.redirect("/networking");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* GET RANKING -------------------------------------------------------------------- */
+app.get("/ranking", (req, res) => {
+
+    const query = `SELECT * FROM users ORDER BY points DESC;`;
+
+    db.any(query)
+        .then((ranking) => {
+
+            req.session.save();
+
+            res.render("pages/ranking", {ranking});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+    
 });
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin", (req, res) => {

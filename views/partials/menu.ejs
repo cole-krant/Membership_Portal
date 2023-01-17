@@ -10,9 +10,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <form action="/update_users" method="POST">
-                            <button type="submit" class="btn btn-primary button">Home</button>
-                        </form>
+                        <a class="nav-link active" aria-current="page" href="/home" style="color:white">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/calendar" style="color:white">Calendar</a>
@@ -31,6 +29,11 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/admin" style="color:white">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="/update_users" method="POST">
+                            <button type="submit" class="btn btn-primary button">Profile</button>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/logout" style="color:white">Logout</a>
