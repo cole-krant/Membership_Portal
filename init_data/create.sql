@@ -45,7 +45,7 @@ CREATE TABLE networking_groups(
 );
 
 CREATE TABLE announcements(
-	anouncement_id SERIAL PRIMARY KEY,
+	announcement_id SERIAL PRIMARY KEY,
 	time DATE NOT NULL,
 	username VARCHAR(50) NOT NULL,
 	subject VARCHAR(50) NOT NULL,

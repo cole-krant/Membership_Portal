@@ -199,19 +199,13 @@ app.get("/home", (req, res) => {
 
     const user_id = req.session.user.user_id;
     console.log("HOME USER_ID: " + user_id);
-    const query = `SELECT * FROM users WHERE user_id = ${user_id}`;
+    const query = `SELECT * FROM announcements ORDER BY announcement_id DESC LIMIT 10;`;
 
     db.any(query)
         .then((home) => {
             //console.log(home);
             res.render("pages/home", {
-                home,
-                username: req.session.user.username, 
-                major: req.session.user.major,
-                committee: req.session.user.committee,
-                net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews,
-                imgHERE: req.session.user.imgHERE
+                home
             });
         })
         .catch((error) => {
@@ -285,7 +279,7 @@ app.post("/update_profile/basic", (req, res) => {
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/profile");
+            res.redirect("/update_profile");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -313,7 +307,7 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
             req.session.save();
 
             console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
-            res.redirect("/profile");
+            res.redirect("/update_profile");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
