@@ -61,13 +61,13 @@ const user = {
     user_id:undefined,
     username:undefined,
     password:undefined,
+    name:undefined,
     admin:undefined,
-    imgPATH:undefined,
-    imgHERE:undefined,
     class:undefined,
     major:undefined,
     committee:undefined,
     net_group:undefined,
+    bio:undefined,
     preliminary_forms:undefined,
     big_brother_mentor:undefined,
     getting_to_know_you:undefined,
@@ -75,7 +75,8 @@ const user = {
     resume:undefined,
     domingos: undefined,
     brother_interviews:undefined,
-    points:undefined
+    points:undefined,
+    imgHERE:undefined
 }
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
@@ -99,22 +100,22 @@ app.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, 8);
     const query = `
     INSERT INTO
-        users(username, password, admin, imgPATH, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points)
+        users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, imgHERE)
     VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16);`;
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17);`;
 
-    db.none(query, [req.body.username, hash, 'false', '../../resources/pfp/Default_Avatar.jpg', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0])
+    db.none(query, [req.body.username, hash, req.body.username, 'false', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, ''])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
                 password:hash,
+                name:req.body.username,
                 admin:'false',
-                imgPATH:undefined,
-                imgHERE:undefined,
                 class:'',
                 major:'',
                 committee:'',
                 net_group:'',
+                bio:'',
                 preliminary_forms:'false',
                 big_brother_mentor:'false',
                 getting_to_know_you:'false',
@@ -122,7 +123,8 @@ app.post('/register', async (req, res) => {
                 resume:'',
                 domingos: 0,
                 brother_interviews: 0,
-                points: 0
+                points: 0,
+                imgHERE:undefined
             }
 
             req.session.save();
@@ -151,13 +153,13 @@ app.post('/login', async (req, res) => {
                     user_id: client.user_id,
                     username: req.body.username,
                     password: hash,
+                    name: client.name,
                     admin: client.admin,
-                    imgPATH: client.imgPATH,
-                    imgHERE: client.imgHERE,
                     class: client.class,
                     major: client.major,
                     committee: client.committee,
                     net_group: client.net_group,
+                    bio: client.bio,
                     preliminary_forms: client.preliminary_forms,
                     big_brother_mentor: client.big_brother_mentor,
                     getting_to_know_you: client.getting_to_know_you,
@@ -165,7 +167,8 @@ app.post('/login', async (req, res) => {
                     resume: client.resume,
                     domingos: client.domingos,
                     brother_interviews: client.brother_interviews,
-                    points: client.points
+                    points: client.points,
+                    imgHERE: client.imgHERE
                 }
                 
                 req.session.save();
@@ -203,12 +206,12 @@ app.get("/home", (req, res) => {
             //console.log(home);
             res.render("pages/home", {
                 home,
-                username: req.session.user.username,
-                imgHERE: req.session.user.imgHERE, 
+                username: req.session.user.username, 
                 major: req.session.user.major,
                 committee: req.session.user.committee,
                 net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews
+                brother_interviews: req.session.user.brother_interviews,
+                imgHERE: req.session.user.imgHERE
             });
         })
         .catch((error) => {
@@ -227,12 +230,30 @@ app.get("/profile", (req, res) => {
             //console.log(home);
             res.render("pages/profile", {
                 profile,
-                username: req.session.user.username,
-                imgHERE: req.session.user.imgHERE, 
+                username: req.session.user.username, 
                 major: req.session.user.major,
                 committee: req.session.user.committee,
                 net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews
+                brother_interviews: req.session.user.brother_interviews,
+                imgHERE: req.session.user.imgHERE
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/update_profile", (req, res) => {
+
+    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id}`;
+
+    db.any(query)
+        .then((profile) => {
+            //console.log(home);
+            res.render("pages/update_profile", {
+                profile,
+                username: req.session.user.username,
+                imgHERE: req.session.user.imgHERE
             });
         })
         .catch((error) => {
@@ -240,40 +261,59 @@ app.get("/profile", (req, res) => {
         })
 });
 /* UPDATE PROFILE -------------------------------------------------------------------- */
-app.post("/update_profile", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+app.post("/update_profile/basic", (req, res) => {
 
-    const values = [req.file.buffer.toString('base64'), req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
+    const values = [req.body.class, req.body.major, req.body.committee, req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
     UPDATE
         users
     SET
-        imgHERE = $1,
-        class = $2,
-        major = $3,
-        committee = $4
+        class = $1,
+        major = $2,
+        committee = $3
     WHERE
-        user_id = $5;`;
+        user_id = $4;`;
 
     db.none(query, values)
         .then((update) => {
 
-            // console.log("Update Profile BATCH: \n");
-            // console.log(update);
-
-            req.session.user.imgHERE = values[0];
-            req.session.user.class = values[1];
-            req.session.user.major = values[2];
-            req.session.user.committee = values[3];
-
-            // console.log("Update Profile USER: \n");
-            // console.log(req.session.user);
-
+            req.session.user.class = values[0];
+            req.session.user.major = values[1];
+            req.session.user.committee = values[2];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/home");
+            res.redirect("/profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE PROFILE PICTURE -------------------------------------------------------------------- */
+app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.file.buffer.toString('base64'), req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        imgHERE = $1
+    WHERE
+        user_id = $2;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.user.imgHERE = values[0];
+            req.session.save();
+
+            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
+            res.redirect("/profile");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -309,24 +349,6 @@ app.post("/update_users", (req, res) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 
-});
-/* ------------------------------------------------------------------------------------ */
-app.get("/update_profile", (req, res) => {
-
-    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id}`;
-
-    db.any(query)
-        .then((profile) => {
-            //console.log(home);
-            res.render("pages/update_profile", {
-                profile,
-                username: req.session.user.username,
-                imgHERE: req.session.user.imgHERE
-            });
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
 });
 /* ------------------------------------------------------------------------------------ */
 app.get("/calendar", (req, res) => {
