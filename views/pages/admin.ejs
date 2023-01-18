@@ -2,96 +2,139 @@
 <%- include ('../partials/menu') %>
 
 <main>
-    <div class = "col-md-auto text-center text-black">
-        <div class="card m-1 bg-white rounded" size="50%">
+    <header>
 
-            <!-- Yesterday CARD -->
-            <div class="card-header">
-              <h1 style="color:black"> ALL USERS </h1>
-              <p> Use this page to monitor pledge class. Remove profile if necessary. Account abuse is entirely possible. </p>
-            </div>
-            <div class="card-body">
-                <!-- TABLE DEFINITION -->
-                <table class="table" size="100%">
-                    <!-- TABLE HEADER -->
-                    <thead>
-                        <th>PROFILE PICTURE</th>
-                        <th>ID</th>
-                        <th>USERNAME</th>
-                        <th>ADMIN</th>
-                        <th>CLASS</th>
-                        <th>MAJOR</th>
-                        <th>COMMITTEE</th>
-                        <th>NETWORKING GROUP</th>
-                        <th>PRELIM-FORMS?</th>
-                        <th>BIG BROTHER MENTOR?</th>
-                        <th>GET TO KNOW YOU?</th>
-                        <th>INFORMATIONAL INTERVIEW?</th>
-                        <th>RESUME</th>
-                        <th>DOMINGOS</th>
-                        <th>BROTHER INTERVIEWS</th>
-                        <th>POINTS</th>
-                    </thead>
-                    <!-- TABLE BODY -->
+    </header>
+    <body>
+
+        <div class="container">
+            <div class="card mb-3">
+                <table class="table-primary">
+                    <thead><th scope="col">Post an Announcement</th></thead>
                     <tbody>
-                    <!-- Loop for each exercise -->
-                        <%
-                            var pseudo = '';
-                            admin.forEach(admin => {
-                                pseudo = pseudo + '<tr>';
-                                    /* USER DATA */
-                                    pseudo = pseudo + '<form> <td><img src="' + admin.imghere + '" style="width: 20%;"></img></td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.user_id + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.admin + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.class + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.major + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.committee + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.net_group + '</td> </form>';
-
-                                    /* ASSIGNMENTS */
-                                    pseudo = pseudo + '<form> <td>'  + admin.preliminary_forms + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.big_brother_mentor + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.getting_to_know_you + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.informational_interviews + '</td> </form>';
-
-                                    /* STATISTICS */
-                                    pseudo = pseudo + '<form> <td>'  + admin.resume + ' </td></form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.domingos + ' </td></form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.brother_interviews + '</td> </form>';
-                                    pseudo = pseudo + '<form> <td>'  + admin.points + ' </td></form>';
-                                    pseudo = pseudo + '<td>';
-                                        if(locals.action == "delete") {
-                                            pseudo = pseudo + '<form action = "/admin/delete" method = "POST">';
-                                                pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "img" value = "' + admin.img + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "user_id" value = "' + admin.user_id + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "username" value = "' + admin.username + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "admin" value = "' + admin.admin + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "class" value = "' + admin.class + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "major" value = "' + admin.major + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "committee" value = "' + admin.committee + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "net_group" value = "' + admin.net_group + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "preliminary_forms" value = "' + admin.preliminary_forms + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "big_brother_mentor" value = "' + admin.big_brother_mentor + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "getting_to_know_you" value = "' + admin.getting_to_know_you + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "informational_interviews" value = "' + admin.informational_interviews + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "resume" value = "' + admin.resume + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "domingos" value = "' + admin.domingos + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "brother_interviews" value = "' + admin.brother_interviews + '"></input>';
-                                                pseudo = pseudo + '<input type = "hidden" name = "points" value = "' + admin.points + '"></input>';
-                                            pseudo = pseudo + '</form>';
-                                        }
-                                    pseudo = pseudo + '</td>';
-                                pseudo = pseudo + '</tr>';
-                            }) 
-                        %>
-                        <%- pseudo %>
+                        <form action="/admin/post_announcement" method="POST">  
+    
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="time"><b>Date of Announcement</b></label>
+                                    <input class="w3-input w3-border" type="datetime-local" name="time" required></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="subject"><b>Subject</b></label>
+                                    <input class="w3-input w3-border" type="text" name="subject" required></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="announcement"><b>Class</b></label>
+                                    <input class="w3-input w3-border" type="text" placeholder="Write your announcement here" name="announcement" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                            </tr>
+    
+                        </form>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
+
+
+
+        <div class = "col-md-auto text-center text-black">
+            <div class="card m-1 bg-white rounded" size="50%">
+    
+                <!-- Yesterday CARD -->
+                <div class="card-header">
+                  <h1 style="color:black"> ALL USERS </h1>
+                  <p> Use this page to monitor pledge class. Remove profile if necessary. Account abuse is entirely possible. </p>
+                </div>
+                <div class="card-body">
+                    <!-- TABLE DEFINITION -->
+                    <table class="table" size="100%">
+                        <!-- TABLE HEADER -->
+                        <thead>
+                            <th>PROFILE PICTURE</th>
+                            <th>ID</th>
+                            <th>USERNAME</th>
+                            <th>ADMIN</th>
+                            <th>CLASS</th>
+                            <th>MAJOR</th>
+                            <th>COMMITTEE</th>
+                            <th>NETWORKING GROUP</th>
+                            <th>PRELIM-FORMS?</th>
+                            <th>BIG BROTHER MENTOR?</th>
+                            <th>GET TO KNOW YOU?</th>
+                            <th>INFORMATIONAL INTERVIEW?</th>
+                            <th>RESUME</th>
+                            <th>DOMINGOS</th>
+                            <th>BROTHER INTERVIEWS</th>
+                            <th>POINTS</th>
+                        </thead>
+                        <!-- TABLE BODY -->
+                        <tbody>
+                        <!-- Loop for each exercise -->
+                            <%
+                                var pseudo = '';
+                                admin.forEach(admin => {
+                                    pseudo = pseudo + '<tr>';
+                                        /* USER DATA */
+                                        pseudo = pseudo + '<form> <td><img src="' + admin.imghere + '" style="width: 20%;"></img></td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.user_id + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.admin + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.class + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.major + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.committee + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.net_group + '</td> </form>';
+    
+                                        /* ASSIGNMENTS */
+                                        pseudo = pseudo + '<form> <td>'  + admin.preliminary_forms + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.big_brother_mentor + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.getting_to_know_you + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.informational_interviews + '</td> </form>';
+    
+                                        /* STATISTICS */
+                                        pseudo = pseudo + '<form> <td>'  + admin.resume + ' </td></form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.domingos + ' </td></form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.brother_interviews + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.points + ' </td></form>';
+                                        pseudo = pseudo + '<td>';
+                                            if(locals.action == "delete") {
+                                                pseudo = pseudo + '<form action = "/admin/delete" method = "POST">';
+                                                    pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "img" value = "' + admin.img + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "user_id" value = "' + admin.user_id + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "username" value = "' + admin.username + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "admin" value = "' + admin.admin + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "class" value = "' + admin.class + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "major" value = "' + admin.major + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "committee" value = "' + admin.committee + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "net_group" value = "' + admin.net_group + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "preliminary_forms" value = "' + admin.preliminary_forms + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "big_brother_mentor" value = "' + admin.big_brother_mentor + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "getting_to_know_you" value = "' + admin.getting_to_know_you + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "informational_interviews" value = "' + admin.informational_interviews + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "resume" value = "' + admin.resume + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "domingos" value = "' + admin.domingos + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "brother_interviews" value = "' + admin.brother_interviews + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "points" value = "' + admin.points + '"></input>';
+                                                pseudo = pseudo + '</form>';
+                                            }
+                                        pseudo = pseudo + '</td>';
+                                    pseudo = pseudo + '</tr>';
+                                }) 
+                            %>
+                            <%- pseudo %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
 </main>
 
 <%- include ('../partials/footer') %>

@@ -579,6 +579,26 @@ app.post("/admin/delete", (req, res) => {
         res.redirect("/admin");
     })
 });
+/* SUBMIT ANNOUNCEMENT ---------------- */
+app.post("/admin/post_announcement", (req, res) => {
+
+    const query = `
+    INSERT INTO
+        announcements(time, username, subject, announcement, imgHERE)
+    VALUES
+        ($1, '${req.session.user.username}', $2, $3, '${req.session.user.imgHERE}');`;
+
+    db.none(query, [req.body.time, req.body.subject, req.body.announcement])
+        .then((announcement) => {
+
+            console.log("\n\nSuccessful Announcement \n");
+            res.redirect("/home");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);
 console.log("Server is listening on port 3000\n\n");

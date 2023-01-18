@@ -43,3 +43,12 @@ CREATE TABLE networking_groups(
 	group_week VARCHAR(50) NOT NULL,
 	proof TEXT NOT NULL
 );
+
+CREATE TABLE announcements(
+	anouncement_id SERIAL PRIMARY KEY,
+	time DATE NOT NULL,
+	username VARCHAR(50) NOT NULL,
+	subject VARCHAR(50) NOT NULL,
+	announcement VARCHAR(800) NOT NULL,
+	imgHERE TEXT
+);
