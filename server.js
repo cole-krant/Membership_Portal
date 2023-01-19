@@ -551,7 +551,7 @@ app.get("/admin", (req, res) => {
         })
 });
 /* ------------------------------------------------------------------------------------ */
-app.get("/admin/announcement", (req, res) => {
+app.get("/admin/post_announcement", (req, res) => {
 
     if(req.session.user.admin === 'false') {
         res.redirect("pages/home");
@@ -562,7 +562,7 @@ app.get("/admin/announcement", (req, res) => {
     db.any(query)
         .then((admin) => {
             console.log(admin);
-            res.render("pages/admin/announcement", {
+            res.render("pages/admin/post_announcement", {
                 admin: admin,
                 action: "delete",
             });
@@ -570,6 +570,53 @@ app.get("/admin/announcement", (req, res) => {
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/announcements", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM announcements ORDER BY announcement_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/announcements", {
+                admin: admin,
+                action: "delete",
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/delete-announcement", (req, res) => {
+
+    const query = `SELECT * FROM announcements ORDER BY announcement_id ASC;`
+
+    /* Execute Task */
+    db.task("delete-user", (task) => {
+
+        return task.batch([
+            db.none(
+                `DELETE FROM announcements WHERE announcement_id = $1;`,
+                [parseInt(req.body.announcement_id)]
+            ), // END OF db.none
+            task.any(query, [req.session.user.username])
+        ]) //END OF task.batch
+    })  // END OF db.task
+    .then(([, users]) => {
+        console.log("ADMIN:  BATCH SUCCESS\n\n");
+        //console.info(users);
+        res.redirect("/admin/announcements");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect("/admin");
+    })
 });
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin/management", (req, res) => {
