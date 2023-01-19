@@ -33,7 +33,7 @@
                         <table class="table-primary">
                             <thead><th scope="col">Personal Info</th></thead>
                             <tbody>
-                                <form action="/update_profile/basic" method="POST">  
+                                <form action="/update_profile/basic-admin" method="POST">  
             
                                     <tr>
                                         <td>
@@ -62,6 +62,8 @@
                                     <tr>
                                         <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
                                     </tr>
+                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
+
             
                                 </form>
                             </tbody>
@@ -76,7 +78,7 @@
                         <table class="table-primary">
                             <thead><th scope="col">Profile Picture</th></thead>
                             <tbody>
-                                <form enctype="multipart/form-data" action="/update_profile/picture" method="POST">  
+                                <form enctype="multipart/form-data" action="/update_profile/picture-admin" method="POST">  
             
                                     <tr>
                                         <td>
@@ -87,7 +89,8 @@
                                     <tr>
                                         <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
                                     </tr>
-            
+                                    <input type="hidden" value="<%= admin.user_id %>" name="edit_id" id="edit_id"></input>
+
                                 </form>
                             </tbody>
                         </table>
