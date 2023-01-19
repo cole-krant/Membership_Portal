@@ -625,7 +625,7 @@ app.get("/admin/interview", (req, res) => {
         res.redirect("pages/home");
     }
     
-    const query = `SELECT * FROM brother_interviews ORDER BY interviews.interview_id ASC;`;
+    const query = `SELECT * FROM brother_interviews ORDER BY interview_id ASC;`;
 
     db.any(query)
         .then((admin) => {
