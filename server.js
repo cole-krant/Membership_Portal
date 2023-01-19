@@ -593,7 +593,7 @@ app.get("/admin/management", (req, res) => {
         })
 });
 /* ------------------------------------------------------------------------------------ */
-app.post("/admin/delete", (req, res) => {
+app.post("/admin/delete-user", (req, res) => {
 
     const query = `SELECT * FROM users ORDER BY users.user_id ASC;`
 
@@ -630,7 +630,7 @@ app.get("/admin/interview", (req, res) => {
     db.any(query)
         .then((admin) => {
             console.log(admin);
-            res.render("pages/admin/management", {
+            res.render("pages/admin/interview", {
                 admin: admin,
                 action: "delete",
             });
@@ -638,6 +638,32 @@ app.get("/admin/interview", (req, res) => {
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/delete-interview", (req, res) => {
+
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC;`
+
+    /* Execute Task */
+    db.task("delete-user", (task) => {
+
+        return task.batch([
+            db.none(
+                `DELETE FROM brother_interviews WHERE interview_id = $1;`,
+                [parseInt(req.body.interview_id)]
+            ), // END OF db.none
+            task.any(query, [req.session.user.username])
+        ]) //END OF task.batch
+    })  // END OF db.task
+    .then(([, users]) => {
+        console.log("ADMIN:  BATCH SUCCESS\n\n");
+        //console.info(users);
+        res.redirect("/admin/interview");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect("/admin");
+    })
 });
 /* SUBMIT ANNOUNCEMENT ---------------- */
 app.post("/admin/post_announcement", (req, res) => {
