@@ -6,7 +6,7 @@
 
     </header>
     <body>
-        
+
         <div class = "col-md-auto text-center text-black">
             <div class="card m-1 bg-white rounded" size="50%">
     
@@ -45,7 +45,7 @@
                                 admin.forEach(admin => {
                                     pseudo = pseudo + '<tr>';
                                         /* USER DATA */
-                                        pseudo = pseudo + '<form> <td><img src="' + admin.imghere + '" style="width: 20%;"></img></td> </form>';
+                                        pseudo = pseudo + '<form> <td><img src="data:image/png;base64,' + admin.imghere + '" style="width: 20%;"></img></td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.user_id + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.admin + '</td> </form>';

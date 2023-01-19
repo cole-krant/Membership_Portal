@@ -376,7 +376,10 @@ app.get("/bridge", (req, res) => {
         .then((bridge) => {
             req.session.save();
             console.log(bridge);
-            res.render("pages/bridge", {bridge, user_id: req.session.user.user_id});
+            res.render("pages/bridge", {
+                bridge, 
+                user_id: req.session.user.user_id
+            });
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -614,6 +617,27 @@ app.post("/admin/delete", (req, res) => {
         console.log(err);
         res.redirect("/admin");
     })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/interview", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM brother_interviews ORDER BY interviews.interview_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/management", {
+                admin: admin,
+                action: "delete",
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
 });
 /* SUBMIT ANNOUNCEMENT ---------------- */
 app.post("/admin/post_announcement", (req, res) => {
