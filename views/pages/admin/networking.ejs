@@ -11,8 +11,8 @@
             <div class="card m-1 bg-white rounded" size="50%">
     
                 <div class="card-header">
-                  <h1 style="color:black"> ALL BROTHER INTERVIEWS </h1>
-                  <p> Use this page to monitor brother interviews. Remove an interview if necessary. Account abuse is entirely possible. </p>
+                  <h1 style="color:black"> ALL NETWORKING GROUPS </h1>
+                  <p> Use this page to monitor networking groups. Remove an interview if necessary. Account abuse is entirely possible. </p>
                 </div>
                 <div class="card-body">
                     <table class="table" size="100%">
@@ -20,8 +20,7 @@
                             <th>PROOF</th>
                             <th>ID</th>
                             <th>USERNAME</th>
-                            <th>BROTHER</th>
-                            <th>FAMILY</th>
+                            <th>GROUP WEEK</th>
                         </thead>
                         <tbody>
                             <%
@@ -30,16 +29,15 @@
                                     pseudo = pseudo + '<tr>';
                                         /* USER DATA */
                                         pseudo = pseudo + '<form> <td><img src="data:image/png;base64,' + admin.proof + '" style="width: 5%;"></img></td> </form>';
-                                        pseudo = pseudo + '<form> <td>'  + admin.interview_id + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.net_id + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
-                                        pseudo = pseudo + '<form> <td>'  + admin.brother + '</td> </form>';
-                                        pseudo = pseudo + '<form> <td>'  + admin.family + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.group_week + '</td> </form>';
     
                                         pseudo = pseudo + '<td>';
                                             if(locals.action == "delete") {
-                                                pseudo = pseudo + '<form action = "/admin/delete-interview" method = "POST">';
+                                                pseudo = pseudo + '<form action = "/admin/delete-networking" method = "POST">';
                                                     pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';
-                                                    pseudo = pseudo + '<input type = "hidden" name = "interview_id" value = "' + admin.interview_id + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "net_id" value = "' + admin.net_id + '"></input>';
                                                 pseudo = pseudo + '</form>';
                                             }
                                         pseudo = pseudo + '</td>';

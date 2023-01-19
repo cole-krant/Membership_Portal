@@ -733,5 +733,52 @@ app.post("/admin/post_announcement", (req, res) => {
 
 });
 /* ------------------------------------------------------------------------------------ */
+app.get("/admin/networking", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM networking_groups ORDER BY net_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/networking", {
+                admin: admin,
+                action: "delete",
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/delete-networking", (req, res) => {
+
+    const query = `SELECT * FROM networking_groups ORDER BY net_id ASC;`
+
+    /* Execute Task */
+    db.task("delete-user", (task) => {
+
+        return task.batch([
+            db.none(
+                `DELETE FROM networking_groups WHERE net_id = $1;`,
+                [parseInt(req.body.net_id)]
+            ), // END OF db.none
+            task.any(query, [req.session.user.username])
+        ]) //END OF task.batch
+    })  // END OF db.task
+    .then(([, users]) => {
+        console.log("ADMIN:  BATCH SUCCESS\n\n");
+        //console.info(users);
+        res.redirect("/admin/networking");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect("/admin");
+    })
+});
+/* ------------------------------------------------------------------------------------ */
 app.listen(3000);
 console.log("Server is listening on port 3000\n\n");
