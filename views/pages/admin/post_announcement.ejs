@@ -1,0 +1,49 @@
+<%- include ('../../partials/header') %> 
+<%- include ('../../partials/menu') %>
+
+<main>
+    <header>
+
+    </header>
+    <body>
+
+        <div class="container">
+            <div class="card mb-3">
+                <table class="table-primary">
+                    <thead><th scope="col">Post an Announcement</th></thead>
+                    <tbody>
+                        <form action="/admin/post_announcement" method="POST">  
+    
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="time"><b>Date of Announcement</b></label>
+                                    <input class="w3-input w3-border" type="datetime-local" name="time" required></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="subject"><b>Subject</b></label>
+                                    <input class="w3-input w3-border" type="text" name="subject" required></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label style="text-align:left" for="announcement"><b>Class</b></label>
+                                    <input class="w3-input w3-border" type="text" placeholder="Write your announcement here" name="announcement" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                            </tr>
+    
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </body>
+</main>
+
+
+<%- include ('../../partials/footer') %>

@@ -1,0 +1,60 @@
+<%- include ('../../partials/header') %> 
+<%- include ('../../partials/menu') %>
+
+<main>
+    <header>
+
+    </header>
+    <body>
+        
+        <div class = "col-md-auto text-center text-black">
+            <div class="card m-1 bg-white rounded" size="50%">
+    
+                <div class="card-header">
+                  <h1 style="color:black"> ALL ANNOUNCEMENTS </h1>
+                  <p> Use this page to remove or edit announcements.</p>
+                </div>
+                <div class="card-body">
+                    <table class="table" size="100%">
+                        <thead>
+                            <th>USER PFP</th>
+                            <th>USERNAME</th>
+                            <th>ID</th>
+                            <th>TIME</th>
+                            <th>SUBJECT</th>
+                            <th>ANNOUNCEMENT</th>
+                        </thead>
+                        <tbody>
+                            <%
+                                var pseudo = '';
+                                admin.forEach(admin => {
+                                    pseudo = pseudo + '<tr>';
+                                        /* USER DATA */
+                                        pseudo = pseudo + '<form> <td><img src="data:image/png;base64,' + admin.imgHERE + '" style="width: 5%;"></img></td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.time + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.subject + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.announcement + '</td> </form>';
+    
+                                        pseudo = pseudo + '<td>';
+                                            if(locals.action == "delete") {
+                                                pseudo = pseudo + '<form action = "/admin/delete-announcement" method = "POST">';
+                                                    pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "announcement_id" value = "' + admin.announcement_id + '"></input>';
+                                                pseudo = pseudo + '</form>';
+                                            }
+                                        pseudo = pseudo + '</td>';
+                                    pseudo = pseudo + '</tr>';
+                                }) 
+                            %>
+                            <%- pseudo %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</main>
+
+<%- include ('../../partials/footer') %>
