@@ -79,6 +79,11 @@ const user = {
     imgHERE:undefined
 }
 
+/* ADMIN */
+const admin = {
+    edit_id:undefined
+}
+
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
 app.get('/', (req, res) => {                    // upon entry user goes to login
     res.render("pages/login");
@@ -127,6 +132,10 @@ app.post('/register', async (req, res) => {
                 imgHERE:undefined
             }
 
+            req.session.admin = {
+                edit_id:undefined
+            }
+
             req.session.save();
             res.redirect("/login");
         })
@@ -169,6 +178,10 @@ app.post('/login', async (req, res) => {
                     brother_interviews: client.brother_interviews,
                     points: client.points,
                     imgHERE: client.imgHERE
+                }
+
+                req.session.admin = {
+                    edit_id:undefined
                 }
                 
                 req.session.save();
@@ -540,7 +553,7 @@ app.get("/admin", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/admin", {
                 admin: admin,
                 action: "delete",
@@ -561,7 +574,7 @@ app.get("/admin/post_announcement", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/post_announcement", {
                 admin: admin,
                 action: "delete",
@@ -582,7 +595,7 @@ app.get("/admin/announcements", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/announcements", {
                 admin: admin,
                 action: "delete",
@@ -629,7 +642,7 @@ app.get("/admin/management", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/management", {
                 admin: admin,
                 action: "delete",
@@ -676,7 +689,7 @@ app.get("/admin/interview", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/interview", {
                 admin: admin,
                 action: "delete",
@@ -743,7 +756,7 @@ app.get("/admin/networking", (req, res) => {
 
     db.any(query)
         .then((admin) => {
-            console.log(admin);
+            
             res.render("pages/admin/networking", {
                 admin: admin,
                 action: "delete",
@@ -778,6 +791,47 @@ app.post("/admin/delete-networking", (req, res) => {
         console.log(err);
         res.redirect("/admin");
     })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/edit_user", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+
+    const query = `SELECT * FROM users WHERE user_id = '${req.session.admin.edit_id}';`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/edit_user", {
+                admin: admin,
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/edit_user/post", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+
+    const query = `INSERT INTO admin(edit_id) VALUES ('${req.body.user_id}');`;
+
+    db.any(query)
+        .then((rows) => {
+            
+            req.session.admin.edit_id = req.body.user_id;
+            req.session.save();
+
+            res.redirect("/admin/edit_user");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
 });
 /* ------------------------------------------------------------------------------------ */
 app.listen(3000);

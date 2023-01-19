@@ -66,6 +66,10 @@
                                         pseudo = pseudo + '<form> <td>'  + admin.brother_interviews + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.points + ' </td></form>';
                                         pseudo = pseudo + '<td>';
+                                            pseudo = pseudo + '<form action = "/admin/edit_user/post" method = "POST">';
+                                                pseudo = pseudo + '<td><button type = "submit" class = "btn btn-success">Edit</button></td>';
+                                                pseudo = pseudo + '<input type = "hidden" name = "user_id" value = "' + admin.user_id + '"></input>';
+                                            pseudo = pseudo + '</form>';
                                             if(locals.action == "delete") {
                                                 pseudo = pseudo + '<form action = "/admin/delete-user" method = "POST">';
                                                     pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';

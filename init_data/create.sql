@@ -52,3 +52,8 @@ CREATE TABLE announcements(
 	announcement VARCHAR(800) NOT NULL,
 	imgHERE TEXT
 );
+
+CREATE TABLE admin(
+	admin_id SERIAL PRIMARY KEY,
+	edit_id INT NOT NULL
+);
