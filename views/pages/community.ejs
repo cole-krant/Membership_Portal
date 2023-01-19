@@ -97,7 +97,7 @@
           pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
     
           community.forEach(community => {
-            // if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
+            if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
               if(count_col === start) {
 
                 count_col = count_col + 1;
@@ -139,8 +139,7 @@
 
               }
             }
-          //}
-          ) 
+          }) 
         %>
         <%- pseudo %>
       </div>

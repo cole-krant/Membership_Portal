@@ -538,7 +538,49 @@ app.get("/admin", (req, res) => {
     db.any(query)
         .then((admin) => {
             console.log(admin);
-            res.render("pages/admin", {
+            res.render("pages/admin/admin", {
+                admin: admin,
+                action: "delete",
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/announcement", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/announcement", {
+                admin: admin,
+                action: "delete",
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/management", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM users ORDER BY users.user_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            console.log(admin);
+            res.render("pages/admin/management", {
                 admin: admin,
                 action: "delete",
             });
@@ -566,7 +608,7 @@ app.post("/admin/delete", (req, res) => {
     .then(([, users]) => {
         console.log("ADMIN:  BATCH SUCCESS\n\n");
         //console.info(users);
-        res.redirect("/admin");
+        res.redirect("/admin/management");
     })
     .catch((err) => {
         console.log(err);
