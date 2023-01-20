@@ -12,6 +12,9 @@ CREATE TABLE users(
 	net_group VARCHAR(50),				-- weekly networking group
 	
 	bio VARCHAR(120),
+	email VARCHAR(50),
+	linkedin VARCHAR(50),
+	phone VARCHAR(20),
 
 	-- Assignments --
 	preliminary_forms BOOLEAN,

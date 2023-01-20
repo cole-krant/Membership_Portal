@@ -24,14 +24,13 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <label style="text-align:left" for="username"><b>YOU ARE EDITING</b></label>
-                <h1 style="color:black"> <%= admin[0].name %> </h1>
+
                 <!-- BASIC INFO SELECTION -->
                 <div class="tab-pane fade show active" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-info" tabindex="0">
 
                     <div class="card mb-3">
-                        <table class="table-primary">
-                            <thead><th scope="col">Personal Info</th></thead>
+                        <table class="table">
+                            <thead><th scope="col">Personal Info for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
                             <tbody>
                                 <form action="/update_profile/basic-admin" method="POST">  
             
@@ -75,8 +74,8 @@
 
                     <div class="card mb-3">
                         <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
-                        <table class="table-primary">
-                            <thead><th scope="col">Profile Picture</th></thead>
+                        <table class="table">
+                            <thead><th scope="col">Profile Picture for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/picture-admin" method="POST">  
             
@@ -89,7 +88,7 @@
                                     <tr>
                                         <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
                                     </tr>
-                                    <input type="hidden" value="<%= admin.user_id %>" name="edit_id" id="edit_id"></input>
+                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
 
                                 </form>
                             </tbody>
@@ -97,7 +96,44 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <thead><th scope="col">Contact Information for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
+                            
+                            <tbody>
+                                <form action="/update_profile/contact-admin" method="POST">  
+            
+                                    <tr>
+                                        <td>
+                                            <label style="text-align:left" for="email"><b>Email</b></label>
+                                            <input class="w3-input w3-border" type="text" name="email" placeholder="abcd5678@colorado.edu" required></input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label style="text-align:left" for="linkedin"><b>LinkedIn</b></label>
+                                            <input class="w3-input w3-border" type="text" name="linkedin" placeholder="https://www.linkedin.com/in/FIRST-LAST/" required></input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label style="text-align:left" for="phone"><b>Phone</b></label>
+                                            <input class="w3-input w3-border" type="text" placeholder="512-636-2466" name="phone" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                    </tr>
+                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
+            
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
                 <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
             </div>
         </div>

@@ -35,9 +35,17 @@
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="<%= panel_b %>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                                 
                                 <div class="row"> <!-- ANNOUNCEMENT HEADING -->
-                                    <img src="<%= image %>" style="width: 5%;"></img>
-                                    <h1> <%= home.subject %> </h1>
-                                    <h5> <%= time %> </h5>
+                                  <div class="col">
+                                    <img src="<%= image %>" class="w3-circle w3-hover-opacity" style="width: 20%;"></img>
+                                  </div>
+                                  <div class="col">
+                                    <h1 style="color:black"> <%= home.subject %> </h1>
+                                  </div>
+                                  <div class="col">
+                                    <h5 style="color:black"> <%= time %> </h5>
+                                  </div>
+
+
                                 </div>
 
                             </button>
@@ -53,6 +61,19 @@
                 <% }) %>
             </div>
 
+        </div>
+        <div class="container" style="padding:30px">
+          <div class="card">
+            <div class="card-header">
+              Quote
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>A well-known quote, contained in a blockquote element.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+          </div>
         </div>
 
     </body>

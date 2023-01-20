@@ -68,6 +68,9 @@ const user = {
     committee:undefined,
     net_group:undefined,
     bio:undefined,
+    email:undefined,
+    linkedin:undefined,
+    PHONE:undefined,
     preliminary_forms:undefined,
     big_brother_mentor:undefined,
     getting_to_know_you:undefined,
@@ -328,6 +331,38 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
 
 });
 /* UPDATE PROFILE -------------------------------------------------------------------- */
+app.post("/update_profile/contact", (req, res) => {
+
+    const values = [req.body.email, req.body.linkedin, req.body.phone, req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        email = $1,
+        linkedin = $2,
+        phone = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.user.email = values[0];
+            req.session.user.linkedin = values[1];
+            req.session.user.phone = values[2];
+            req.session.save();
+
+            console.log("\n\nSuccessful Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile/basic-admin", (req, res) => {
 
     const edit_id = parseInt(req.body.edit_id);
@@ -350,7 +385,7 @@ app.post("/update_profile/basic-admin", (req, res) => {
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/update_profile");
+            res.redirect("/admin/edit_user");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -378,7 +413,40 @@ app.post("/update_profile/picture-admin", upload.single('profile_img') ,(req, re
             req.session.save();
 
             console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
-            res.redirect("/update_profile");
+            res.redirect("/admin/edit_user");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE PROFILE -------------------------------------------------------------------- */
+app.post("/update_profile/contact-admin", (req, res) => {
+
+    const edit_id = parseInt(req.body.edit_id);
+    const values = [req.body.email, req.body.linkedin, req.body.phone, edit_id];
+
+    console.log("USER_ID = " + edit_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        email = $1,
+        linkedin = $2,
+        phone = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.user.email = values[0];
+            req.session.user.linkedin = values[1];
+            req.session.user.phone = values[2];
+            req.session.save();
+
+            console.log("\n\nSuccessful Update: \n", req.session.user);
+            res.redirect("/admin/edit_user");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
