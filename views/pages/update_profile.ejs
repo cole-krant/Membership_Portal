@@ -20,7 +20,7 @@
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+                    <button class="nav-link" id=" bio-tab" data-bs-toggle="tab" data-bs-target="#bio-tab-pane" type="button" role="tab" aria-controls="bio-tab-pane" aria-selected="false">Bio</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -134,7 +134,32 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                <div class="tab-pane fade" id="bio-tab-pane" role="tabpanel" aria-labelledby="bio-tab" tabindex="0">
+
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <thead><th scope="col">Bio<h1 style="color:black"> <%= profile[0].username %> </h1></th></thead>
+                            
+                            <tbody>
+                                <form action="/update_profile/bio" method="POST">  
+            
+                                    <tr>
+                                        <td>
+                                            <label style="text-align:left" for="bio"><b>Bio</b></label>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" required></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                    </tr>
+            
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

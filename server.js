@@ -240,12 +240,15 @@ app.get("/profile", (req, res) => {
             //console.log(home);
             res.render("pages/profile", {
                 profile,
+                name: req.session.user.name,
                 username: req.session.user.username, 
                 major: req.session.user.major,
+                bio: req.session.user.bio,
                 committee: req.session.user.committee,
                 net_group: req.session.user.net_group,
                 brother_interviews: req.session.user.brother_interviews,
-                imgHERE: req.session.user.imgHERE
+                imgHERE: req.session.user.imgHERE,
+                linkedin: req.session.user.linkedin
             });
         })
         .catch((error) => {
@@ -352,6 +355,34 @@ app.post("/update_profile/contact", (req, res) => {
             req.session.user.email = values[0];
             req.session.user.linkedin = values[1];
             req.session.user.phone = values[2];
+            req.session.save();
+
+            console.log("\n\nSuccessful Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE PROFILE -------------------------------------------------------------------- */
+app.post("/update_profile/bio", (req, res) => {
+
+    const values = [req.body.bio, req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        bio = $1
+    WHERE
+        user_id = $2;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.user.bio = values[0];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
