@@ -1,82 +1,66 @@
 <%- include ('../partials/header') %>
-<%- include ('../partials/menu') %>
+<%- include ('../partials/newnav') %>
 
 <main>
-    <header>
-        <style>
+  <header>
+      <style>
 
-        </style>
-    </header>
-    <body>
-        <div class="container" style="padding:10px">
+      </style>
+  </header>
+  <body>
+    <div class="container" style="padding:10px">
 
-            <% 
-                let panel_id = 0; 
-                const panel_heading = "head-";
-                const panel_body = "body-";
-                let panel_h = '';
-                let panel_b = '';
-                let time;
-            %>
-            <div class="accordion" id="accordion">
-                <% home.forEach(home => { %>
+      <% 
+          let panel_id = 0; 
+          const panel_heading = "head-";
+          const panel_body = "body-";
+          let panel_h = '';
+          let panel_b = '';
+          let time;
+      %>
+      <div class="accordion" id="accordion">
+        <% home.forEach(home => { %>
 
-                    <% 
-                        panel_h = "" + panel_heading + panel_id;
-                        panel_b = "" + panel_body + panel_id;
-                        panel_id = panel_id + 1;
-                        time = home.time.toString().substring(0, 15);
-                        image = "data:image/png;base64," + home.imghere;
-                    %>
+          <% 
+              panel_h = "" + panel_heading + panel_id;
+              panel_b = "" + panel_body + panel_id;
+              panel_id = panel_id + 1;
+              time = home.time.toString().substring(0, 10);
+              image = "data:image/png;base64," + home.imghere;
+          %>
 
-                    <div class="accordion" id="accordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="<%= panel_h %>">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="<%= panel_b %>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                
-                                <div class="row"> <!-- ANNOUNCEMENT HEADING -->
-                                  <div class="col">
-                                    <img src="<%= image %>" class="w3-circle w3-hover-opacity" style="width: 20%;"></img>
-                                  </div>
-                                  <div class="col">
-                                    <h1 style="color:black"> <%= home.subject %> </h1>
-                                  </div>
-                                  <div class="col">
-                                    <h5 style="color:black"> <%= time %> </h5>
-                                  </div>
+          <div class="accordion-item">
+              <h2 class="accordion-header" id="<%= panel_h %>">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="<%= panel_b %>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    
+                  <div class="row"> <!-- ANNOUNCEMENT HEADING -->
 
-
-                                </div>
-
-                            </button>
-                            </h2>
-                            <div id="<%= panel_b %>" class="accordion-collapse collapse show" aria-labelledby="<%= panel_h %>">
-                            <div class="accordion-body">
-                                
-                                <%= home.announcement %>
-
-                            </div>
-                        </div>
+                    <div class="col">
+                      <img src="<%= image %>" class="w3-circle w3-hover-opacity" width="20%" height="90%"></img>
                     </div>
-                <% }) %>
-            </div>
+                    <div class="col">
+                      <h1 style="color:black"> <%= home.subject %> </h1>
+                    </div>
+                    <div class="col">
+                      <h5 style="color:black"> <%= time %> </h5>
+                    </div>
 
-        </div>
-        <div class="container" style="padding:30px">
-          <div class="card">
-            <div class="card-header">
-              Quote
-            </div>
-            <div class="card-body">
-              <blockquote class="blockquote mb-0">
-                <p>A well-known quote, contained in a blockquote element.</p>
-                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-              </blockquote>
+                  </div>
+
+                </button>
+              </h2>
+            <div id="<%= panel_b %>" class="accordion-collapse collapse show" aria-labelledby="<%= panel_h %>">
+            <div class="accordion-body">
+                
+                <%= home.announcement %>
+
             </div>
           </div>
-        </div>
-
-    </body>
+        <% }) %>
+      </div>
+    </div>
+    
+  </body>
 </main>
 
 <%- include ('../partials/footer') %>

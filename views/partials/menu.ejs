@@ -1,45 +1,105 @@
 <!-- NAVIGATION BAR -->
 <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="../../resources/img/Gamma_Logo.png" width="50" height="50"> </a>
-            <a class="navbar-brand"   href = "/home"> <h1 style="color:white"><strong>   Membership Portal   </strong></h1></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <style>
+        .a {
+            text-decoration: none;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+
+    <!-- BOOTSTRAP NAVBAR --  OFFCANVAS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid" style="background-color:#2B4B80; padding: 10px;">
+
+
+          <!-- NAV-HEADER AND IMG -->
+          <a class="navbar-brand" href="https://akpsi.org/"> <img src="../../resources/img/Gamma_Logo.png" width="50" height="50"> </a>
+          <a class="navbar-brand" href = "/home"> <h1 style="color:whitesmoke"><strong>   Alpha Kappa Psi   </strong></h1></a>
+
+
+          <!-- NAV-BUTTON-->
+          <div class="col" style="width: 50%;">
+            
+            <label style="color:#2B4B80">FORMATTING</label>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="width:15%; color:goldenrod; background-color: #1c3874; position:absolute; right: 10px; padding:.1px; padding-bottom:.01px; padding-top:.05px;" name="nav-icon">
+              <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home" style="color:white">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/calendar" style="color:white">Calendar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/community" style="color:white">Community</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/bridge" style="color:white">Bridge</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/interviews" style="color:white">Interviews</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/networking" style="color:white">Networking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin" style="color:white">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="/update_users" method="POST">
-                            <button type="submit" class="btn btn-primary button">Profile</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/logout" style="color:white">Logout</a>
-                    </li>
-                </ul>
+
+          </div>
+            
+
+          <!-- NAV OFFCANVAS MODAL -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #122650; width: 15%;">
+            <div class="offcanvas-header">
+              <h3 class="offcanvas-title" id="offcanvasNavbarLabel" style="color:gold"><strong>   Directory   </strong></h3>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                <h5 style="color:gold"> <strong>My Brotherhood </strong></h5>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home" style="color:whitesmoke">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/calendar" style="color:whitesmoke">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/community" style="color:whitesmoke">Community</a>
+                </li>
+
+                <br>
+                <br>
+                <h5 style="color:gold"><strong> My Bridge </strong></h5>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/bridge" style="color:whitesmoke">Bridge</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/interviews" style="color:whitesmoke">Interviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/networking" style="color:whitesmoke">Networking</a>
+                </li>
+
+                <br>
+                <br>
+                <h5 style="color:gold"><strong> My Profile </strong></h5>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <form action="/update_users" method="POST">
+                        <button type="submit" class="nav-link active" style="color:white; background-color: #122650; width:10%;">Profile</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/logout" style="color:white">Logout</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+                </li>
+              </ul>
+              
+
+            </div>
+          </div>
+
+
         </div>
-    </nav>
+      </nav>
 </header>

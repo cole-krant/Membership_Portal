@@ -78,7 +78,7 @@
 
                     <div class="card mb-3">
                         <table class="table">
-                            <thead><th scope="col">Profile Picture<h1 style="color:black"> <%= profile[0].username %> </h1></th></thead>
+                            <thead><th scope="col">Profile Picture<h1 style="color:black"> <%= profile[0].username %> </h1><p>File must be still (.JPG), live photos (.HEIC) will not upload. </p></th></thead>
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/picture" method="POST">  
             
