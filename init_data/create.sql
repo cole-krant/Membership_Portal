@@ -24,13 +24,25 @@ CREATE TABLE users(
 	informational_interviews BOOLEAN,
 
 	-- Statistics --
-	resume VARCHAR(100),
 	domingos INT,
 	brother_interviews INT,
 	points INT NOT NULL,
 
+	-- Hobbies --
+	hobby1 VARCHAR(20),
+	hobby2 VARCHAR(20),
+	hobby3 VARCHAR(20),
+	h1_caption VARCHAR(20),
+	h2_caption VARCHAR(20),
+	h3_caption VARCHAR(20),
+
 	-- LARGE DATA --
-	imgHERE TEXT						-- profile picture
+	imgHERE TEXT,						-- profile picture
+	h1_img TEXT,
+	h2_img TEXT,
+	h3_img TEXT,
+	background TEXT,
+	resume TEXT
 );
 
 CREATE TABLE brother_interviews(
