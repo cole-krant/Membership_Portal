@@ -102,13 +102,19 @@
         <div class="row">
 
             <div class="card-group" style="padding:10px">
-                <div class="card" style="background-color:#001244">
+                <div class="card" style="background-color:#2B4B80">
                     <img src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="card-img-top"></img>
                     <div class="card-body">
-                    <h1 class="card-title" style="color:white">
+                    <h1 class="card-title" style="color:white; text-align: left;">
                         <strong><%= name %></strong>
 
-                        <a href="<%= linkedin %>" style="color:rgb(47, 0, 255)">
+                        <a  href="<%= spotify ? spotify : 'www.google.com' %>" style="color:#0077B5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686zm.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858zm.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288z"/>
+                          </svg></a>
+
+
+                        <a href="<%= linkedin %>" style="color:#0077B5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
                             <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
                             </svg></a>
@@ -118,8 +124,10 @@
                     <div class="row">
                         <h5 style="color:white"><%= major ? major : 'Major Unkown' %>, <%= profile[0].class ? profile[0].class : 'Class Unkown' %></h5>
                     </div>
-                    <div class="row" style="padding:10px">
+                    <div class="row" style="text-align: left;">
+                        <br>
                         <p style="color:white" class="card-text"><%= bio %></p>
+                        <br>
                     </div>
                   </div>
                   <div class="card-footer">
@@ -134,26 +142,37 @@
 
 
         <!-- <section> USER INFO -->
-            <div class="row">
-                <div class="w3-container w3-padding-64 w3-center" id="user">
-                    <div class="row"> 
-                        <div class="col">
-                            <div class="w3-quarter" style="padding-left: 10px;">
-                                <div class="profile-card">
-                                    <img alt="Upload a Profile Photo" src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Default" style="width:80%" class="w3-circle w3-hover-opacity"></img>
-                                    <h1><%= username ? username : 'Name Unknown' %></h1>
-                                    <h3><%= major ? major : 'Major Unkown' %></h3>
+        <div class="row">
+            <div class="w3-container w3-padding-64 w3-center" id="user">
+                <div class="row"> 
+                    <div class="col">
+                        <div class="w3-quarter" style="padding-left: 10px;">
+                            <div class="profile-card">
+                                <img alt="Upload a Profile Photo" src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" alt="Default" style="width:80%" class="w3-circle w3-hover-opacity"></img>
+                                <h1><%= username ? username : 'Name Unknown' %></h1>
+                                <h3><%= major ? major : 'Major Unkown' %></h3>
 
-                                    <div class="w3-container" style="color:blue">
-                                        <a href="/update_profile">Update Profile</a>
-                                    </div>
-
+                                <div class="w3-container" style="color:blue">
+                                    <a href="/update_profile">Update Profile</a>
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="w3-quarter" style="padding-left: 10px;">
+                            <div class="profile-card">
+                                <h1>Contact Info</h1>
+                                <h3><%= major ? major : 'Major Unkown' %></h3>
+
+                                <div class="w3-container" style="color:blue">
+                                    <a href="/update_profile">Update Profile</a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- </section> -->
     </body>
 </main>

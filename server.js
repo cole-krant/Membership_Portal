@@ -240,15 +240,16 @@ app.get("/profile", (req, res) => {
             //console.log(home);
             res.render("pages/profile", {
                 profile,
-                name: req.session.user.name,
-                username: req.session.user.username, 
-                major: req.session.user.major,
-                bio: req.session.user.bio,
-                committee: req.session.user.committee,
-                net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews,
-                imgHERE: req.session.user.imgHERE,
-                linkedin: req.session.user.linkedin
+                name: profile.name,
+                username: profile.username, 
+                major: profile.major,
+                bio: profile.bio,
+                committee: profile.committee,
+                net_group: profile.net_group,
+                brother_interviews: profile.brother_interviews,
+                imgHERE: profile.imgHERE,
+                linkedin: profile.linkedin,
+                spotify: profile.spotify
             });
         })
         .catch((error) => {

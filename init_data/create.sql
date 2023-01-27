@@ -14,6 +14,7 @@ CREATE TABLE users(
 	bio VARCHAR(120),
 	email VARCHAR(50),
 	linkedin VARCHAR(50),
+	spotify VARCHAR(50),
 	phone VARCHAR(20),
 
 	-- Assignments --
