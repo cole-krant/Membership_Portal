@@ -8,13 +8,8 @@
         }
     </style>
 
-    <!-- BOOTSTRAP NAVBAR --  OFFCANVAS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <nav class="navbar bg-body-tertiary fixed-top">
-        <div class="container-fluid" style="background-color:#2B4B80; padding: 10px;">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid" style="background-color:#2B4B80;">
 
 
           <!-- NAV-HEADER AND IMG -->
@@ -26,80 +21,119 @@
           <div class="col" style="width: 50%;">
             
             <label style="color:#2B4B80">FORMATTING</label>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="width:15%; color:goldenrod; background-color: #1c3874; position:absolute; right: 10px; padding:.1px; padding-bottom:.01px; padding-top:.05px;" name="nav-icon">
-              <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="width:15%; color:goldenrod; background-color: #1c3874; position:absolute; right: 10px; padding:.1px; padding-bottom:.01px; padding-top:.05px; width: 10%" name="nav-icon">
+              <span class="navbar-toggler-icon navbar-dark" style="color:whitesmoke">
+              </span>
             </button>
 
           </div>
             
 
           <!-- NAV OFFCANVAS MODAL -->
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #122650; width: 15%;">
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #2B4B80; width: 12%;">
             <div class="offcanvas-header">
-              <h3 class="offcanvas-title" id="offcanvasNavbarLabel" style="color:gold"><strong>   Directory   </strong></h3>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <h1 class="offcanvas-title" id="offcanvasNavbarLabel" style="color:white"><strong>   Directory   </strong></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color:white"></button>
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 
-                <h5 style="color:gold"> <strong>My Brotherhood </strong></h5>
+                <h5 style="color:white"> <strong>My Brotherhood </strong></h5>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/home" style="color:whitesmoke">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/home" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Home
+                      </button>
+                    
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/calendar" style="color:whitesmoke">Calendar</a>
+                    <a class="nav-link active" aria-current="page" href="/calendar" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Calendar
+                      </button>
+                    
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/community" style="color:whitesmoke">Community</a>
+                    <a class="nav-link active" aria-current="page" href="/community" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Community
+                      </button>
+                    
+                    </a>
                 </li>
 
                 <br>
                 <br>
-                <h5 style="color:gold"><strong> My Bridge </strong></h5>
+                <h5 style="color:white"><strong> My Bridge </strong></h5>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/bridge" style="color:whitesmoke">Bridge</a>
+                    <a class="nav-link active" aria-current="page" href="/bridge" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Bridge
+                      </button>
+                    
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/interviews" style="color:whitesmoke">Interviews</a>
+                    <a class="nav-link active" aria-current="page" href="/interviews" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Interviews
+                      </button>
+                    
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/networking" style="color:whitesmoke">Networking</a>
+                    <a class="nav-link active" aria-current="page" href="/networking" style="color:whitesmoke">
+                    
+                      <button class="btn btn-primary">
+                        Networking
+                      </button>
+
+                    </a>
                 </li>
 
                 <br>
                 <br>
-                <h5 style="color:gold"><strong> My Profile </strong></h5>
+
+                <h5 style="color:gold; text-align: center;"><strong> MY PROFILE </strong></h5>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">Admin</a>
+                    <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
+                    
+                      <button class="btn btn-warning">
+                        Admin
+                      </button>
+                    
+                    </a>
                 </li>
                 <li class="nav-item">
+
                     <form action="/update_users" method="POST">
-                        <button type="submit" class="nav-link active" style="color:white; background-color: #122650; width:10%;">Profile</button>
+
+                      <button class="btn btn-warning">
+                        Profile
+                      </button>
+
                     </form>
+
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/logout" style="color:white">Logout</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
+                    <a class="nav-link active" aria-current="page" href="/logout" style="color:red">
+                    
+                      <button class="btn btn-warning" style="color:white">
+                        Logout
+                      </button>
+
+                    </a>
                 </li>
               </ul>
-              
-
             </div>
           </div>
-
-
         </div>
       </nav>
 </header>

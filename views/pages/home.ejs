@@ -1,5 +1,5 @@
 <%- include ('../partials/header') %>
-<%- include ('../partials/newnav') %>
+<%- include ('../partials/menu') %>
 
 <main>
   <header>
@@ -8,7 +8,7 @@
       </style>
   </header>
   <body>
-    <div class="container" style="padding:10px">
+    <div class="container" style="padding:10px; background-color: white;">
 
       <% 
           let panel_id = 0; 
@@ -32,26 +32,23 @@
           <div class="accordion-item">
               <h2 class="accordion-header" id="<%= panel_h %>">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="<%= panel_b %>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    
-                  <div class="row"> <!-- ANNOUNCEMENT HEADING -->
+                  <img src="<%= image %>" class="w3-circle w3-hover-opacity" width="3%" height="3%"></img>
+                  <div class="col">
+                    <div class="rowgroup" style="width:100%">
 
-                    <div class="col">
-                      <img src="<%= image %>" class="w3-circle w3-hover-opacity" width="20%" height="90%"></img>
-                    </div>
-                    <div class="col">
-                      <h1 style="color:black"> <%= home.subject %> </h1>
-                    </div>
-                    <div class="col">
-                      <h5 style="color:black"> <%= time %> </h5>
-                    </div>
+                      <div class="row">
+                        <h5 style="color:black"> <%= home.subject %> </h5>
+                        <h7 style="color:black"> <%= home.username %>, <%= time %> </h7>
+                      </div>
 
+                    </div>
                   </div>
 
                 </button>
               </h2>
             <div id="<%= panel_b %>" class="accordion-collapse collapse show" aria-labelledby="<%= panel_h %>">
             <div class="accordion-body">
-                
+
                 <%= home.announcement %>
 
             </div>
