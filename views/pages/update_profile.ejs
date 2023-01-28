@@ -16,7 +16,7 @@
 
     <div class="container" style="padding:10px;">
         <div class="card" style="width: 50%;">
-            <img src="<%= profile[0].imghere ? 'data:image/png;base64,' + profile[0].imghere : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:45%; align-self: center;" class="w3-circle"></img>
+            <img src="<%= profile[0].pfp_img ? 'data:image/png;base64,' + profile[0].pfp_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:45%; align-self: center;" class="w3-circle"></img>
             <h1 style="color:black; padding: 2px;"> <%= profile[0].username %> </h1>
             <br>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -297,60 +297,4 @@
   </body>
 </main>
 
-
-
 <%- include ('../partials/footer') %>
-
-
-
-<!-- <div class="container" style="padding:10px;">
-
-    <div class="row">
-
-        <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="data:image/png;base64,<%= imgHERE ? imgHERE : '../../resources/pfp/Default_Avatar.jpg' %>" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= username %></h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Class: <%= profile.class %></li>
-                                <li class="list-group-item">Major: <%= profile.major %></li>
-                                <li class="list-group-item">Committee: <%= profile.committee %></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col" style="width: 5px;">
-
-            <div class="row">
-                <div class="card mb-3" style="width: 10rem;">
-                    <div class="card-header">Total Points</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><%= profile.points %></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="card mb-3" style="width: 10rem;">
-                    <div class="card-header">Brother Interviews</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><%= profile.brother_interviews %></li>
-                    </ul>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-
-</div> -->
-
-/

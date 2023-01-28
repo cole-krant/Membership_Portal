@@ -101,7 +101,7 @@
               if(count_col === start) {
 
                 count_col = count_col + 1;
-                image = "data:image/png;base64," + community.imghere;
+                image = "data:image/png;base64," + community.pfp_img;
                 pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
                 pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
                 pseudo = pseudo + '<h1>' + community.username + '</h1>';
@@ -114,7 +114,7 @@
               else if(count_col < count_cmp) {
 
                 count_col = count_col + 1;                                  // incriment count
-                image = "data:image/png;base64," + community.imghere;
+                image = "data:image/png;base64," + community.pfp_img;
                 pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
                 pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
                 pseudo = pseudo + '<h1>' + community.username + '</h1>';
@@ -126,7 +126,7 @@
               }
               else if(count_col === count_cmp) {
 
-                image = "data:image/png;base64," + community.imghere;
+                image = "data:image/png;base64," + community.pfp_img;
                 pseudo = pseudo + '</div>';         // close the card
                 pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
                 pseudo = pseudo + '<div class="w3-quarter">';                     // create a card

@@ -60,27 +60,9 @@ app.use(
 const user = {
     user_id:undefined,
     username:undefined,
-    password:undefined,
-    name:undefined,
-    admin:undefined,
-    class:undefined,
-    major:undefined,
-    committee:undefined,
-    net_group:undefined,
-    bio:undefined,
-    email:undefined,
-    linkedin:undefined,
-    spotify:undefined,
-    phone:undefined,
-    preliminary_forms:undefined,
-    big_brother_mentor:undefined,
-    getting_to_know_you:undefined,
-    informational_interviews:undefined,
-    resume:undefined,
-    domingos: undefined,
     brother_interviews:undefined,
     points:undefined,
-    imgHERE:undefined
+    pfp_img:undefined
 }
 
 /* ADMIN */
@@ -109,31 +91,17 @@ app.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, 8);
     const query = `
     INSERT INTO
-        users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, imgHERE)
+        users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, pfp_img, background)
     VALUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17);`;
 
-    db.none(query, [req.body.username, hash, req.body.username, 'false', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, ''])
+    db.none(query, [req.body.username, hash, req.body.username, 'false', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, '', '../../resources/img/River_Bridge.jpg'])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
-                password:hash,
-                name:req.body.username,
-                admin:'false',
-                class:'',
-                major:'',
-                committee:'',
-                net_group:'',
-                bio:'',
-                preliminary_forms:'false',
-                big_brother_mentor:'false',
-                getting_to_know_you:'false',
-                informational_interviews:'false',
-                resume:'',
-                domingos: 0,
                 brother_interviews: 0,
                 points: 0,
-                imgHERE:undefined
+                pfp_img:undefined
             }
 
             req.session.admin = {
@@ -165,23 +133,9 @@ app.post('/login', async (req, res) => {
                 req.session.user = {
                     user_id: client.user_id,
                     username: req.body.username,
-                    password: hash,
-                    name: client.name,
-                    admin: client.admin,
-                    class: client.class,
-                    major: client.major,
-                    committee: client.committee,
-                    net_group: client.net_group,
-                    bio: client.bio,
-                    preliminary_forms: client.preliminary_forms,
-                    big_brother_mentor: client.big_brother_mentor,
-                    getting_to_know_you: client.getting_to_know_you,
-                    informational_interviews: client.informational_interviews,
-                    resume: client.resume,
-                    domingos: client.domingos,
                     brother_interviews: client.brother_interviews,
                     points: client.points,
-                    imgHERE: client.imgHERE
+                    pfp_img: client.pfp_img
                 }
 
                 req.session.admin = {
@@ -239,19 +193,7 @@ app.get("/profile", (req, res) => {
     db.any(query)
         .then((profile) => {
             console.log(profile);
-            res.render("pages/profile", {
-                profile,
-                name: req.session.user.name,
-                username: req.session.user.username, 
-                major: req.session.user.major,
-                bio: req.session.user.bio,
-                committee: req.session.user.committee,
-                net_group: req.session.user.net_group,
-                brother_interviews: req.session.user.brother_interviews,
-                linkedin: req.session.user.linkedin,
-                spotify: req.session.user.spotify,
-                imgHERE: req.session.user.imgHERE
-            });
+            res.render("pages/profile", {profile});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -260,16 +202,12 @@ app.get("/profile", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/update_profile", (req, res) => {
 
-    const query = `SELECT * FROM users WHERE user_id = ${req.session.user.user_id}`;
+    const query = `SELECT * FROM users WHERE user_id = '${req.session.user.user_id}'`;
 
     db.any(query)
         .then((profile) => {
             //console.log(home);
-            res.render("pages/update_profile", {
-                profile,
-                username: req.session.user.username,
-                imgHERE: req.session.user.imgHERE
-            });
+            res.render("pages/update_profile", {profile});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -294,9 +232,6 @@ app.post("/update_profile/basic", (req, res) => {
     db.none(query, values)
         .then((update) => {
 
-            req.session.user.class = values[0];
-            req.session.user.major = values[1];
-            req.session.user.committee = values[2];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -317,14 +252,14 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
     UPDATE
         users
     SET
-        imgHERE = $1
+        pfp_img = $1
     WHERE
         user_id = $2;`;
 
     db.none(query, values)
         .then((update) => {
 
-            req.session.user.imgHERE = values[0];
+            req.session.user.pfp_img = values[0];
             req.session.save();
 
             console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
@@ -355,10 +290,6 @@ app.post("/update_profile/contact", (req, res) => {
     db.none(query, values)
         .then((update) => {
 
-            req.session.user.email = values[0];
-            req.session.user.linkedin = values[1];
-            req.session.user.spotify = values[2];
-            req.session.user.phone = values[3];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -386,7 +317,6 @@ app.post("/update_profile/bio", (req, res) => {
     db.none(query, values)
         .then((update) => {
 
-            req.session.user.bio = values[0];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -523,7 +453,7 @@ app.post("/update_profile/picture-admin", upload.single('profile_img') ,(req, re
     UPDATE
         users
     SET
-        imgHERE = $1
+        pfp_img = $1
     WHERE
         user_id = $2;`;
 
@@ -560,9 +490,6 @@ app.post("/update_profile/contact-admin", (req, res) => {
     db.none(query, values)
         .then((update) => {
 
-            req.session.user.email = values[0];
-            req.session.user.linkedin = values[1];
-            req.session.user.phone = values[2];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -576,26 +503,20 @@ app.post("/update_profile/contact-admin", (req, res) => {
 /* UPDATE USER DATABASE POST INTERVIEW SUBMISSION --------------------------------------------------------- */
 app.post("/update_users", (req, res) => {
 
-    const values = [req.session.user.brother_interviews, req.session.user.imgHERE, req.session.user.points];
+    const values = [req.session.user.brother_interviews, req.session.user.pfp_img, req.session.user.points];
     const query = `
     UPDATE
         users
     SET
         brother_interviews = $1,
-        imgHERE = $2,
+        pfp_img = $2,
         points = $3
     WHERE
         user_id = ${req.session.user.user_id};`;
 
     db.none(query, values)
         .then((update) => {
-
-            req.session.user.brother_interviews = values[0];
-            req.session.user.imgHERE = values[1];
-
-            req.session.save();
-
-            console.log("\n\nSuccessful User Update: \n");
+            console.log("\n\nRoute Success: '/update_users' \n");
             res.redirect("/profile");
         })
         .catch((error) => {
@@ -616,9 +537,6 @@ app.get("/community", (req, res) => {
 
     db.any(query)
         .then((community) => {
-            req.session.save();
-            console.log("COMMUNITY: \n");
-            console.log(community);
             res.render("pages/community", {community});
         })
         .catch((error) => {
@@ -633,12 +551,7 @@ app.get("/bridge", (req, res) => {
 
     db.any(query)
         .then((bridge) => {
-            req.session.save();
-            console.log(bridge);
-            res.render("pages/bridge", {
-                bridge, 
-                user_id: req.session.user.user_id
-            });
+            res.render("pages/bridge", {bridge});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -652,13 +565,7 @@ app.get("/submit_interview", (req, res) => {
 
     db.any(query, [req.session.user.username])
         .then((bridge) => {
-
-            req.session.save();
-
-            res.render("pages/submit_interview", {
-                bridge, 
-                username: req.session.user.username
-            });
+            res.render("pages/submit_interview", {bridge});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -671,14 +578,7 @@ app.get("/submit_networking", (req, res) => {
 
     db.any(query, [req.session.user.username])
         .then((bridge) => {
-
-            req.session.user.points = req.session.user.points + 2;
-            req.session.save();
-
-            res.render("pages/submit_networking", {
-                bridge, 
-                username: req.session.user.username
-            });
+            res.render("pages/submit_networking", {bridge});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -687,17 +587,11 @@ app.get("/submit_networking", (req, res) => {
 /* GET INTERVIEWS -------------------------------------------------------------------- */
 app.get("/interviews", (req, res) => {
 
-    const query = `SELECT * FROM brother_interviews WHERE username = $1;`;
+    const query = `SELECT * FROM brother_interviews WHERE username = '${req.session.user.username}';`;
 
     db.any(query, [req.session.user.username])
         .then((brothers) => {
-
-            req.session.save();
-
-            res.render("pages/interviews", {
-                brothers, 
-                username: req.session.user.username
-            });
+            res.render("pages/interviews", {brothers});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -732,17 +626,11 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 /* GET BRIDGE -------------------------------------------------------------------- */
 app.get("/networking", (req, res) => {
 
-    const query = `SELECT * FROM networking_groups WHERE username = $1;`;
+    const query = `SELECT * FROM networking_groups WHERE username = '${req.session.user.username}';`;
 
     db.any(query, [req.session.user.username])
         .then((net_groups) => {
-            
-            req.session.save();
-
-            res.render("pages/networking", {
-                net_groups, 
-                username: req.session.user.username
-            });
+            res.render("pages/networking", {net_groups});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -778,9 +666,6 @@ app.get("/ranking", (req, res) => {
 
     db.any(query)
         .then((ranking) => {
-
-            req.session.save();
-
             res.render("pages/ranking", {ranking});
         })
         .catch((error) => {
@@ -976,9 +861,9 @@ app.post("/admin/post_announcement", (req, res) => {
 
     const query = `
     INSERT INTO
-        announcements(time, username, subject, announcement, imgHERE)
+        announcements(time, username, subject, announcement, pfp_img)
     VALUES
-        ($1, '${req.session.user.username}', $2, $3, '${req.session.user.imgHERE}');`;
+        ($1, '${req.session.user.username}', $2, $3, '${req.session.user.pfp_img}');`;
 
     db.none(query, [req.body.time, req.body.subject, req.body.announcement])
         .then((announcement) => {

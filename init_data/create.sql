@@ -39,7 +39,7 @@ CREATE TABLE users(
 	background VARCHAR(50),
 
 	-- LARGE DATA --
-	imgHERE TEXT,						-- profile picture
+	pfp_img TEXT,						-- profile picture
 	h1_img TEXT,
 	h2_img TEXT,
 	h3_img TEXT,
@@ -67,7 +67,7 @@ CREATE TABLE announcements(
 	username VARCHAR(50) NOT NULL,
 	subject VARCHAR(50) NOT NULL,
 	announcement VARCHAR(800) NOT NULL,
-	imgHERE TEXT
+	pfp_img TEXT
 );
 
 CREATE TABLE admin(

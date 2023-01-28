@@ -2,7 +2,7 @@ INSERT INTO users(
     user_id, 
     username, password, name, admin, class, major, committee, net_group,
     preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, 
-    resume, domingos, brother_interviews, points, imgHERE)
+    resume, domingos, brother_interviews, points, pfp_img)
 VALUES(
     50, 
     'Cole Krant', 
@@ -19,7 +19,7 @@ INSERT INTO users(
     user_id, 
     username, password, name, admin, class, major, committee, net_group,
     preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, 
-    resume, domingos, brother_interviews, points, imgHERE)
+    resume, domingos, brother_interviews, points, pfp_img)
 VALUES(
     60, 
     'Katie McDonald', 
@@ -37,7 +37,7 @@ INSERT INTO users(
     user_id, 
     username, password, name, admin, class, major, committee, net_group,
     preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, 
-    resume, domingos, brother_interviews, points, imgHERE)
+    resume, domingos, brother_interviews, points, pfp_img)
 VALUES(
     70, 
     'Emma Kochenderfer', 
@@ -54,7 +54,7 @@ INSERT INTO users(
     user_id, 
     username, password, name, admin, class, major, committee, net_group,
     preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, 
-    resume, domingos, brother_interviews, points, imgHERE)
+    resume, domingos, brother_interviews, points, pfp_img)
 VALUES(
     80, 
     'Nathan Brown', 
@@ -71,7 +71,7 @@ INSERT INTO users(
     user_id, 
     username, password, name, admin, class, major, committee, net_group,
     preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, 
-    resume, domingos, brother_interviews, points, imgHERE)
+    resume, domingos, brother_interviews, points, pfp_img)
 VALUES(
     90, 
     'Harrison Klein', 
