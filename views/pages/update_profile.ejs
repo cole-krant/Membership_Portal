@@ -3,9 +3,16 @@
 
 <main>
   <header>
-
+    <style>
+        .user_bg {
+            background-image: url('<%= profile[0].background %>');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover
+        }
+    </style>
   </header>
-  <body>
+  <body class="user_bg">
 
     <div class="container" style="padding:10px;">
         <div class="card" style="width: 50%;">
@@ -26,7 +33,13 @@
                     <button class="nav-link" id=" bio-tab" data-bs-toggle="tab" data-bs-target="#bio-tab-pane" type="button" role="tab" aria-controls="bio-tab-pane" aria-selected="false">Bio</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="Hobbies" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab" aria-controls="hobbies-tab-pane" aria-selected="false">Hobbies</button>
+                    <button class="nav-link" id="preferences" data-bs-toggle="tab" data-bs-target="#preferences-tab-pane" type="button" role="tab" aria-controls="preferences-tab-pane" aria-selected="false">Preferences</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="hobbies" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab" aria-controls="hobbies-tab-pane" aria-selected="false">Hobbies</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="background" data-bs-toggle="tab" data-bs-target="#background-tab-pane" type="button" role="tab" aria-controls="background-tab-pane" aria-selected="false">Background</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -126,6 +139,12 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <h5 style="color:black; text-align: left;"> Spotify </h5>
+                                            <input class="w3-input w3-border" type="text" name="spotify" placeholder="https://open.spotify.com/user/USERNAME" required></input>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <h5 style="color:black; text-align: left;"> Phone Number </h5>
                                             <input class="w3-input w3-border" type="text" placeholder="512-636-2466" name="phone" required>
                                         </td>
@@ -166,29 +185,30 @@
                 </div>
                 <div class="tab-pane fade" id="hobbies-tab-pane" role="tabpanel" aria-labelledby="hobbies-tab" tabindex="0">
 
+                    <br>
 
                     <div class="card mb-3">
                         <table class="table">
-                            
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/hobby1" method="POST">  
             
                                     <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Name </h5>
+                                        <td style="width:10%">
+                                            <h5 style="color:black; text-align: left;"> Activity 1 </h5>
                                             <input class="w3-input w3-border" type="text" name="hobby1" required></input>
                                         </td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                            <h5 style="color:black; text-align: left;"> Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="h1_img" id="h1_img" required>
+                                            <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td style="width:60%">
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
                                             <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" required></textarea>
+                                        </td>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h1_img" id="h1_img" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -198,6 +218,75 @@
                                 </form>
                             </tbody>
                         </table>
+                    </div>
+
+                    <br>
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <tbody>
+                                <form enctype="multipart/form-data" action="/update_profile/hobby2" method="POST">  
+            
+                                    <tr>
+                                        <td style="width:10%">
+                                            <h5 style="color:black; text-align: left;"> Activity 2 </h5>
+                                            <input class="w3-input w3-border" type="text" name="hobby2" required></input>
+                                        </td>
+                                        <td>
+                                            <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:60%">
+                                            <h5 style="color:black; text-align: left;"> Caption </h5>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" required></textarea>
+                                        </td>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h2_img" id="h2_img" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                    </tr>
+            
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="background-tab-pane" role="tabpanel" aria-labelledby="background-tab" tabindex="0">
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <tbody>
+                                <form action="/update_profile/background" method="POST">  
+            
+                                    <tr>
+                                        <td>
+                                            <h5 style="color:black; text-align: left;"> Update Background </h5>
+                                            <select class="form-select" id="background" name="background">
+                                                <option selected>Choose...</option>
+                                                <option value="../../resources/img/Maroon_Bells.jpg">Maroon Bells</option>
+                                                <option value="../../resources/img/Mountains_4k.jpg">Fall Mountains</option>
+                                                <option value="../../resources/img/Mountains_Fall.jpg">Autumn Mountains</option>
+                                                <option value="../../resources/img/Snowboard_Mountain.jpg">Snowy Mountain View</option>
+                                                <option value="../../resources/img/Night_Bridge_City.jpg">City Scape Night</option>
+                                                <option value="../../resources/img/Yellowstone_Vibes.jpg">Beautiful Countryside</option>
+                                                <option value="../../resources/img/Inspiring_Sunset.jpeg">Inspiring Sunset</option>
+                                                <option value="../../resources/img/River_Bridge.jpg">River Bridge</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                    </tr>
+            
+                                </form>
+                            </tbody>
+                        </table>
+                        <p>File must be still (.JPG), live photos (.HEIC) will not upload. </p>
                     </div>
 
                 </div>

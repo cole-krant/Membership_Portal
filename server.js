@@ -70,7 +70,8 @@ const user = {
     bio:undefined,
     email:undefined,
     linkedin:undefined,
-    PHONE:undefined,
+    spotify:undefined,
+    phone:undefined,
     preliminary_forms:undefined,
     big_brother_mentor:undefined,
     getting_to_know_you:undefined,
@@ -237,7 +238,7 @@ app.get("/profile", (req, res) => {
 
     db.any(query)
         .then((profile) => {
-            //console.log(home);
+            console.log(profile);
             res.render("pages/profile", {
                 profile,
                 name: req.session.user.name,
@@ -247,9 +248,9 @@ app.get("/profile", (req, res) => {
                 committee: req.session.user.committee,
                 net_group: req.session.user.net_group,
                 brother_interviews: req.session.user.brother_interviews,
-                imgHERE: req.session.user.imgHERE,
                 linkedin: req.session.user.linkedin,
-                spotify: req.session.user.spotify
+                spotify: req.session.user.spotify,
+                imgHERE: req.session.user.imgHERE
             });
         })
         .catch((error) => {
@@ -337,7 +338,7 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile/contact", (req, res) => {
 
-    const values = [req.body.email, req.body.linkedin, req.body.phone, req.session.user.user_id];
+    const values = [req.body.email, req.body.linkedin, req.body.spotify, req.body.phone, req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
@@ -346,16 +347,18 @@ app.post("/update_profile/contact", (req, res) => {
     SET
         email = $1,
         linkedin = $2,
-        phone = $3
+        spotify = $3,
+        phone = $4
     WHERE
-        user_id = $4;`;
+        user_id = $5;`;
 
     db.none(query, values)
         .then((update) => {
 
             req.session.user.email = values[0];
             req.session.user.linkedin = values[1];
-            req.session.user.phone = values[2];
+            req.session.user.spotify = values[2];
+            req.session.user.phone = values[3];
             req.session.save();
 
             console.log("\n\nSuccessful Update: \n", req.session.user);
@@ -394,7 +397,7 @@ app.post("/update_profile/bio", (req, res) => {
         })
 
 });
-/* UPDATE PROFILE PICTURE -------------------------------------------------------------------- */
+/* UPDATE HOBBY 1 -------------------------------------------------------------------- */
 app.post("/update_profile/hobby1", upload.single('h1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
     const values = [req.body.hobby1, req.body.h1_img,req.file.buffer.toString('base64'), req.session.user.user_id];
@@ -409,6 +412,62 @@ app.post("/update_profile/hobby1", upload.single('h1_img') ,(req, res) => {   /*
         h1_img = $3
     WHERE
         user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.save();
+
+            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE HOBBY 2 -------------------------------------------------------------------- */
+app.post("/update_profile/hobby2", upload.single('h2_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby2, req.body.h2_img, req.file.buffer.toString('base64'), req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        hobby2 = $1,
+        h2_caption = $2,
+        h2_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.save();
+
+            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE HOBBY 2 -------------------------------------------------------------------- */
+app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.background, req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        background = $1
+    WHERE
+        user_id = $2;`;
 
     db.none(query, values)
         .then((update) => {

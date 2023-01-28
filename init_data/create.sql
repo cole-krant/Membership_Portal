@@ -36,12 +36,13 @@ CREATE TABLE users(
 	h2_caption VARCHAR(20),
 	h3_caption VARCHAR(20),
 
+	background VARCHAR(50),
+
 	-- LARGE DATA --
 	imgHERE TEXT,						-- profile picture
 	h1_img TEXT,
 	h2_img TEXT,
 	h3_img TEXT,
-	background TEXT,
 	resume TEXT
 );
 
