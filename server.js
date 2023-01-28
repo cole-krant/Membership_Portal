@@ -394,6 +394,35 @@ app.post("/update_profile/bio", (req, res) => {
         })
 
 });
+/* UPDATE PROFILE PICTURE -------------------------------------------------------------------- */
+app.post("/update_profile/hobby1", upload.single('h1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby1, req.body.h1_img,req.file.buffer.toString('base64'), req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        hobby1 = $1,
+        h1_caption = $2,
+        h1_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.save();
+
+            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 app.post("/update_profile/basic-admin", (req, res) => {
 
