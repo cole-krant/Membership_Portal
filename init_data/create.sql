@@ -32,9 +32,9 @@ CREATE TABLE users(
 	hobby1 VARCHAR(20),
 	hobby2 VARCHAR(20),
 	hobby3 VARCHAR(20),
-	h1_caption VARCHAR(20),
-	h2_caption VARCHAR(20),
-	h3_caption VARCHAR(20),
+	h1_caption VARCHAR(50),
+	h2_caption VARCHAR(50),
+	h3_caption VARCHAR(50),
 
 	background VARCHAR(50),
 

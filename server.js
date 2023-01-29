@@ -82,7 +82,7 @@ app.get('/login', (req, res) => {               // navigate to the login page
 });
 app.get("/logout", (req, res) => {              // terminate the session
     req.session.destroy();
-    res.render("pages/logout");
+    res.render("pages/login");
 });
 /* POST REGISTER : rediredct to login ---------------------------------------------- */
 /* NEED TO IMPLIMENT CONSTRAINT WHERE USERNAMES ARE THE SAME */
@@ -93,7 +93,7 @@ app.post('/register', async (req, res) => {
     INSERT INTO
         users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, pfp_img, background)
     VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17);`;
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);`;
 
     db.none(query, [req.body.username, hash, req.body.username, 'false', '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, '', '../../resources/img/River_Bridge.jpg'])
         .then((data) => {
@@ -330,7 +330,7 @@ app.post("/update_profile/bio", (req, res) => {
 /* UPDATE HOBBY 1 -------------------------------------------------------------------- */
 app.post("/update_profile/hobby1", upload.single('h1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const values = [req.body.hobby1, req.body.h1_img,req.file.buffer.toString('base64'), req.session.user.user_id];
+    const values = [req.body.hobby1, req.body.h1_caption, req.file.buffer.toString('base64'), req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
@@ -359,7 +359,7 @@ app.post("/update_profile/hobby1", upload.single('h1_img') ,(req, res) => {   /*
 /* UPDATE HOBBY 2 -------------------------------------------------------------------- */
 app.post("/update_profile/hobby2", upload.single('h2_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const values = [req.body.hobby2, req.body.h2_img, req.file.buffer.toString('base64'), req.session.user.user_id];
+    const values = [req.body.hobby2, req.body.h2_caption, req.file.buffer.toString('base64'), req.session.user.user_id];
 
     console.log("USER_ID = " + req.session.user.user_id);
     const query = `
@@ -385,7 +385,36 @@ app.post("/update_profile/hobby2", upload.single('h2_img') ,(req, res) => {   /*
         })
 
 });
-/* UPDATE HOBBY 2 -------------------------------------------------------------------- */
+/* UPDATE HOBBY 1 -------------------------------------------------------------------- */
+app.post("/update_profile/hobby3", upload.single('h3_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby3, req.body.h3_caption, req.file.buffer.toString('base64'), req.session.user.user_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        hobby3 = $1,
+        h3_caption = $2,
+        h3_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => {
+
+            req.session.save();
+
+            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE BACKGROUND -------------------------------------------------------------------- */
 app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
     const values = [req.body.background, req.session.user.user_id];

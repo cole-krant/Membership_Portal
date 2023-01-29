@@ -14,11 +14,65 @@
   </header>
   <body class="user_bg">
 
+    <div class="row">
+
+        <div class="col" style="column-width: 30%;">
+            <div class="card-group" style="padding:10px">
+                <!-- PROFILE CARD -->
+                <div class="card" style="width: 25%;">
+
+                    <img src="<%= profile[0].pfp_img ? 'data:image/png;base64,' + profile[0].pfp_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:45%; align-self: center;" class="w3-circle"></img>
+
+                    <h1 style="color:black; padding: 2px;"> <%= profile[0].username %> 
+                        <a  href="<%= profile[0].spotify ? profile[0].spotify : '' %>" style="color:#1ED760">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686zm.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858zm.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288z"/>
+                        </svg></a>
+
+
+                        <a href="<%= profile[0].linkedin ? profile[0].linkedin : '' %>" style="color:#0077B5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                            </svg></a>
+                    
+                    </h1>
+                        
+                    <div class="card-body">
+
+                        <div class="row">
+                            <h5 style="color:black;"><%= profile[0].major ? profile[0].major : '' %>, <%= profile[0].class ? profile[0].class : 'Class Unkown' %></h5>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <p style="color:black" class="card-text"><%= profile[0].bio ? profile[0].bio : '' %></p>
+                            <br>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- HOBBY 1 CARD  -->
+                <div class="card" style="width: 25%;">
+
+                    <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:45%; align-self: center;" class="w3-circle"></img>
+
+                    <h1 style="color:black; padding: 2px;"> <%= profile[0].hobby1 %> </h1>
+                        
+                    <div class="card-body">
+
+                        <div class="row">
+                            <br>
+                            <p style="color:black" class="card-text"><%= profile[0].h1_caption ? profile[0].bio : '' %></p>
+                            <br>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container" style="padding:10px;">
-        <div class="card" style="width: 50%;">
-            <img src="<%= profile[0].pfp_img ? 'data:image/png;base64,' + profile[0].pfp_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:45%; align-self: center;" class="w3-circle"></img>
-            <h1 style="color:black; padding: 2px;"> <%= profile[0].username %> </h1>
-            <br>
+        <div class="card" style="width: 75%;">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="basic-info" data-bs-toggle="tab" data-bs-target="#basic-tab-pane" type="button" role="tab" aria-controls="basic-tab-pane" aria-selected="true">Basic Info</button>
@@ -52,8 +106,9 @@
                             </thead>
                             
                             <tbody>
+
                                 <form action="/update_profile/basic" method="POST">  
-            
+        
                                     <tr>
                                         <td>
                                             <h5 style="color:black; text-align: left;"> Display Name </h5>
@@ -89,6 +144,7 @@
                                     </tr>
             
                                 </form>
+            
                             </tbody>
                         </table>
                     </div>
@@ -204,7 +260,7 @@
                                     <tr>
                                         <td style="width:60%">
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" required></textarea>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" id="h1_caption" required></textarea>
                                         </td>
                                         <td style="width:50%">
                                             <h5 style="color:black; text-align: left;"> Picture </h5>
@@ -239,11 +295,44 @@
                                     <tr>
                                         <td style="width:60%">
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" required></textarea>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h2_caption" required></textarea>
                                         </td>
                                         <td style="width:50%">
                                             <h5 style="color:black; text-align: left;"> Picture </h5>
                                             <input class="w3-input w3-border" type="file" name="h2_img" id="h2_img" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                    </tr>
+            
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <tbody>
+                                <form enctype="multipart/form-data" action="/update_profile/hobby3" method="POST">  
+            
+                                    <tr>
+                                        <td style="width:10%">
+                                            <h5 style="color:black; text-align: left;"> Activity 3 </h5>
+                                            <input class="w3-input w3-border" type="text" name="hobby2" required></input>
+                                        </td>
+                                        <td>
+                                            <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:60%">
+                                            <h5 style="color:black; text-align: left;"> Caption </h5>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h3_caption" required></textarea>
+                                        </td>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h3_img" id="h3_img" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -286,9 +375,7 @@
                                 </form>
                             </tbody>
                         </table>
-                        <p>File must be still (.JPG), live photos (.HEIC) will not upload. </p>
                     </div>
-
                 </div>
             </div>
         </div>
