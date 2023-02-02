@@ -1,7 +1,7 @@
 <%- include ('../partials/header') %>
 <%- include ('../partials/menu') %>
 
-<main>
+<main class="d-flex align-items-center" style="height: 100vh">
     <header>
         <style>
             .flatiron_bg {
@@ -11,89 +11,70 @@
                 background-size: cover
             }
             .submission_card {
-                text-align: center;
-                /* background-color: rgba(241, 156, 121); */
-                background-color: rgb(11, 0, 77);
-                max-width: 400px;
-                height: fit-content;
-                box-shadow: 10px 10px 3px;
-                font-family: Georgia, serif;
-                color: white;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 50vw;
-                height: 50vh;
+              text-align: center;
+              background-color: #2B4B80;
+              max-width: 400px;
+              height: 400px;
+              box-shadow: 10px 10px 3px;
+              font-family: 'Verdana', sans-serif;
+              color: white;
             }
         </style>
+        <script>
+            const active = [
+
+            ]
+
+        </script>
     </header>
     <body class="flatiron_bg">
+
         <div class="container">
 
-            <div class="col">
+            <form enctype="multipart/form-data" action="/submit_interview/post" method="POST">  
 
 
-                <div class="submission_card">
-                    <div class="container" style="background-color: rgb(11, 0, 77);">
-                        <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
-                        <table class="table">
-                            <thead><th scope="col">Brother Interview Submissions</th></thead>
-                            <tbody>
-                                <form enctype="multipart/form-data" action="/submit_interview/post" method="POST">  
-
-                                    <tr>
-                                        <td>
-                                            <select class="form-select" id="brother" name="brother">
-                                                <option selected>Choose...</option>
-                                                <option value="Cole Krant">Cole Krant</option>
-                                                <option value="Antosh">Antosh</option>
-                                                <option value="Antosh">Antosh</option>
-                                                <option value="Antosh">Antosh</option>
-                                                <option value="Antosh">Antosh</option>
-                                                <option value="Antosh">Antosh</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select class="form-select" id="family" name="family">
-                                                <option selected>Choose...</option>
-                                                <option value="Antosh">Antosh</option>
-                                                <option value="Coleman">Coleman</option>
-                                                <option value="Cooley">Cooley</option>
-                                                <option value="Gates">Gates</option>
-                                                <option value="RK">RK</option>
-                                                <option value="Rizer">Rizer</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input class="form-control" type="file" id="proof" name="proof">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <button
-                                            action="submit"
-                                            class="btn default"
-                                            style="background-color: rgb(4, 125, 153); color: white">
-                                            Submit
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                </form>
-                            </tbody>
-                        </table>
+                <section class="text-center text-lg-start" class="Login">
+                    <div class="row g-0 d-flex align-items-center login-page-container d-flex justify-content-center" style="width: 100%">
+                        <div class="col-lg-8 card-container d-flex justify-content-center">
                         
+                            <div class="card-body py-5 px-md-5 login-card">
+                                <h2> Brother Interview Submission </h2>
+                    
+                                <!-- BROTHER INPUT -->
+                                <select class="form-select" id="brother" name="brother">
+                                    <option selected>Select Brother...</option>
+                                    <option value="Cole Krant">Cole Krant</option>
+                                    <option value="Antosh">Antosh</option>
+                                    <option value="Antosh">Antosh</option>
+                                    <option value="Antosh">Antosh</option>
+                                    <option value="Antosh">Antosh</option>
+                                    <option value="Antosh">Antosh</option>
+                                </select>
+                    
+                                <!-- FAMILY input -->
+                                <select class="form-select" id="family" name="family">
+                                    <option selected>Which Family?</option>
+                                    <option value="Antosh">Antosh</option>
+                                    <option value="Coleman">Coleman</option>
+                                    <option value="Cooley">Cooley</option>
+                                    <option value="Gates">Gates</option>
+                                    <option value="RK">RK</option>
+                                    <option value="Rizer">Rizer</option>
+                                </select>
+
+                                <br>
+                                <h5>Submit Proof</h5>
+                                <input class="form-control" type="file" id="proof" name="proof">
+                    
+                                <button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button>
+                    
+                            </div>
+                        </div>
                     </div>
-    
-                </div>
-            </div>
+                </section>
+            </form>
         </div>
-
-
     </body>
 </main>
 

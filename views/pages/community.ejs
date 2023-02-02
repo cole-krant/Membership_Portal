@@ -23,70 +23,11 @@
     </style>
   </header>
     <body>
-      <!--  MEET THE TEAM CONTAINER  -->
-      <div class="maroon_bells_bg">
-              
-        <div class="w3-container w3-padding-64 w3-center" id="team">
-            <h1> OUR TEAM </h1>
-            <h5 style="color: white;"> Meet the Bridge Education Committee </p>
-    
-            <!--  BRIDGE COMMITEE  -->
-            <div class="w3-row"><br>
-
-              <div class="w3-quarter">
-
-                  <img src="../../resources/pfp/Nathan_Brown.jpg" alt="Boss" style="width:45%" class="w3-circle">
-                  <h3 style="color: white;">Nathan Brown</h3>
-                  <h5 style="color: white;">Committee Coordinator</h5>
-
-              </div>
-              <div class="w3-quarter">
-
-                  <img src="../../resources/pfp/Katie_McDonald.jpg" alt="Boss" style="width:45%" class="w3-circle">
-                  <h3 style="color: white;">Katie McDonald</h3>
-                  <h5 style="color: white;">Pledge Educator</h5>
-
-              </div>
-              
-              <div class="w3-quarter">
-
-                  <img src="../../resources/pfp/Emma_Kochenderfer.jpg" alt="Boss" style="width:45%" class="w3-circle">
-                  <h3 style="color: white;">Emma Kochenderfer</h3>
-                  <h5 style="color: white;">Professional Development Coordinator</h5>
-
-              </div>
-
-              <div class="w3-quarter">
-
-                  <img src="../../resources/pfp/Harrison_Klein.jpg" alt="Boss" style="width:45%" class="w3-circle">
-                  <h3 style="color: white;">Harrison Klein</h3>
-                  <h5 style="color: white;">Networking Director</h5>
-
-              </div>
-
-            </div>
-
-            <div class="row">
-              <div class="w3-quarter">
-
-                  <img src="../../resources/pfp/Cole_Krant.jpg" alt="Boss" style="width:15%" class="w3-circle">
-                  <h3>Cole Krant</h3>
-                  <h5>VP of Membership</h5>
-                  <h7>Website Creator</h7>
-                  
-              </div>
-          </div>
-
-        </div>
-    </div>
-
-    <div class="row"><p class="hidden"> DIVIDER  </p></div>
 
     <!-- MyBrotherhood -->
-    <div class="yellowstone_bg">
       <div class="w3-container w3-padding-64 w3-center">
-        <h1>MyBrotherhood</h1>
-        <h3>Alpha Kappa Psi</h3>
+        <h1 style="color:black">MyBrotherhood</h1>
+        <h3 style="color:black">Alpha Kappa Psi</h3>
         <%
           var count_col = 0;      // variable to limit 4 cards per row
           var start = 0;          // variable to limit 4 cards per row
@@ -97,15 +38,18 @@
           pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
     
           community.forEach(community => {
-            if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
+            // if(community.username != 'Cole Krant' && community.username != 'Katie McDonald' && community.username != 'Emma Kochenderfer' && community.username != 'Nathan Brown' && community.username != 'Harrison Klein') {
               if(count_col === start) {
 
                 count_col = count_col + 1;
-                image = "data:image/png;base64," + community.pfp_img;
-                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
+                image = community.pfp_img ? "data:image/png;base64," + community.pfp_img : '../../resources/pfp/Default_Avatar.jpg';
+                pseudo = pseudo + '<div class="w3-quarter">';
+                  pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px;">';
+                    pseudo = pseudo + '<div class="col">';
+                      pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                      pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                    pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
 
                 index++;
@@ -114,11 +58,15 @@
               else if(count_col < count_cmp) {
 
                 count_col = count_col + 1;                                  // incriment count
-                image = "data:image/png;base64," + community.pfp_img;
+                image = community.pfp_img ? "data:image/png;base64," + community.pfp_img : '../../resources/pfp/Default_Avatar.jpg';
                 pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
-                pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
+                  pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px">';
+                    pseudo = pseudo + '<div class="col">';
+                      pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                      pseudo = pseudo + '<h3 style="color:black">' + community.name + '</h3>';
+                      pseudo = pseudo + '<button class="btn btn-light" action="/profile"></button>';
+                    pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
 
                 index++;
@@ -126,24 +74,27 @@
               }
               else if(count_col === count_cmp) {
 
-                image = "data:image/png;base64," + community.pfp_img;
+                image = community.pfp_img ? "data:image/png;base64," + community.pfp_img : '../../resources/pfp/Default_Avatar.jpg';
                 pseudo = pseudo + '</div>';         // close the card
                 pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
-                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + community.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + community.major + '</p>';
-                pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
+                    pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px">';
+                      pseudo = pseudo + '<div class="col">';
+                        pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                        pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                      pseudo = pseudo + '</div>';
+                    pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 start = count_col;                  // indicate new row
                 count_cmp = count_cmp + 4;          // set new ceiling
 
               }
             }
-          }) 
+          //}
+          ) 
         %>
         <%- pseudo %>
       </div>
-    </div>
   </body>
 </main>
 

@@ -11,10 +11,12 @@ CREATE TABLE users(
 	committee VARCHAR(50),				-- chapter committee
 	net_group VARCHAR(50),				-- weekly networking group
 	
+	-- Contact Info --
 	bio VARCHAR(120),
-	email VARCHAR(50),
+	school_email VARCHAR(50),
+	personal_email VARCHAR(50),
+	professional_email VARCHAR(50),
 	linkedin VARCHAR(50),
-	spotify VARCHAR(50),
 	phone VARCHAR(20),
 
 	-- Assignments --
@@ -29,20 +31,32 @@ CREATE TABLE users(
 	points INT NOT NULL,
 
 	-- Hobbies --
-	hobby1 VARCHAR(20),
-	hobby2 VARCHAR(20),
-	hobby3 VARCHAR(20),
-	h1_caption VARCHAR(50),
-	h2_caption VARCHAR(50),
-	h3_caption VARCHAR(50),
+	hobby1 VARCHAR(40),
+	hobby2 VARCHAR(40),
+	hobby3 VARCHAR(40),
+	h1_caption VARCHAR(400),
+	h2_caption VARCHAR(400),
+	h3_caption VARCHAR(400),
 
+	-- Profile Page Background --
 	background VARCHAR(50),
+
+	-- Preferences Aligned Data--
+	likes VARCHAR(100),
+	dislikes VARCHAR(100),
+	quote VARCHAR(100),
+	aspirations VARCHAR(400),
+
+	-- Favorite Brother Interview --
+	fav_interview_brother VARCHAR(50),
+	fav_interview_caption VARCHAR(400),
 
 	-- LARGE DATA --
 	pfp_img TEXT,						-- profile picture
 	h1_img TEXT,
 	h2_img TEXT,
 	h3_img TEXT,
+	fav_interview_img TEXT,
 	resume TEXT
 );
 
