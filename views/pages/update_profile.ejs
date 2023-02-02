@@ -52,18 +52,20 @@
                             </thead>
                             
                             <tbody>
-
-                                <form action="/update_profile/basic" method="POST">  
-        
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Display Name </h5>
-                                            <input class="w3-input w3-border" type="text" name="name" required></input>
+                                <tr>
+                                    <form action="/update_profile/name" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Name </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="name" placeholder="Enter your preferred name or nickname" required></input>
                                         </td>
-                                    </tr>
-                                    <tr>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Name</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/class" method="POST">
+                                        
+                                        <td><h5 style="color:black; text-align: center;"> Class </h5></td>
                                         <td>
-                                            <h5 style="color:black; text-align: left;"> Class </h5>
                                             <select class="form-select" id="class" name="class">
                                                 <option selected>Choose...</option>
                                                 <option value="Freshman">Freshman</option>
@@ -72,26 +74,24 @@
                                                 <option value="Senior">Senior</option>
                                             </select>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Major </h5>
-                                            <input class="w3-input w3-border" type="text" placeholder="If Business, include emphasis" name="major" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Committee </h5>
-                                            <input class="w3-input w3-border" type="text" placeholder="Once assigned, state committee. Otherwise list 'N/A'" name="committee" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-            
-                                </form>
-            
-                            </tbody>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Class</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/major" method="POST">
+                                        <td><h5 style="color:black; text-align: center;"> Major </h5></td>
+                                        <td><input class="w3-input w3-border" type="text" placeholder="If Business, include emphasis" name="major" required></td>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Major</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/committee" method="POST">
+                                        <td><h5 style="color:black; text-align: center;"> Committee </h5></td>
+                                        <td><input class="w3-input w3-border" type="text" placeholder="Unless serving on a committee, leave blank" name="committee" required></td>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Committee</button></td>
+                                    </form>
+                                </tr>
+                             </tbody>
                         </table>
                     </div>
 
@@ -104,13 +104,9 @@
                                 <form enctype="multipart/form-data" action="/update_profile/picture" method="POST">  
             
                                     <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Profile Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="profile_img" id="profile_img" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                        <td><h5 style="color:black; text-align: left;"> Profile Picture </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="profile_img" id="profile_img" required></td>
+                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Changes</button></td>
                                     </tr>
             
                                 </form>
