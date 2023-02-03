@@ -46,8 +46,12 @@
                 pseudo = pseudo + '<div class="w3-quarter">';
                   pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px;">';
                     pseudo = pseudo + '<div class="col">';
-                      pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                      pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                      pseudo = pseudo + '<form action="/community/view_id" method="POST">';
+                          pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                          pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                          pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
+                          pseudo = pseudo + '<button class="btn btn-light" action="/profile"></button>';
+                        pseudo = pseudo + '</form>';
                     pseudo = pseudo + '</div>';
                   pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
@@ -62,9 +66,12 @@
                 pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
                   pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px">';
                     pseudo = pseudo + '<div class="col">';
-                      pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                      pseudo = pseudo + '<h3 style="color:black">' + community.name + '</h3>';
-                      pseudo = pseudo + '<button class="btn btn-light" action="/profile"></button>';
+                      pseudo = pseudo + '<form action="/community/view_id" method="POST">';
+                          pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                          pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                          pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
+                          pseudo = pseudo + '<button class="btn btn-light" action="/profile"></button>';
+                        pseudo = pseudo + '</form>';
                     pseudo = pseudo + '</div>';
                   pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
@@ -80,8 +87,12 @@
                   pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
                     pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px">';
                       pseudo = pseudo + '<div class="col">';
-                        pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
-                        pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                        pseudo = pseudo + '<form action="/community/view_id" method="POST">';
+                          pseudo = pseudo + '<img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="60%" alt="Profile Picture">';
+                          pseudo = pseudo + '<h3>' + community.name + '</h3>';
+                          pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
+                          pseudo = pseudo + '<button class="btn btn-light" action="/profile"></button>';
+                        pseudo = pseudo + '</form>';
                       pseudo = pseudo + '</div>';
                     pseudo = pseudo + '</div>';
                   pseudo = pseudo + '</div>';

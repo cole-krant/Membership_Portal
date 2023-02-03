@@ -19,6 +19,13 @@ CREATE TABLE users(
 	linkedin VARCHAR(50),
 	phone VARCHAR(20),
 
+	-- Status --
+	brother BOOLEAN,
+	pledge BOOLEAN,
+
+	-- Community --
+	view_id INT,
+
 	-- Assignments --
 	preliminary_forms BOOLEAN,
 	big_brother_mentor BOOLEAN,

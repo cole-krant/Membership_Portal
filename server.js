@@ -186,7 +186,7 @@ app.get("/home", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/profile", (req, res) => {
 
-    const user_id = req.session.user.user_id;
+    const user_id = res.user_id ? res.user_id : req.session.user.user_id;
     console.log("HOME USER_ID: " + user_id);
     const query = `SELECT * FROM users WHERE user_id = ${user_id}`;
 
@@ -212,6 +212,18 @@ app.get("/update_profile", (req, res) => {
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
+});
+/* VIEW PROFILE --------------------------------------------*/
+app.post("/community/view_id", (req, res) => {
+
+    const view_id = req.body.view_id;
+    const query = `UPDATE users SET view_id = ${view_id} WHERE user_id = ${req.session.user.user_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CLASS): \n", req.session.user.username, " TO ", req.body.class);
+            res.redirect("/profile", {user_id: view_id});
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
 /* UPDATE PROFILE -------------------------------------------------------------------- */
 // app.post("/update_profile/basic", (req, res) => {
