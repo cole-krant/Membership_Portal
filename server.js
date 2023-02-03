@@ -62,7 +62,8 @@ const user = {
     username:undefined,
     brother_interviews:undefined,
     points:undefined,
-    pfp_img:undefined
+    pfp_img:undefined,
+    view_id:undefined
 }
 
 /* ADMIN */
@@ -186,8 +187,13 @@ app.get("/home", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/profile", (req, res) => {
 
-    const user_id = res.user_id ? res.user_id : req.session.user.user_id;
-    console.log("HOME USER_ID: " + user_id);
+    const user_id = req.session.user.view_id ? req.session.user.view_id : req.session.user.user_id;
+
+    if(req.session.user.view_id) {
+        req.session.user.view_id = undefined;
+    }
+
+    console.log("PROFILE PAGE USER_ID: " + user_id);
     const query = `SELECT * FROM users WHERE user_id = ${user_id}`;
 
     db.any(query)
@@ -216,12 +222,15 @@ app.get("/update_profile", (req, res) => {
 /* VIEW PROFILE --------------------------------------------*/
 app.post("/community/view_id", (req, res) => {
 
-    const view_id = req.body.view_id;
+    const view_id = parseInt(req.body.view_id);
     const query = `UPDATE users SET view_id = ${view_id} WHERE user_id = ${req.session.user.user_id};`;
     db.none(query)
-        .then((update) => { req.session.save();
-            console.log("\n\nSuccessful Update (CLASS): \n", req.session.user.username, " TO ", req.body.class);
-            res.redirect("/profile", {user_id: view_id});
+        .then((update) => { 
+            req.session.user.view_id = view_id; 
+            req.session.save();
+
+            console.log("\n\nSuccessful Update (VIEW ID): \n", req.session.user.username, " TO ", view_id);
+            res.redirect("/profile");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
