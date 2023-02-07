@@ -41,6 +41,12 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="interview" data-bs-toggle="tab" data-bs-target="#interview-tab-pane" type="button" role="tab" aria-controls="interview-tab-pane" aria-selected="false">Favorite Interview</button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="career" data-bs-toggle="tab" data-bs-target="#career-tab-pane" type="button" role="tab" aria-controls="career-tab-pane" aria-selected="false">Career</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="true">Gallery</button>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <!-- BASIC INFO SELECTION -->
@@ -91,7 +97,7 @@
                                         <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Committee</button></td>
                                     </form>
                                 </tr>
-                             </tbody>
+                            </tbody>
                         </table>
                     </div>
 
@@ -314,6 +320,7 @@
                                                 <option value="../../resources/img/Yellowstone_Vibes.jpg">Beautiful Countryside</option>
                                                 <option value="../../resources/img/Inspiring_Sunset.jpeg">Inspiring Sunset</option>
                                                 <option value="../../resources/img/River_Bridge.jpg">River Bridge</option>
+                                                <option value="../../resources/img/Leeds_Koebel.jpg">Leeds School of Business</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -394,6 +401,99 @@
             
                                 </form>
                             </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="career-tab-pane" role="tabpanel" aria-labelledby="career-tab" tabindex="0">
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <form action="/update_profile/career_position" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Position </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="career_position" placeholder="What is your official title?" required></input>
+                                        </td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Position</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/career_organization" method="POST">
+                                        
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Organization </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="career_organization" placeholder="Enter the organization you work with" required></input>
+                                        </td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Organization</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/experience" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Experience </h5></td>
+                                        <td><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a summary of what you learned while you worked there." name="experience" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/resume" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Resume </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="resume" id="resume" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
+                                    </form>
+                                </tr>
+                             </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g1_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 1 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g1_img" id="g1_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g2_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 2 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g2_img" id="g2_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g3_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 3 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g3_img" id="g3_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g4_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 4 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g4_img" id="g4_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g5_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 5 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g5_img" id="g5_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form enctype="multipart/form-data" action="/update_profile/g6_img" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 6 </h5></td>
+                                        <td><input class="w3-input w3-border" type="file" name="g6_img" id="g6_img" required></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                    </form>
+                                </tr>
+                             </tbody>
                         </table>
                     </div>
                 </div>

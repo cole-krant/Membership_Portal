@@ -45,6 +45,12 @@ CREATE TABLE users(
 	h2_caption VARCHAR(400),
 	h3_caption VARCHAR(400),
 
+	-- Career --
+	career_position VARCHAR(40),
+	career_organization VARCHAR(40),
+	experience VARCHAR(400),
+	aspirations VARCHAR(400),
+
 	-- Profile Page Background --
 	background VARCHAR(50),
 
@@ -52,7 +58,6 @@ CREATE TABLE users(
 	likes VARCHAR(100),
 	dislikes VARCHAR(100),
 	quote VARCHAR(100),
-	aspirations VARCHAR(400),
 
 	-- Favorite Brother Interview --
 	fav_interview_brother VARCHAR(50),
@@ -63,6 +68,15 @@ CREATE TABLE users(
 	h1_img TEXT,
 	h2_img TEXT,
 	h3_img TEXT,
+
+	-- GALLERY --
+	g1_img TEXT,
+	g2_img TEXT,
+	g3_img TEXT,
+	g4_img TEXT,
+	g5_img TEXT,
+	g6_img TEXT,
+
 	fav_interview_img TEXT,
 	resume TEXT
 );
