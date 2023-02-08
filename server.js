@@ -455,7 +455,7 @@ app.post("/update_profile/phone", (req, res) => {
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
 /* -----------------------------------------------------------------------------------  */
-/*                                  BIO                                             */
+/*                                  BIO                                                 */
 /* -----------------------------------------------------------------------------------  */
 app.post("/update_profile/bio", (req, res) => {
     const query = `UPDATE users SET bio = '${req.body.bio}' WHERE user_id = ${req.session.user.user_id};`;
@@ -547,30 +547,14 @@ app.post("/update_profile/hobby3", upload.single('h3_img') ,(req, res) => {   /*
 });
 /* UPDATE BACKGROUND -------------------------------------------------------------------- */
 app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
-
-    const values = [req.body.background, req.session.user.user_id];
-
-    console.log("USER_ID = " + req.session.user.user_id);
-    const query = `
-    UPDATE
-        users
-    SET
-        background = $1
-    WHERE
-        user_id = $2;`;
-
-    db.none(query, values)
-        .then((update) => {
-
-            req.session.save();
-
-            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
-            res.redirect("/update_profile");
+    const query = `UPDATE users SET background = '${req.body.background}' WHERE user_id = ${req.session.user.user_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (BACKGROUND): \n", req.body.background);
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
-
 });
 /* -----------------------------------------------------------------------------------  */
 /*                                  PREFERENCES                                         */
@@ -720,7 +704,7 @@ app.post("/update_profile/resume", upload.single('resume'), (req, res) => {
 /* UPDATE GALLERY IMAGE 1 ---------------- */
 app.post("/update_profile/g1_img", upload.single('g1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const query = `UPDATE users SET h2_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.user.user_id};`;
+    const query = `UPDATE users SET g1_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.user.user_id};`;
     db.none(query)
         .then((update) => {req.session.save();
             console.log("\n\nSuccessful Update: (G1)\n");
