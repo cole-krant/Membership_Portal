@@ -2,149 +2,576 @@
 <%- include ('../../partials/menu') %>
 
 
-<!-- <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input> -->
 
 <main>
-  <header>
-
-  </header>
-  <body>
-
-    <div class="container" style="padding:10px;">
-        <div class="card">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="basic-info" data-bs-toggle="tab" data-bs-target="#basic-tab-pane" type="button" role="tab" aria-controls="basic-tab-pane" aria-selected="true">Basic Info</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-
-                <!-- BASIC INFO SELECTION -->
-                <div class="tab-pane fade show active" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-info" tabindex="0">
-
-                    <div class="card mb-3">
-                        <table class="table">
-                            <thead><th scope="col">Personal Info for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
-                            <tbody>
-                                <form action="/update_profile/basic-admin" method="POST">  
-            
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="name"><b>Display Name</b></label>
-                                            <input class="w3-input w3-border" type="text" name="name" required></input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="class"><b>Class</b></label>
-                                            <input class="w3-input w3-border" type="text" placeholder="Freshman, Sophomore, Junior or Senior" name="class" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="major"><b>Major</b></label>
-                                            <input class="w3-input w3-border" type="text" placeholder="If Business, include emphasis" name="major" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="committee"><b>Committee</b></label>
-                                            <input class="w3-input w3-border" type="text" placeholder="Once assigned, state committee. Otherwise list 'N/A'" name="committee" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
-
-            
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
-                    <div class="card mb-3">
-                        <!-- BROTHER ITNERVIEW SUBMISSION TABLE -->
-                        <table class="table">
-                            <thead><th scope="col">Profile Picture for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
-                            <tbody>
-                                <form enctype="multipart/form-data" action="/update_profile/picture-admin" method="POST">  
-            
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="profile_img"><b>Profile Picture</b></label>
-                                            <input class="w3-input w3-border" type="file" name="profile_img" id="profile_img" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
-
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-
-                    <div class="card mb-3">
-                        <table class="table">
-                            <thead><th scope="col">Contact Information for<h1 style="color:black"> <%= admin[0].name %> </h1></th></thead>
-                            
-                            <tbody>
-                                <form action="/update_profile/contact-admin" method="POST">  
-            
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="email"><b>Email</b></label>
-                                            <input class="w3-input w3-border" type="text" name="email" placeholder="abcd5678@colorado.edu" required></input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="linkedin"><b>LinkedIn</b></label>
-                                            <input class="w3-input w3-border" type="text" name="linkedin" placeholder="https://www.linkedin.com/in/FIRST-LAST/" required></input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label style="text-align:left" for="phone"><b>Phone</b></label>
-                                            <input class="w3-input w3-border" type="text" placeholder="512-636-2466" name="phone" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-                                    <input type="hidden" value="<%= admin[0].user_id %>" name="edit_id" id="edit_id"></input>
-            
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
-            </div>
-        </div>
-    </div>
-
-  </body>
-</main>
-
+    <header>
+      <style>
+          .user_bg {
+              background-image: url('<%= profile[0].background %>');
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover
+          }
+      </style>
+    </header>
+    <body class="user_bg">
+  
+      <div class="container" style="padding:10px;">
+          <div class="card" style="width: 75%;">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="basic-info" data-bs-toggle="tab" data-bs-target="#basic-tab-pane" type="button" role="tab" aria-controls="basic-tab-pane" aria-selected="true">Basic Info</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id=" bio-tab" data-bs-toggle="tab" data-bs-target="#bio-tab-pane" type="button" role="tab" aria-controls="bio-tab-pane" aria-selected="false">Bio</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="preferences" data-bs-toggle="tab" data-bs-target="#preferences-tab-pane" type="button" role="tab" aria-controls="preferences-tab-pane" aria-selected="false">Preferences</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="hobbies" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab" aria-controls="hobbies-tab-pane" aria-selected="false">Hobbies</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="background" data-bs-toggle="tab" data-bs-target="#background-tab-pane" type="button" role="tab" aria-controls="background-tab-pane" aria-selected="false">Background</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="interview" data-bs-toggle="tab" data-bs-target="#interview-tab-pane" type="button" role="tab" aria-controls="interview-tab-pane" aria-selected="false">Favorite Interview</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="career" data-bs-toggle="tab" data-bs-target="#career-tab-pane" type="button" role="tab" aria-controls="career-tab-pane" aria-selected="false">Career</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="true">Gallery</button>
+                  </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                  <!-- BASIC INFO SELECTION -->
+                  <div class="tab-pane fade show active" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-info" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Basic Information</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <br>
+                              </thead>
+                              
+                              <tbody>
+                                  <tr>
+                                      <form action="/update_profile/name-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Name </h5></td>
+                                          <td style="max-width:100%">
+                                              <input class="w3-input w3-border" type="text" name="name" placeholder="Enter your preferred name or nickname" required></input>
+                                          </td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Name</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/class-admin" method="POST">
+                                          
+                                          <td><h5 style="color:black; text-align: center;"> Class </h5></td>
+                                          <td>
+                                              <select class="form-select" id="class" name="class">
+                                                  <option selected>Choose...</option>
+                                                  <option value="Freshman">Freshman</option>
+                                                  <option value="Sophomore">Sophomore</option>
+                                                  <option value="Junior">Junior</option>
+                                                  <option value="Senior">Senior</option>
+                                              </select>
+                                          </td>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Class</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/major-admin" method="POST">
+                                          <td><h5 style="color:black; text-align: center;"> Major </h5></td>
+                                          <td><input class="w3-input w3-border" type="text" placeholder="If Business, include emphasis" name="major" required></td>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Major</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/committee-admin" method="POST">
+                                          <td><h5 style="color:black; text-align: center;"> Committee </h5></td>
+                                          <td><input class="w3-input w3-border" type="text" placeholder="Unless serving on a committee, leave blank" name="committee" required></td>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Committee</button></td>
+                                      </form>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+  
+                  </div>
+                  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Profile Picture</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>File must be still (.JPG), live photos (.HEIC) will not upload. </p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <form enctype="multipart/form-data" action="/update_profile/picture-admin" method="POST">  
+              
+                                      <tr>
+                                          <td><h5 style="color:black; text-align: left;"> Profile Picture </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="profile_img" id="profile_img" required></td>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Changes</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+  
+                  </div>
+                  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                      
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Contact</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>ALL forms of contact are OPTIONAL, EXCEPT your phone number!</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <form action="/update_profile/school_email-admin" method="POST">
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> CU Email </h5></td>
+                                          <td style="max-width:100%">
+                                              <input class="w3-input w3-border" type="text" name="school_email" placeholder="identikey@colorado.edu" required></input>
+                                          </td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/personal_email-admin" method="POST">
+                                          
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Personal Email</h5></td>
+                                          <td style="max-width:100%">
+                                              <input class="w3-input w3-border" type="text" name="personal_email" placeholder="If you have one, enter your personal email." required></input>
+                                          </td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/professional_email-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Professional Email</h5></td>
+                                          <td><input class="form-control input-lg"type="text" placeholder="If you have one, enter your professional email." name="professional_email" required></input></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/linkedin-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Linkedin </h5></td>
+                                          <td><input class="form-control input-lg"type="text" placeholder="https://www.linkedin.com/in/username/" name="linkedin" required></input></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Linkedin</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/phone-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Phone Number </h5></td>
+                                          <td><input class="form-control input-lg" type="text" placeholder="(512) 636-2466" name="phone" required></input></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Number</button></td>
+                                      </form>
+                                  </tr>
+  
+                              </tbody>
+                          </table>
+                      </div>
+  
+                  </div>
+                  <div class="tab-pane fade" id="bio-tab-pane" role="tabpanel" aria-labelledby="bio-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Bio</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>Write a short description about yourself</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <form action="/update_profile/bio-admin" method="POST"> 
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> Bio </h5></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Bio</button></td>
+                                      </form>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+  
+  
+                  </div>
+                  <div class="tab-pane fade" id="hobbies-tab-pane" role="tabpanel" aria-labelledby="hobbies-tab" tabindex="0">
+  
+                      <br>
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Hobbies</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>Use this to show everyone what you do for fun. How do you find joy? </p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <form enctype="multipart/form-data" action="/update_profile/hobby1-admin" method="POST">  
+              
+                                      <tr>
+                                          <td style="width:10%">
+                                              <h5 style="color:black; text-align: left;"> Activity 1 </h5>
+                                              <input class="w3-input w3-border" type="text" name="hobby1" required></input>
+                                          </td>
+                                          <td style="width:50%">
+                                              <h5 style="color:black; text-align: left;"> Picture </h5>
+                                              <input class="w3-input w3-border" type="file" name="h1_img" id="h1_img" required>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="width:60%">
+                                              <h5 style="color:black; text-align: left;"> Caption </h5>
+                                              <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" id="h1_caption" required></textarea>
+                                          </td>
+                                          <td>
+                                              <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+  
+                      <br>
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                                <tbody>
+                                  <form enctype="multipart/form-data" action="/update_profile/hobby2-admin" method="POST">  
+              
+                                      <tr>
+                                          <td style="width:10%">
+                                              <h5 style="color:black; text-align: left;"> Activity 2 </h5>
+                                              <input class="w3-input w3-border" type="text" name="hobby2" required></input>
+                                          </td>
+                                          <td style="width:50%">
+                                              <h5 style="color:black; text-align: left;"> Picture </h5>
+                                              <input class="w3-input w3-border" type="file" name="h2_img" id="h2_img" required>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="width:60%">
+                                              <h5 style="color:black; text-align: left;"> Caption </h5>
+                                              <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h2_caption" required></textarea>
+                                          </td>
+                                          <td>
+                                              <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <tbody>
+                                  <form enctype="multipart/form-data" action="/update_profile/hobby3-admin" method="POST">  
+              
+                                      <tr>
+                                          <td style="width:10%">
+                                              <h5 style="color:black; text-align: left;"> Activity 3 </h5>
+                                              <input class="w3-input w3-border" type="text" name="hobby2" required></input>
+                                          </td>
+                                          <td style="width:50%">
+                                              <h5 style="color:black; text-align: left;"> Picture </h5>
+                                              <input class="w3-input w3-border" type="file" name="h3_img" id="h3_img" required>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="width:60%">
+                                              <h5 style="color:black; text-align: left;"> Caption </h5>
+                                              <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h3_caption" required></textarea>
+                                          </td>
+                                          <td>
+                                              <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+  
+                  </div>
+                  <div class="tab-pane fade" id="background-tab-pane" role="tabpanel" aria-labelledby="background-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Preferences</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>Choose your background from a handful of preselected wallpapers.</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <form action="/update_profile/background-admin" method="POST">  
+              
+                                      <tr>
+                                          <td>
+                                              <h5 style="color:black; text-align: left;"> Update Background </h5>
+                                              <select class="form-select" id="background" name="background">
+                                                  <option selected>Choose...</option>
+                                                  <option value="../../resources/img/Maroon_Bells.jpg">Maroon Bells</option>
+                                                  <option value="../../resources/img/Mountains_4k.jpg">Fall Mountains</option>
+                                                  <option value="../../resources/img/Mountains_Fall.jpg">Autumn Mountains</option>
+                                                  <option value="../../resources/img/Snowboard_Mountain.jpg">Snowy Mountain View</option>
+                                                  <option value="../../resources/img/Night_Bridge_City.jpg">City Scape Night</option>
+                                                  <option value="../../resources/img/Yellowstone_Vibes.jpg">Beautiful Countryside</option>
+                                                  <option value="../../resources/img/Inspiring_Sunset.jpeg">Inspiring Sunset</option>
+                                                  <option value="../../resources/img/River_Bridge.jpg">River Bridge</option>
+                                                  <option value="../../resources/img/Leeds_Koebel.jpg">Leeds School of Business</option>
+                                              </select>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="preferences-tab-pane" role="tabpanel" aria-labelledby="preferences-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Preferences</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>This is your chance to show us your character. What sort of things do you like and dislike? Give a favorite or personal quote</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+              
+                                  <tr>
+                                      <form action="/update_profile/likes-admin" method="POST"> 
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> Likes </h5></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you like.. 'Hiking, Coding, Philosophy etc'" name="likes" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Likes</button></td>
+                                      </form>
+                                  </tr>
+                              
+                                  <tr>
+                                      <form action="/update_profile/dislikes-admin" method="POST">
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> Dislikes </h5></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you don't like.. 'Apples, Onions, Ducks etc'" name="dislikes" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Dislikes</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/quote-admin" method="POST">
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> Quote </h5></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Your favorite quote" name="quote" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Quote</button></td>
+                                      </form>
+                                  </tr>
+              
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="interview-tab-pane" role="tabpanel" aria-labelledby="interview-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Most Memorable Brother Interview</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p style="color:red">File must be still (.JPG or .PNG), live photos (.HEIC) will not upload. </p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <form enctype="multipart/form-data" action="/update_profile/fav_interview-admin" method="POST">  
+              
+                                      <tr>
+                                          <td style="width:10%">
+                                              <h5 style="color:black; text-align: left;"> Brother </h5>
+                                              <input class="w3-input w3-border" type="text" name="fav_interview_brother" required></input>
+                                          </td>
+                                          <td style="width:50%">
+                                              <h5 style="color:black; text-align: left;"> Picture </h5>
+                                              <input class="w3-input w3-border" type="file" name="fav_interview_img" id="fav_interview_img" required>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td style="width:60%">
+                                              <h5 style="color:black; text-align: left;"> Caption </h5>
+                                              <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="fav_interview_caption" required></textarea>
+                                          </td>
+                                          <td>
+                                              <img src="<%= profile[0].fav_interview_img ? 'data:image/png;base64,' + profile[0].fav_interview_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
+                                      </tr>
+              
+                                  </form>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="career-tab-pane" role="tabpanel" aria-labelledby="career-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Career</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p style="color:red">In order to upload your resume, you must take a screenshot. PDFs will NOT upload. I apologize for the inconvenience.</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <form action="/update_profile/career_position-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Position </h5></td>
+                                          <td style="max-width:100%">
+                                              <input class="w3-input w3-border" type="text" name="career_position" placeholder="What is your official title?" required></input>
+                                          </td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Position</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/career_organization-admin" method="POST">
+                                          
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Organization </h5></td>
+                                          <td style="max-width:100%">
+                                              <input class="w3-input w3-border" type="text" name="career_organization" placeholder="Enter the organization you work with" required></input>
+                                          </td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Organization</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/experience-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Experience </h5></td>
+                                          <td><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a summary of what you learned while you worked there." name="experience" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/resume-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Resume </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="resume" id="resume" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form action="/update_profile/aspirations-admin" method="POST">
+                                          <td style="width:20%"><h5 style="color:black; text-align: center;"> Aspirations </h5></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="What do you aspire to do?" name="aspirations" required></textarea></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Aspirations</button></td>
+                                      </form>
+                                  </tr>
+                               </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="gallery-tab-pane" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
+  
+                      <div class="card mb-3">
+                          <table class="table">
+                              <thead>
+                                  <br>
+                                  <h3 style="color:black">Gallery</h3>
+                                  <p>Editing User: <%= profile[0].name  %></p>
+                                  <p>You are allowed UP TO 6 photos. It is not mandatory that you fill all of them. This will display as a gallery on your profile page.</p>
+                                  <br>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g1_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 1 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g1_img" id="g1_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g2_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 2 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g2_img" id="g2_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g3_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 3 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g3_img" id="g3_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g4_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 4 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g4_img" id="g4_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g5_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 5 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g5_img" id="g5_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                                  <tr>
+                                      <form enctype="multipart/form-data" action="/update_profile/g6_img-admin" method="POST">
+                                          <td style="width:15%"><h5 style="color:black; text-align: center;"> Image 6 </h5></td>
+                                          <td><input class="w3-input w3-border" type="file" name="g6_img" id="g6_img" required></td>
+                                          <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Upload</button></td>
+                                      </form>
+                                  </tr>
+                               </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+    </body>
+  </main>
 
 
 <%- include ('../../partials/footer') %>

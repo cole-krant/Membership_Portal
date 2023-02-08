@@ -792,6 +792,37 @@ app.post("/update_profile/g6_img", upload.single('g6_img') ,(req, res) => {   /*
 /* -----------------------------------------------------------------------------------  */
 
 
+/**
+ * Edit User:
+ * Stores edit_id in the database
+ *  Redirects to management page: edit specific user
+ */
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/edit_user", (req, res) => {
+    const query = `SELECT * FROM users WHERE user_id = '${req.session.admin.edit_id}';`;
+    db.any(query)
+        .then((profile) => { req.session.save();
+            res.render("pages/admin/edit_user", {profile});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/edit_user/post", (req, res) => {
+    const query = `INSERT INTO admin(edit_id) VALUES ('${req.body.user_id}');`;
+    db.any(query)
+        .then((rows) => {
+            req.session.admin.edit_id = req.body.user_id;
+            req.session.save();
+
+            res.redirect("/admin/edit_user");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+
 
 
 
@@ -805,7 +836,6 @@ app.post("/update_profile/name-admin", (req, res) => {
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (NAME): \n", req.session.admin.edit_id, " TO ", req.body.name);
-            // res.redirect("/update_profile");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -818,7 +848,6 @@ app.post("/update_profile/class-admin", (req, res) => {
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (CLASS): \n", req.session.admin.edit_id, " TO ", req.body.class);
-            res.redirect("/update_profile");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -831,7 +860,6 @@ app.post("/update_profile/major-admin", (req, res) => {
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (MAJOR): \n", req.session.admin.edit_id, " TO ", req.body.major);
-            res.redirect("/update_profile");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -843,7 +871,6 @@ app.post("/update_profile/committee-admin", (req, res) => {
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (COMMITTEE): \n", req.session.admin.edit_id, " TO ", req.body.committee);
-            res.redirect("/update_profile");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -1695,11 +1722,8 @@ app.get("/admin/edit_user", (req, res) => {
     const query = `SELECT * FROM users WHERE user_id = '${req.session.admin.edit_id}';`;
 
     db.any(query)
-        .then((admin) => {
-            console.log(admin);
-            res.render("pages/admin/edit_user", {
-                admin: admin,
-            });
+        .then((admin) => { req.session.save();
+            res.render("pages/admin/edit_user", {admin: admin,});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1716,7 +1740,6 @@ app.post("/admin/edit_user/post", (req, res) => {
 
     db.any(query)
         .then((rows) => {
-            
             req.session.admin.edit_id = req.body.user_id;
             req.session.save();
 
