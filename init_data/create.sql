@@ -12,7 +12,7 @@ CREATE TABLE users(
 	net_group VARCHAR(50),				-- weekly networking group
 	
 	-- Contact Info --
-	bio VARCHAR(120),
+	bio VARCHAR(600),
 	school_email VARCHAR(50),
 	personal_email VARCHAR(50),
 	professional_email VARCHAR(50),
@@ -48,16 +48,16 @@ CREATE TABLE users(
 	-- Career --
 	career_position VARCHAR(40),
 	career_organization VARCHAR(40),
-	experience VARCHAR(400),
-	aspirations VARCHAR(400),
+	experience VARCHAR(800),
+	aspirations VARCHAR(800),
 
 	-- Profile Page Background --
 	background VARCHAR(50),
 
 	-- Preferences Aligned Data--
-	likes VARCHAR(100),
-	dislikes VARCHAR(100),
-	quote VARCHAR(100),
+	likes VARCHAR(800),
+	dislikes VARCHAR(800),
+	quote VARCHAR(800),
 
 	-- Favorite Brother Interview --
 	fav_interview_brother VARCHAR(50),

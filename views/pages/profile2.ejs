@@ -15,7 +15,6 @@
                 display: grid;
                 grid-template-columns: 1800px 1800px 1800px;
                 gap: 10px;
-                background-color: #2196F3;
                 padding: 60px;
             }
 
@@ -31,10 +30,10 @@
     <body class="user_bg">
 
         <div class="page_container">
-            <div class="row" style="background-color: white;">
+            <div class="row">
             
                 <!-- COLUMN ONE -->
-                <div class="col" style="background-color: black; padding: 10px;">
+                <div class="col">
 
                     <!-- HOBBIES CAROUSEL -->
                     <% if(profile[0].hobby1 != null || profile[0].hobby2 != null || profile[0].hobby3 != null) { %>
@@ -165,7 +164,7 @@
 
 
                 <!-- COLUMN TWO -->
-                <div class="col" style="background-color: orange; padding: 10px;">
+                <div class="col">
                 
                     <!-- PERSON CARD -->
                     <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
@@ -254,7 +253,7 @@
 
 
                 <!-- COLUMN THREE -->
-                <div class="col" style="background-color: green; padding: 10px;">
+                <div class="col">
                     
                     <!-- CAREER -->
                     <% if(profile[0].career_position != null) { %>
@@ -266,9 +265,9 @@
                                         <h1 style="color:white; text-align: right;"><%= profile[0].career_position %></h1>
                                         <h3 style="color:white; text-align: right;"><%= profile[0].career_organization %></h3>
                                     </div>
-                                    <div class="card-footer">
-                                        <h1 style="color:white; text-align: left;">Experience</h1>
-                                        <h5 style="color:white; text-align: left;"><%= profile[0].experience %></h5>
+                                    <div class="card-footer" style="background-color:white;">
+                                        <h1 style="color:#2B4B80; text-align: left;">Experience</h1>
+                                        <h5 style="color:#2B4B80; text-align: left;"><%= profile[0].experience %></h5>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +275,7 @@
                     <% } %>
 
                     <!-- RESUME -->
-                    <% if(profile[0].resume != null) { %>
+                    <% if(profile[0].resume != '') { %>
                         <div class="card-group" style="padding: 5px;">
                             <div class="card" style="background-color:#2B4B80;">
                                 <img src="<%= profile[0].resume ? 'data:image/png;base64,' + profile[0].resume : '../../resources/pfp/Default_Avatar.jpg' %>" class="card-img-top"></img>
@@ -289,9 +288,9 @@
                         <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
                             <div class="card" style="background-color:#2B4B80;">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <h1 style="color:white; text-align: right;">Aspirations</h1>
-                                        <h2 style="color:white; text-align: right;"><%= profile[0].aspirations %></h2>
+                                    <div class="row" style="background-color:white;">
+                                        <h1 style="color:#2B4B80; text-align: right;">Aspirations</h1>
+                                        <h2 style="color:#2B4B80; text-align: left;"><%= profile[0].aspirations %></h2>
                                     </div>
                                 </div>
                             </div>

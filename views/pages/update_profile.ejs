@@ -55,6 +55,10 @@
                     <div class="card mb-3">
                         <table class="table">
                             <thead>
+                                <br>
+                                <h3 style="color:black">Basic Information</h3>
+                                <p>Enter some basic information about yourself.</p>
+                                <br>
                             </thead>
                             
                             <tbody>
@@ -106,6 +110,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Profile Picture</h3>
+                                <p>File must be still (.JPG), live photos (.HEIC) will not upload. </p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/picture" method="POST">  
             
@@ -118,7 +128,6 @@
                                 </form>
                             </tbody>
                         </table>
-                        <p>File must be still (.JPG), live photos (.HEIC) will not upload. </p>
                     </div>
 
                 </div>
@@ -126,45 +135,54 @@
                     
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Contact</h3>
+                                <p>ALL forms of contact are OPTIONAL, EXCEPT your phone number!</p>
+                                <br>
+                            </thead>
                             <tbody>
-                                <form action="/update_profile/contact" method="POST">  
-            
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> School Email </h5>
-                                            <input class="w3-input w3-border" type="text" name="email" placeholder="abcd5678@colorado.edu" required></input>
+                                <tr>
+                                    <form action="/update_profile/school_email" method="POST">
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> CU Email </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="school_email" placeholder="identikey@colorado.edu" required></input>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Personal Email </h5>
-                                            <input class="w3-input w3-border" type="text" name="personal_email" placeholder="abcd5678@colorado.edu" required></input>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/personal_email" method="POST">
+                                        
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Personal Email</h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="personal_email" placeholder="If you have one, enter your personal email." required></input>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Professional Email </h5>
-                                            <input class="w3-input w3-border" type="text" name="professional_email" placeholder="abcd5678@colorado.edu" required></input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> LinkedIn </h5>
-                                            <input class="w3-input w3-border" type="text" name="linkedin" placeholder="https://www.linkedin.com/in/FIRST-LAST/" required></input>
-                                        </td>
-                                    </tr>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/professional_email" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Professional Email</h5></td>
+                                        <td><input class="form-control input-lg"type="text" placeholder="If you have one, enter your professional email." name="professional_email" required></input></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Email</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/linkedin" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Linkedin </h5></td>
+                                        <td><input class="form-control input-lg"type="text" placeholder="https://www.linkedin.com/in/username/" name="linkedin" required></input></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Linkedin</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/phone" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Phone Number </h5></td>
+                                        <td><input class="form-control input-lg" type="text" placeholder="(512) 636-2466" name="phone" required></input></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Number</button></td>
+                                    </form>
+                                </tr>
 
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Phone Number </h5>
-                                            <input class="w3-input w3-border" type="text" placeholder="512-636-2466" name="phone" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-            
-                                </form>
                             </tbody>
                         </table>
                     </div>
@@ -174,20 +192,20 @@
 
                     <div class="card mb-3">
                         <table class="table">
-                            
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Bio</h3>
+                                <p>Write a short description about yourself</p>
+                                <br>
+                            </thead>
                             <tbody>
-                                <form action="/update_profile/bio" method="POST">  
-            
-                                    <tr>
-                                        <td>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" required></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
-            
-                                </form>
+                                <tr>
+                                    <form action="/update_profile/bio" method="POST"> 
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> Bio </h5></td>
+                                        <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Bio</button></td>
+                                    </form>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -200,6 +218,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Hobbies</h3>
+                                <p>Use this to show everyone what you do for fun. How do you find joy? </p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/hobby1" method="POST">  
             
@@ -208,8 +232,9 @@
                                             <h5 style="color:black; text-align: left;"> Activity 1 </h5>
                                             <input class="w3-input w3-border" type="text" name="hobby1" required></input>
                                         </td>
-                                        <td>
-                                            <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h1_img" id="h1_img" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -217,9 +242,8 @@
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
                                             <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h1_caption" id="h1_caption" required></textarea>
                                         </td>
-                                        <td style="width:50%">
-                                            <h5 style="color:black; text-align: left;"> Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="h1_img" id="h1_img" required>
+                                        <td>
+                                            <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
                                         </td>
                                     </tr>
                                     <tr>
@@ -243,8 +267,9 @@
                                             <h5 style="color:black; text-align: left;"> Activity 2 </h5>
                                             <input class="w3-input w3-border" type="text" name="hobby2" required></input>
                                         </td>
-                                        <td>
-                                            <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h2_img" id="h2_img" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -252,9 +277,8 @@
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
                                             <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h2_caption" required></textarea>
                                         </td>
-                                        <td style="width:50%">
-                                            <h5 style="color:black; text-align: left;"> Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="h2_img" id="h2_img" required>
+                                        <td>
+                                            <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
                                         </td>
                                     </tr>
                                     <tr>
@@ -276,8 +300,9 @@
                                             <h5 style="color:black; text-align: left;"> Activity 3 </h5>
                                             <input class="w3-input w3-border" type="text" name="hobby2" required></input>
                                         </td>
-                                        <td>
-                                            <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="h3_img" id="h3_img" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -285,9 +310,8 @@
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
                                             <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="h3_caption" required></textarea>
                                         </td>
-                                        <td style="width:50%">
-                                            <h5 style="color:black; text-align: left;"> Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="h3_img" id="h3_img" required>
+                                        <td>
+                                            <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
                                         </td>
                                     </tr>
                                     <tr>
@@ -304,6 +328,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Preferences</h3>
+                                <p>Choose your background from a handful of preselected wallpapers.</p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <form action="/update_profile/background" method="POST">  
             
@@ -337,34 +367,37 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Preferences</h3>
+                                <p>This is your chance to show us your character. What sort of things do you like and dislike? Give a favorite or personal quote</p>
+                                <br>
+                            </thead>
                             <tbody>
-                                <form action="/update_profile/preferences" method="POST">  
             
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Likes </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you like.. 'Hiking, Coding, Philosophy etc'" name="likes" required></textarea>
-                                        </td>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Dislikes </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you don't like.. 'Apples, Onions, Ducks etc'" name="dislikes" required></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Quote </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Your favorite quote" name="quote" required></textarea>
-                                        </td>
-                                        <td>
-                                            <h5 style="color:black; text-align: left;"> Aspirations </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing your goals and ambitions in life" name="aspirations" required></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td>
-                                    </tr>
+                                <tr>
+                                    <form action="/update_profile/likes" method="POST"> 
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> Likes </h5></td>
+                                        <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you like.. 'Hiking, Coding, Philosophy etc'" name="likes" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Likes</button></td>
+                                    </form>
+                                </tr>
+                            
+                                <tr>
+                                    <form action="/update_profile/dislikes" method="POST">
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> Dislikes </h5></td>
+                                        <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="List things you don't like.. 'Apples, Onions, Ducks etc'" name="dislikes" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Dislikes</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/quote" method="POST">
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> Quote </h5></td>
+                                        <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Your favorite quote" name="quote" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Quote</button></td>
+                                    </form>
+                                </tr>
             
-                                </form>
                             </tbody>
                         </table>
                     </div>
@@ -373,6 +406,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Most Memorable Brother Interview</h3>
+                                <p style="color:red">File must be still (.JPG or .PNG), live photos (.HEIC) will not upload. </p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <form enctype="multipart/form-data" action="/update_profile/fav_interview" method="POST">  
             
@@ -381,18 +420,18 @@
                                             <h5 style="color:black; text-align: left;"> Brother </h5>
                                             <input class="w3-input w3-border" type="text" name="fav_interview_brother" required></input>
                                         </td>
-                                        <td>
-                                            <img src="<%= profile[0].fav_interview_img ? 'data:image/png;base64,' + profile[0].fav_interview_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" class="w3-circle" style="width:30%; height:10%; align-self: center;"></img>
+                                        <td style="width:50%">
+                                            <h5 style="color:black; text-align: left;"> Picture </h5>
+                                            <input class="w3-input w3-border" type="file" name="fav_interview_img" id="fav_interview_img" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width:60%">
                                             <h5 style="color:black; text-align: left;"> Caption </h5>
-                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="fav_interview_caption" id="fav_interview_caption" required></textarea>
+                                            <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement describing the memory" name="fav_interview_caption" required></textarea>
                                         </td>
-                                        <td style="width:50%">
-                                            <h5 style="color:black; text-align: left;"> Picture </h5>
-                                            <input class="w3-input w3-border" type="file" name="fav_interview_img" id="fav_interview_img" required>
+                                        <td>
+                                            <img src="<%= profile[0].fav_interview_img ? 'data:image/png;base64,' + profile[0].fav_interview_img : '../../resources/pfp/Default_Avatar.jpg' %>" alt="../../resources/pfp/Default_Avatar.jpg" style="width:40%; height:40%; align-self: center;"></img>
                                         </td>
                                     </tr>
                                     <tr>
@@ -408,6 +447,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Career</h3>
+                                <p style="color:red">In order to upload your resume, you must take a screenshot. PDFs will NOT upload. I apologize for the inconvenience.</p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <tr>
                                     <form action="/update_profile/career_position" method="POST">
@@ -442,6 +487,13 @@
                                         <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
                                     </form>
                                 </tr>
+                                <tr>
+                                    <form action="/update_profile/aspirations" method="POST">
+                                        <td style="width:20%"><h5 style="color:black; text-align: center;"> Aspirations </h5></td>
+                                        <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="What do you aspire to do?" name="aspirations" required></textarea></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Aspirations</button></td>
+                                    </form>
+                                </tr>
                              </tbody>
                         </table>
                     </div>
@@ -450,6 +502,12 @@
 
                     <div class="card mb-3">
                         <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">Gallery</h3>
+                                <p>You are allowed UP TO 6 photos. It is not mandatory that you fill all of them. This will display as a gallery on your profile page.</p>
+                                <br>
+                            </thead>
                             <tbody>
                                 <tr>
                                     <form enctype="multipart/form-data" action="/update_profile/g1_img" method="POST">
