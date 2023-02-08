@@ -304,6 +304,11 @@ app.post("/community/view_id", (req, res) => {
  * 
  * 
  */
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  BASIC INFO                                          */
 /* -----------------------------------------------------------------------------------  */
@@ -356,6 +361,11 @@ app.post("/update_profile/committee", (req, res) => {
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  PICTURE                                             */
 /* -----------------------------------------------------------------------------------  */
@@ -370,40 +380,14 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  CONTACT                                             */
 /* -----------------------------------------------------------------------------------  */
-/* UPDATE PROFILE -------------------------------------------------------------------- */
-app.post("/update_profile/contact", (req, res) => {
-
-    const values = [req.body.email, req.body.linkedin, req.body.phone, req.body.professional_email, req.body.personal_email, req.session.user.user_id];
-
-    console.log("USER_ID = " + req.session.user.user_id);
-    const query = `
-    UPDATE
-        users
-    SET
-        school_email = $1,
-        linkedin = $2,
-        phone = $3,
-        professional_email = $4,
-        personal_email = $5
-    WHERE
-        user_id = $6;`;
-
-    db.none(query, values)
-        .then((update) => {
-
-            req.session.save();
-
-            console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/update_profile");
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-
-});
 /* School Email ----------------- */
 app.post("/update_profile/school_email", (req, res) => {
 
@@ -454,6 +438,11 @@ app.post("/update_profile/phone", (req, res) => {
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  BIO                                                 */
 /* -----------------------------------------------------------------------------------  */
@@ -467,6 +456,11 @@ app.post("/update_profile/bio", (req, res) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  HOBBYS                                              */
 /* -----------------------------------------------------------------------------------  */
@@ -545,6 +539,14 @@ app.post("/update_profile/hobby3", upload.single('h3_img') ,(req, res) => {   /*
         })
 
 });
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                                  BACKGROUND                                          */
+/* -----------------------------------------------------------------------------------  */
 /* UPDATE BACKGROUND -------------------------------------------------------------------- */
 app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
     const query = `UPDATE users SET background = '${req.body.background}' WHERE user_id = ${req.session.user.user_id};`;
@@ -556,36 +558,14 @@ app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALL
             console.log("\n\nERROR: ", error.message || error);
         })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  PREFERENCES                                         */
 /* -----------------------------------------------------------------------------------  */
-/* UPDATE PROFILE --------------------------------------------------------------------  */
-// app.post("/update_profile/preferences", (req, res) => {
-//     console.log("USER_ID = " + req.session.user.user_id);
-//     const query = `
-//     UPDATE
-//         users
-//     SET
-//         likes = $1,
-//         dislikes = $2,
-//         quote = $3,
-//         aspirations = $4
-//     WHERE
-//         user_id = $5;`;
-
-//     db.none(query, values)
-//         .then((update) => {
-
-//             req.session.save();
-
-//             console.log("\n\nSuccessful Update: \n", req.session.user);
-//             res.redirect("/update_profile");
-//         })
-//         .catch((error) => {
-//             console.log("\n\nERROR: ", error.message || error);
-//         })
-
-// });
 /* LIKES ------------------------ */
 app.post("/update_profile/likes", (req, res) => {
     const query = `UPDATE users SET likes = '${req.body.likes}' WHERE user_id = ${req.session.user.user_id};`;
@@ -644,6 +624,11 @@ app.post("/update_profile/fav_interview", upload.single('fav_interview_img'), (r
         })
 
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  CAREER INFO                                         */
 /* -----------------------------------------------------------------------------------  */
@@ -698,6 +683,11 @@ app.post("/update_profile/resume", upload.single('resume'), (req, res) => {
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+
+
+
+
+
 /* -----------------------------------------------------------------------------------  */
 /*                                  GALLERY                                             */
 /* -----------------------------------------------------------------------------------  */
@@ -761,94 +751,516 @@ app.post("/update_profile/g6_img", upload.single('g6_img') ,(req, res) => {   /*
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
-/* UPDATE PROFILE -------------------------------------------------------------------- */
-app.post("/update_profile/basic-admin", (req, res) => {
 
-    const edit_id = parseInt(req.body.edit_id);
-    const values = [req.body.class, req.body.major, req.body.committee, edit_id];
 
-    console.log("USER_ID = " + req.body.edit_id);
-    const query = `
-    UPDATE
-        users
-    SET
-        class = $1,
-        major = $2,
-        committee = $3
-    WHERE
-        user_id = $4;`;
 
-    db.none(query, values)
-        .then((update) => {
 
-            req.session.save();
 
-            console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/admin/edit_user");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------- */
+/**
+ *                                  ADMININSTRATION
+ * 
+ *                              UPDATE PROFILE SECTION
+ *
+ *                Basic Info:           Name, Class, Major, Committee
+ *                Profile:              pfp_img
+ *                Contact:              School Email, Personal Email, Professional Email, Linkedin, Phone Number
+ *                Bio:                  bio
+ *                Preferences:          Likes, Dislikes, Quote
+ *                Hobbies:              Hobby 1, Hobby 2, Hobby 3
+ *                Background:           img select
+ *                Favorite Interview:   Brother, Caption, Picture
+ *                Career:               Position, Organization, Experience, Aspirations
+ * 
+ * 
+ */
+/* -----------------------------------------------------------------------------------  */
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN BASIC INFO                                          */
+/* -----------------------------------------------------------------------------------  */
+/* DISPLAY NAME --------------------------------------------*/
+app.post("/update_profile/name-admin", (req, res) => {
+
+    const query = `UPDATE users SET name = '${req.body.name}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (NAME): \n", req.session.admin.edit_id, " TO ", req.body.name);
+            // res.redirect("/update_profile");
         })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
-/* UPDATE PROFILE PICTURE -------------------------------------------------------------------- */
+
+
+/* CLASS --------------------------------------------*/
+app.post("/update_profile/class-admin", (req, res) => {
+
+    const query = `UPDATE users SET class = '${req.body.class}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CLASS): \n", req.session.admin.edit_id, " TO ", req.body.class);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+
+/* MAJOR --------------------------------------------*/
+app.post("/update_profile/major-admin", (req, res) => {
+
+    const query = `UPDATE users SET major = '${req.body.major}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (MAJOR): \n", req.session.admin.edit_id, " TO ", req.body.major);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+/* Committee --------------------------------------------*/
+app.post("/update_profile/committee-admin", (req, res) => {
+
+    const query = `UPDATE users SET committee = '${req.body.committee}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (COMMITTEE): \n", req.session.admin.edit_id, " TO ", req.body.committee);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN PICTURE                                             */
+/* -----------------------------------------------------------------------------------  */
+/* PROFILE PICTURE ----------------------- */
 app.post("/update_profile/picture-admin", upload.single('profile_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
 
-    const edit_id = parseInt(req.body.edit_id);
-    const values = [req.file.buffer.toString('base64'), edit_id];
-
-    console.log("USER_ID = " + req.body.edit_id);
-    const query = `
-    UPDATE
-        users
-    SET
-        pfp_img = $1
-    WHERE
-        user_id = $2;`;
-
+    const values = [req.file.buffer.toString('base64'), req.session.admin.edit_id];
+    const query = `UPDATE users SET pfp_img = $1 WHERE user_id = $2;`;
     db.none(query, values)
-        .then((update) => {
+        .then((update) => {  req.session.save();
+            console.log("\n\nSuccessful Update: (PFP)\n", req.session.admin.edit_id);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
 
-            req.session.save();
 
-            console.log("\n\nSuccessful Profile Picture Update: \n", req.session.user);
-            res.redirect("/admin/edit_user");
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN CONTACT                                             */
+/* -----------------------------------------------------------------------------------  */
+/* School Email ----------------- */
+app.post("/update_profile/school_email-admin", (req, res) => {
+
+    const query = `UPDATE users SET school_email = '${req.body.school_email}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (SCHOOL EMAIL): \n", req.session.admin.edit_id, " TO ", req.body.school_email);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Personal Email ----------------- */
+app.post("/update_profile/personal_email-admin", (req, res) => {
+
+    const query = `UPDATE users SET personal_email = '${req.body.personal_email}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (PERSONAL EMAIL): \n", req.session.admin.edit_id, " TO ", req.body.personal_email);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Professional Email ----------------- */
+app.post("/update_profile/professional_email-admin", (req, res) => {
+
+    const query = `UPDATE users SET professional_email = '${req.body.professional_email}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (PROFESSIONAL EMAIL): \n", req.session.admin.edit_id, " TO ", req.body.professional_email);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* LinkedIn ----------------- */
+app.post("/update_profile/linkedin-admin", (req, res) => {
+
+    const query = `UPDATE users SET linkedin = '${req.body.linkedin}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (LINKEDIN): \n", req.session.admin.edit_id, " TO ", req.body.linkedin);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Phone Number ----------------- */
+app.post("/update_profile/phone-admin", (req, res) => {
+
+    const query = `UPDATE users SET phone = '${req.body.phone}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (PHONE): \n", req.session.admin.edit_id, " TO ", req.body.phone);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN BIO                                                 */
+/* -----------------------------------------------------------------------------------  */
+app.post("/update_profile/bio-admin", (req, res) => {
+    const query = `UPDATE users SET bio = '${req.body.bio}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (BIO): \n", req.session.admin.edit_id, " TO ", req.body.Bio);
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
-
 });
-/* UPDATE PROFILE -------------------------------------------------------------------- */
-app.post("/update_profile/contact-admin", (req, res) => {
 
-    const edit_id = parseInt(req.body.edit_id);
-    const values = [req.body.email, req.body.linkedin, req.body.phone, edit_id];
 
-    console.log("USER_ID = " + edit_id);
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN HOBBYS                                              */
+/* -----------------------------------------------------------------------------------  */
+/* UPDATE HOBBY 1 --------------------------------------------------------------------  */
+app.post("/update_profile/hobby1-admin", upload.single('h1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby1, req.body.h1_caption, req.file.buffer.toString('base64'), req.session.admin.edit_id];
+
     const query = `
     UPDATE
         users
     SET
-        email = $1,
-        linkedin = $2,
-        phone = $3
+        hobby1 = $1,
+        h1_caption = $2,
+        h1_img = $3
     WHERE
         user_id = $4;`;
 
     db.none(query, values)
-        .then((update) => {
-
-            req.session.save();
-
-            console.log("\n\nSuccessful Update: \n", req.session.user);
-            res.redirect("/admin/edit_user");
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (HOBBY1): \n");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 
 });
+/* UPDATE HOBBY 2 -------------------------------------------------------------------- */
+app.post("/update_profile/hobby2-admin", upload.single('h2_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby2, req.body.h2_caption, req.file.buffer.toString('base64'), req.session.admin.edit_id];
+
+    const query = `
+    UPDATE
+        users
+    SET
+        hobby2 = $1,
+        h2_caption = $2,
+        h2_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (HOBBY2): \n");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+/* UPDATE HOBBY 3 -------------------------------------------------------------------- */
+app.post("/update_profile/hobby3-admin", upload.single('h3_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const values = [req.body.hobby3, req.body.h3_caption, req.file.buffer.toString('base64'), req.session.admin.edit_id];
+
+    const query = `
+    UPDATE
+        users
+    SET
+        hobby3 = $1,
+        h3_caption = $2,
+        h3_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (HOBBY3): \n");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                           ADMIN  BACKGROUND                                          */
+/* -----------------------------------------------------------------------------------  */
+/* UPDATE BACKGROUND -------------------------------------------------------------------- */
+app.post("/update_profile/background-admin", (req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+    const query = `UPDATE users SET background = '${req.body.background}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (BACKGROUND): \n", req.body.background);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN PREFERENCES                                         */
+/* -----------------------------------------------------------------------------------  */
+/* LIKES ------------------------ */
+app.post("/update_profile/likes-admin", (req, res) => {
+    const query = `UPDATE users SET likes = '${req.body.likes}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (LIKES): \n", req.session.admin.edit_id, " TO ", req.body.likes);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* DISLIKES ------------------------ */
+app.post("/update_profile/dislikes-admin", (req, res) => {
+    const query = `UPDATE users SET dislikes = '${req.body.dislikes}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (DISLIKES): \n", req.session.admin.edit_id, " TO ", req.body.dislikes);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* Quote ------------------------ */
+app.post("/update_profile/quote-admin", (req, res) => {
+    const query = `UPDATE users SET quote = '${req.body.quote}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (QUOTE): \n", req.session.admin.edit_id, " TO ", req.body.quote);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                          ADMIN FAVORITE INTERVIEW                                    */
+/* -----------------------------------------------------------------------------------  */
+/* UPDATE PROFILE -------------------------------------------------------------------- */
+app.post("/update_profile/fav_interview-admin", upload.single('fav_interview_img'), (req, res) => {
+
+    const values = [req.body.fav_interview_brother, req.body.fav_interview_caption, req.file.buffer.toString('base64'), req.session.admin.edit_id];
+
+    console.log("USER_ID = " + req.session.user.user_id);
+    const query = `
+    UPDATE
+        users
+    SET
+        fav_interview_brother = $1,
+        fav_interview_caption = $2,
+        fav_interview_img = $3
+    WHERE
+        user_id = $4;`;
+
+    db.none(query, values)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update: \n", req.session.user);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+
+});
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN CAREER INFO                                         */
+/* -----------------------------------------------------------------------------------  */
+/* Current Position ----------------- */
+app.post("/update_profile/career_position-admin", (req, res) => {
+
+    const query = `UPDATE users SET career_position = '${req.body.career_position}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CAREER POSITION): \n", req.session.admin.edit_id, " TO ", req.body.career_position);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Current Organization ----------------- */
+app.post("/update_profile/career_organization-admin", (req, res) => {
+
+    const query = `UPDATE users SET career_organization = '${req.body.career_organization}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CAREER ORGANIZATION): \n", req.session.admin.edit_id, " TO ", req.body.career_organization);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Current Experience ----------------- */
+app.post("/update_profile/experience-admin", (req, res) => {
+
+    const query = `UPDATE users SET experience = '${req.body.experience}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (EXPERIENCE): \n", req.session.admin.edit_id, " TO ", req.body.experience);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* Aspirations ------------------------ */
+app.post("/update_profile/aspirations-admin", (req, res) => {
+    const query = `UPDATE users SET aspirations = '${req.body.aspirations}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (ASPIRATIONS): \n", req.session.admin.edit_id, " TO ", req.body.aspirations);
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* Current Resume ----------------- */
+app.post("/update_profile/resume-admin", upload.single('resume'), (req, res) => {
+
+    const query = `UPDATE users SET resume = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (RESUME): \n", req.session.admin.edit_id, " TO ", req.body.resume);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                            ADMIN GALLERY                                             */
+/* -----------------------------------------------------------------------------------  */
+/* UPDATE GALLERY IMAGE 1 ---------------- */
+app.post("/update_profile/g1_img-admin", upload.single('g1_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g1_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G1)\n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* UPDATE GALLERY IMAGE 2 ---------------- */
+app.post("/update_profile/g2_img-admin", upload.single('g2_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g2_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G2)\n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* UPDATE GALLERY IMAGE 3 ---------------- */
+app.post("/update_profile/g3_img-admin", upload.single('g3_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g3_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G3)\n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* UPDATE GALLERY IMAGE 4 ---------------- */
+app.post("/update_profile/g4_img-admin", upload.single('g4_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g4_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G4) \n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* UPDATE GALLERY IMAGE 5 ---------------- */
+app.post("/update_profile/g5_img-admin", upload.single('g5_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g5_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G5) \n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+/* UPDATE GALLERY IMAGE 6 ---------------- */
+app.post("/update_profile/g6_img-admin", upload.single('g6_img') ,(req, res) => {   /* UPLOAD PARAMETER ALLOWS FOR DATABASE UPLOAD */
+
+    const query = `UPDATE users SET g6_img = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => {req.session.save();
+            console.log("\n\nSuccessful Update: (G6) \n");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+
+
+
+
+/* -----------------------------------------------------------------------------------  */
+/*                 END OF PROFILE ADMINISTRATION                                        */
+/* -----------------------------------------------------------------------------------  */
+
+
+
+
+
 /* UPDATE USER DATABASE POST INTERVIEW SUBMISSION --------------------------------------------------------- */
 app.post("/update_users", (req, res) => {
 
