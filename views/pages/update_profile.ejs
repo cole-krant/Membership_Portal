@@ -24,6 +24,9 @@
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="background" data-bs-toggle="tab" data-bs-target="#background-tab-pane" type="button" role="tab" aria-controls="background-tab-pane" aria-selected="false">Background</button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -36,16 +39,13 @@
                     <button class="nav-link" id="hobbies" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab" aria-controls="hobbies-tab-pane" aria-selected="false">Hobbies</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="background" data-bs-toggle="tab" data-bs-target="#background-tab-pane" type="button" role="tab" aria-controls="background-tab-pane" aria-selected="false">Background</button>
+                    <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="true">Gallery</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="interview" data-bs-toggle="tab" data-bs-target="#interview-tab-pane" type="button" role="tab" aria-controls="interview-tab-pane" aria-selected="false">Favorite Interview</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="career" data-bs-toggle="tab" data-bs-target="#career-tab-pane" type="button" role="tab" aria-controls="career-tab-pane" aria-selected="false">Career</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="true">Gallery</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -471,6 +471,15 @@
                                             <input class="w3-input w3-border" type="text" name="career_organization" placeholder="Enter the organization you work with" required></input>
                                         </td>
                                         <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Organization</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form action="/update_profile/career_duration" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Time Held </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="career_duration" placeholder="Ex. Jan 2019 - Dec 2022" required></input>
+                                        </td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Duration</button></td>
                                     </form>
                                 </tr>
                                 <tr>

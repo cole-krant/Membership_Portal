@@ -48,6 +48,7 @@ CREATE TABLE users(
 	-- Career --
 	career_position VARCHAR(40),
 	career_organization VARCHAR(40),
+	career_duration VARCHAR(40),
 	experience VARCHAR(800),
 	aspirations VARCHAR(800),
 

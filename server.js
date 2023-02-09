@@ -652,6 +652,16 @@ app.post("/update_profile/career_organization", (req, res) => {
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+/* Duration of Position ----------------- */
+app.post("/update_profile/career_duration", (req, res) => {
+
+    const query = `UPDATE users SET career_duration = '${req.body.career_duration}' WHERE user_id = ${req.session.user.user_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CAREER DURATION): \n", req.session.user.username, " TO ", req.body.career_duration);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
 /* Current Experience ----------------- */
 app.post("/update_profile/experience", (req, res) => {
 
@@ -965,7 +975,7 @@ app.post("/update_profile/bio-admin", (req, res) => {
     const query = `UPDATE users SET bio = '${req.body.bio}' WHERE user_id = ${req.session.admin.edit_id};`;
     db.none(query)
         .then((update) => { req.session.save();
-            console.log("\n\nSuccessful Update (BIO): \n", req.session.admin.edit_id, " TO ", req.body.Bio);
+            console.log("\n\nSuccessful Update (BIO): \n", req.session.admin.edit_id);
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1139,7 +1149,7 @@ app.post("/update_profile/fav_interview-admin", upload.single('fav_interview_img
 
     db.none(query, values)
         .then((update) => { req.session.save();
-            console.log("\n\nSuccessful Update: \n", req.session.user);
+            console.log("\n\nSuccessful Update (FAVORITE INTERVIEW) \n");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1175,6 +1185,16 @@ app.post("/update_profile/career_organization-admin", (req, res) => {
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
+/* Duration of Position ----------------- */
+app.post("/update_profile/career_duration-admin", (req, res) => {
+
+    const query = `UPDATE users SET career_duration = '${req.body.career_duration}' WHERE user_id = ${req.session.user.user_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (CAREER DURATION): \n", req.session.user.username, " TO ", req.body.career_duration);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
 /* Current Experience ----------------- */
 app.post("/update_profile/experience-admin", (req, res) => {
 
@@ -1202,7 +1222,7 @@ app.post("/update_profile/resume-admin", upload.single('resume'), (req, res) => 
     const query = `UPDATE users SET resume = '${req.file.buffer.toString('base64')}' WHERE user_id = ${req.session.admin.edit_id};`;
     db.none(query)
         .then((update) => { req.session.save();
-            console.log("\n\nSuccessful Update (RESUME): \n", req.session.admin.edit_id, " TO ", req.body.resume);
+            console.log("\n\nSuccessful Update (RESUME): \n", req.session.admin.edit_id);
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });

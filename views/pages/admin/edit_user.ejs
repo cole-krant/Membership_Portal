@@ -207,7 +207,7 @@
                                   <tr>
                                       <form action="/update_profile/bio-admin" method="POST"> 
                                           <td style="width:20%"><h5 style="color:black; text-align: center;"> Bio </h5></td>
-                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" required></textarea></td>
+                                          <td style="max-width:100%"><textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a short statement about yourself" name="bio" id="bio" required></textarea></td>
                                           <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Bio</button></td>
                                       </form>
                                   </tr>
@@ -483,6 +483,15 @@
                                           <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Organization</button></td>
                                       </form>
                                   </tr>
+                                  <tr>
+                                    <form action="/update_profile/career_duration-admin" method="POST">
+                                        <td style="width:15%"><h5 style="color:black; text-align: center;"> Time Held </h5></td>
+                                        <td style="max-width:100%">
+                                            <input class="w3-input w3-border" type="text" name="career_duration" placeholder="Ex. Jan 2019 - Dec 2022" required></input>
+                                        </td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Duration</button></td>
+                                    </form>
+                                </tr>
                                   <tr>
                                       <form action="/update_profile/experience-admin" method="POST">
                                           <td style="width:15%"><h5 style="color:black; text-align: center;"> Experience </h5></td>

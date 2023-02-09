@@ -11,208 +11,299 @@
                 background-size: cover
             }
 
-
-            .card_bg {
-                background-image: url('../../resources/img/Mountain_Gradient');
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover
+            .page_container {
+                display: grid;
+                grid-template-columns: 1800px 1800px 1800px;
+                gap: 10px;
+                padding: 60px;
             }
 
-            /* COMMUNITY CARD CSS */
-            .card {
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                max-width: 300px;
-                margin: auto;
+            .grid-container > div {
+                background-color: rgba(161, 23, 23, 0.8);
                 text-align: center;
-                font-family: arial;
-            }
-
-            .hobbies-card {
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                max-width: 700px;
-                margin: auto;
-                text-align: center;
-                font-family: arial;
-            }
-            
-            .title {
-                color: white;
-                font-size: 18px;
-            }
-            
-            button {
-                border: none;
-                outline: 0;
-                display: inline-block;
-                padding: 8px;
-                color: white;
-                background-color: #000;
-                text-align: center;
-                cursor: pointer;
-                width: 100%;
-                font-size: 18px;
-            }
-            
-            a {
-                text-decoration: none;
-                font-size: 22px;
-                color: black;
-            }
-
-            img {
-                width:100%;
-                max-width:424px;
-            }
-            
-            button:hover, a:hover {
-                opacity: 0.7;
-            }
-
-            .divider {
-                display: block;
-                background-color: #00014b;
-                color: #00014b;
+                padding: 20px 0;
+                font-size: 30px;
             }
 
         </style>
     </header>
     <body class="user_bg">
 
-        <div class="container" style="max-width:100%">
+        <div class="page_container">
             <div class="row">
+            
+                <!-- COLUMN ONE -->
+                <div class="col">
 
-                <!-- PERSON CARD -->
-                <div class="col" style="max-width:100%">
-                    <div class="card-group" style="padding: 60px;">
-                        <div class="card" style="background-color:#2B4B80; max-width: 70%;">
+                    <!-- HOBBIES CAROUSEL -->
+                    <% if(profile[0].hobby1 != null || profile[0].hobby2 != null || profile[0].hobby3 != null) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80;" >
+                                
+                                <div id="carouselExampleIndicators" class="carousel slide">
+                                    <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/img/Maroon_Bells.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                            <h3 style="color:white"><%= profile[0].hobby1 ? profile[0].hobby1 : 'Activity 1' %></h3>
+                                            <p style="color:white"><%= profile[0].h1_caption ? profile[0].h1_caption : 'Caption for Activity one.' %></p>
+                                            <br>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/img/Inspiring_Sunset.jpeg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                            <h3 style="color:white"><%= profile[0].hobby2 ? profile[0].hobby2 : 'Activity 1' %></h3>
+                                            <p style="color:white"><%= profile[0].h2_caption ? profile[0].h2_caption : 'Caption for Activity one.' %></p>
+                                            <br>
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/img/Mountains_4k.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                            <h3 style="color:white"><%= profile[0].hobby3 ? profile[0].hobby3 : 'Activity 1' %></h3>
+                                            <p style="color:white"><%= profile[0].h3_caption ? profile[0].h3_caption : 'Caption for Activity one.' %></p>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %> 
+
+
+                    <!-- GALLERY CAROUSEL -->
+                    <% if(profile[0].g1_img != null || profile[0].g2_img != null || profile[0].g3_img != null || profile[0].g4_img != null || profile[0].g5_img != null || profile[0].g6_img != null) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80;" >
+                                
+                                <div id="carouselGalleryIndicators" class="carousel slide">
+                                    <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                        <button type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="<%= profile[0].g1_img ? 'data:image/png;base64,' + profile[0].g1_img : '../../resources/img/Maroon_Bells.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].g2_img ? 'data:image/png;base64,' + profile[0].g2_img : '../../resources/img/Inspiring_Sunset.jpeg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].g3_img ? 'data:image/png;base64,' + profile[0].g3_img : '../../resources/img/Flatirons_Birdseye.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].g4_img ? 'data:image/png;base64,' + profile[0].g4_img : '../../resources/img/Leeds_Koebel.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].g5_img ? 'data:image/png;base64,' + profile[0].g5_img : '../../resources/img/Yellowstone_Vibes.jpg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="<%= profile[0].g6_img ? 'data:image/png;base64,' + profile[0].g6_img : '../../resources/img/Mountains_4k.jpeg' %>" class="d-block w-100" alt="..." style="width:100%; height:100%; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselGalleryIndicators" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %> 
+
+                </div><!-- END COLUMN ONE -->
+                    
+
+
+                <!-- COLUMN TWO -->
+                <div class="col">
+                
+                    <!-- PERSON CARD -->
+                    <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                        <div class="card" style="background-color:#2B4B80;">
                             <img src="<%= profile[0].pfp_img ? 'data:image/png;base64,' + profile[0].pfp_img : '../../resources/pfp/Default_Avatar.jpg' %>" class="card-img-top"></img>
                             <div class="card-body">
-                            <h1 class="card-title" style="color:white; text-align: left;">
-                                <strong><%= profile[0].name %></strong>
-                            </h1>
+                                <h1 class="card-title" style="color:white; text-align: left;">
+                                    <strong><%= profile[0].name %></strong>
+                                </h1>
     
-                            <div class="row">
-                                <h3 style="color:white; text-align: left;"><%= profile[0].major ? profile[0].major + ', ' : '' %><%= profile[0].class ? profile[0].class : '' %></h3>
-                            </div>
-                            <div class="row" style="text-align: left;">
-                                <br>
-                                <p style="color:white" class="card-text"><%= profile[0].bio ? profile[0].bio : '' %></p>
-                                <br>
-                            </div>
-                            <div class="card-footer">
+                                <div class="row">
+                                    <h2 style="color:white; text-align: left;"><%= profile[0].major ? profile[0].major + ', ' : '' %><%= profile[0].class ? profile[0].class : '' %></h2>
+                                </div>
+                                <div class="row" style="text-align: left;">
+                                    <br>
+                                    <h5 style="color:white" class="card-text"><%= profile[0].bio ? profile[0].bio : '' %></h5>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                                <div class="card-footer">
+                                    
+                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <h5 style="color:#2B4B80">BLUEBOOK</h5>
+                                    </button>
 
-                                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal"  style="color:#96b1dd">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
-                                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                                    </svg>
-                                </button>
+                                </div>
                                 <% if(profile[0].admin) { %> 
-                                    <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
-                    
-                                        <button class="btn btn-warning">
-                                          ADMIN
-                                        </button>
-                                      
-                                      </a>
-                                <% } %>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-
-            <!-- PREFERENCES CARD -->
-            <div class="col" style="max-width:80%">
-
-                <div class="card-group" style="padding: 5px;">
-                    <div class="card" style="background-color:#2B4B80; max-width:100%;">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col" style="background-color:#113979">
-                                    <img src="<%= profile[0].fav_interview_img ? 'data:image/png;base64,' + profile[0].fav_interview_img : '../../resources/pfp/Default_Avatar.jpg' %>" class="w3-circle" style="max-width:50%;""></img>
-                                    <h4 style="color:white; text-align: center;">Favorite Brother Interview</h4>
-                                    <h6 style="color:white; text-align: center;"><%= profile[0].fav_interview_brother ? profile[0].fav_interview_brother : '' %></h6>
-                                    <p style="color:white; text-align: center;" class="card-text"><%= profile[0].fav_interview_caption ? profile[0].fav_interview_caption : '' %></p>
-                                </div>
-                                <div class="col">
-                                    <div class="row">
-
-                                        <div class="col" style="background-color:rgb(101, 168, 101)">
-                                            <h1 style="color:black;">Likes</h1>
-                                            <p style="color:black;"><%= profile[0].likes %></p>
-                                        </div>
-                                        <div class="col" style="background-color:rgb(214, 142, 142)">
-                                            <h1 style="color:black;">Dislikes</h1>
-                                            <p style="color:black;"><%= profile[0].dislikes %></p>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="background-color:gold">
-
-                                        <h1 style="color:black;">Aspirations</h1>
-                                        <p style="color:black;"><%= profile[0].aspirations %></p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- HOBBIES CAROUSEL -->
-            <div class="col" style="max-width:60%">
-                <div class="card-group" style="padding: 10px;">
-                    <div class="card" style="background-color:#2B4B80;  max-width: 400px; max-height: 800px; position: fixed;">
+                                    <div class="card-footer">
+                                        <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
                         
-                        <div id="carouselExampleIndicators" class="carousel slide">
-                            <div class="carousel-indicators">
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            <button class="btn btn-warning">
+                                                <h5 style="color:white" class="card-text">ADMINISTRATION</h5>
+                                            </button>
+                                            
+                                        </a>
+                                    </div>
+                                <% } %>
                             </div>
-                            <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/img/Maroon_Bells.jpg' %>" class="d-block w-100" alt="..." style="max-width: 400px; max-height: 500px;">
-                                <h3 style="color:white"><%= profile[0].hobby1 ? profile[0].hobby1 : 'Activity 1' %></h3>
-                                <p style="color:white"><%= profile[0].h1_caption ? profile[0].h1_caption : 'Caption for Activity one.' %></p>
-                                <br>
-                              </div>
-                              <div class="carousel-item">
-                                <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/img/Inspiring_Sunset.jpeg' %>" class="d-block w-100" alt="..." style="max-width: 400px; max-height: 500px; size-adjust:inherit">
-                                <h3 style="color:white"><%= profile[0].hobby2 ? profile[0].hobby2 : 'Activity 1' %></h3>
-                                <p style="color:white"><%= profile[0].h2_caption ? profile[0].h2_caption : 'Caption for Activity one.' %></p>
-                                <br>
-                              </div>
-                              <div class="carousel-item">
-                                <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/img/Mountains_4k.jpg' %>" class="d-block w-100" alt="..." style="max-width: 400px; max-height: 500px;">
-                                <h3 style="color:white"><%= profile[0].hobby3 ? profile[0].hobby3 : 'Activity 1' %></h3>
-                                <p style="color:white"><%= profile[0].h3_caption ? profile[0].h3_caption : 'Caption for Activity one.' %></p>
-                                <br>
-                              </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
                         </div>
-
                     </div>
-                </div>
+
+                    <!-- PREFERENCES -->
+                    <% if(profile[0].likes != null) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80;">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row" style="padding: 5px; padding-bottom: 8px;">
+        
+                                                <div class="col">
+                                                    <div class="container" style="background-color:white; border-radius: 60px;">
+                                                        <h1 style="color:green;">Likes</h1>
+                                                        <p style="color:green;"><%= profile[0].likes %></p>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="col">
+                                                    <div class="container" style="background-color:white; border-radius: 60px;">
+                                                        <h1 style="color:red;">Dislikes</h1>
+                                                        <p style="color:red;"><%= profile[0].dislikes %></p>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding: 5px; padding-bottom: 8px;">
+                                                
+                                                <div class="col" style=" padding: 10px;">
+                                                    <div class="container" style="background-color:white; border-radius: 60px;">
+                                                        <br>
+                                                        <h3 style="color:#2B4B80; align-self: left;">"<%= profile[0].quote %>"</h3>
+                                                        <h5 style="color:#2B4B80; align-self: right;"> - <%= profile[0].name %></h5>
+                                                        <br>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %> 
+
+                    <% if(profile[0].fav_interview_brother != null) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="col">
+                                <div class="w3-circle" style="background-color:#2B4B80;">
+                                    <br>
+                                    <br>
+                                    <h4 style="color:white; text-align: center;">
+                                        <img src="<%= profile[0].fav_interview_img ? 'data:image/png;base64,' + profile[0].fav_interview_img : '../../resources/pfp/Default_Avatar.jpg' %>" class="w3-circle" width="50%" height="60%"></img>
+                                        <h1 style="color:white; text-align: center;"><%= profile[0].fav_interview_brother ? profile[0].fav_interview_brother : '' %></h1>
+                                        <h4 style="color:white; text-align: center;">Most Memorable Brother Interview</h4>
+                                        <h5 style="color:white; text-align: center;" class="card-text"><%= profile[0].fav_interview_caption ? profile[0].fav_interview_caption : '' %></h5>
+                                    </h4>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
+
+                </div><!-- END COLUMN TWO -->
+
+
+                <!-- COLUMN THREE -->
+                <div class="col">
+                    
+                    <!-- CAREER -->
+                    <% if(profile[0].career_position != null) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80;">
+                                <div class="card-body" style="padding: 5px; padding-bottom: 8px;">
+                                    <div class="card-footer" style="background-color:white; border-radius: 60px; padding:10px;">
+                                        <br>
+                                        <div class="row">
+                                            <h1 style="color:#2B4B80; text-align: left;"><%= profile[0].career_position %></h1>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 style="color:#2B4B80; text-align: left;"><%= profile[0].career_organization %>, <%= profile[0].career_duration %></h5>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <h1 style="color:#2B4B80; text-align: center;">Experience</h1>
+                                        <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].experience %></h5>
+                                        <br>
+                                        <h1 style="color:#2B4B80; text-align: center;">Aspirations</h1>
+                                        <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].aspirations %></h5>
+                                        <br style="height:50%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- RESUME -->
+                    <% if((profile[0].resume != '') && (profile[0].resume != null)) { %>
+                        <div class="card-group" style="padding: 5px; padding-bottom: 30px">
+                            <div class="card" style="background-color:#2B4B80;">
+                                <img src="<%= profile[0].resume ? 'data:image/png;base64,' + profile[0].resume : ''%>" class="card-img-top"></img>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- ASPIRATIONS -->
+                    <% if(profile[0].aspirations != null) { %>
+                        <!-- <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80;">
+                                <div class="card-body">
+                                    <div class="row" style="background-color:white;   border-radius: 60px; padding:10px;">
+                                        <br style="height:50%;">
+                                        <h1 style="color:#2B4B80; text-align: center;">Aspirations</h1>
+                                        <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].aspirations %></h5>
+                                        <br style="height:50%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <% } %> 
+
+                </div><!-- END COLUMN THREE -->
             </div>
         </div>
 
 
-            
 
 
         <!-- CONTACT INFO MODAL -->
@@ -258,168 +349,10 @@
             </div>
           </div>
 
+
+
+
     </body>
 </main>
 
 <%- include ('../partials/footer') %>
-
-
-<!-- 
-<div id="carousel" class="carousel slide" style="padding:10px; background-color:red">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/img/First_Slide.png' %>" class="d-block w-100">
-        <div class="carousel-caption d-none d-md-block">
-          <h3><%= profile[0].hobby1 ? profile[0].hobby1 : 'Activity 1' %></h3>
-          <p><%= profile[0].h1_caption ? profile[0].h1_caption : 'Caption for Activity one.' %></p>
-        </div>
-      </div>
-      <div class="carousel-item active">
-        <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/img/Second_Slide.png' %>" class="d-block w-100">
-        <div class="carousel-caption d-none d-md-block">
-            <h3><%= profile[0].hobby2 ? profile[0].hobby2 : 'Activity 2' %></h3>
-            <p><%= profile[0].h2_caption ? profile[0].h2_caption : 'Caption for Activity two.' %></p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/img/Third_Slide.png' %>" class="d-block w-100">
-        <div class="carousel-caption d-none d-md-block">
-            <h3><%= profile[0].hobby3 ? profile[0].hobby3 : 'Activity 3' %></h3>
-            <p><%= profile[0].h3_caption ? profile[0].h3_caption : 'Caption for Activity three.' %></p>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-</div> -->
-<!-- <% if(profile[0].spotify != null)  { %>
-    <a  href="<%= profile[0].spotify ? profile[0].spotify : '' %>" style="color:#1ED760">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-spotify" viewBox="0 0 16 16">
-        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686zm.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858zm.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288z"/>
-    </svg></a>
-<% } %> -->
-<!-- 
-<div class="card-group" style="background-color:white">
-    <div id="carouselExampleCaptions" class="carousel slide">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="<%= profile[0].h1_img ? ('data:image/png;base64,' + profile[0].h1_img) : '../../resources/img/Maroon_Bells.jpg' %>" height="auto" style="max-width:100%"></img>
-                <div class="carousel-caption d-none d-md-block">
-                    <h3><%= profile[0].hobby1 ? profile[0].hobby1 : 'Activity 1' %></h3>
-                    <p><%= profile[0].h1_caption ? profile[0].h1_caption : 'Caption for Activity one.' %></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="<%= profile[0].h2_img ? ('data:image/png;base64,' + profile[0].h2_img) : '../../resources/img/Maroon_Bells.jpg' %>" class="d-block w-100"></img>
-                <div class="carousel-caption d-none d-md-block">
-                    <h3><%= profile[0].hobby2 ? profile[0].hobby2 : 'Activity 2' %></h3>
-                    <p><%= profile[0].h2_caption ? profile[0].h2_caption : 'Caption for Activity two.' %></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="<%= profile[0].h3_img ? ('data:image/png;base64,' + profile[0].h3_img) : '../../resources/img/Maroon_Bells.jpg' %>" class="d-block w-100"></img>
-                <div class="carousel-caption d-none d-md-block">
-                    <h3><%= profile[0].hobby3 ? profile[0].hobby3 : 'Activity 3' %></h3>
-                    <p><%= profile[0].h3_caption ? profile[0].h3_caption : 'Caption for Activity three.' %></p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-  
-
-
-
-
-
-
-</div> -->
-
-
-
-
-
-
-<!--
-
-<div class="card-group" style="padding:10px;">
-    <div class="col">
-
-        <% if((profile[0].hobby1 != null))  { %>
-            <div class="card mb-3" style="max-width: 400px; max-height: 220px;">
-                <div class="row g-0" style="background-color:#2B4B80;">
-                    <div class="col-md-6">
-                        <h3 class="card-title" style="color:white"><%= profile[0].hobby1 ? profile[0].hobby1 : 'Activity 1' %></h3>
-                        <p class="card-text" style="color:white"><%= profile[0].h1_caption ? profile[0].h1_caption : 'Caption for Activity one.' %></p>
-                        <img src="<%= profile[0].h1_img ? 'data:image/png;base64,' + profile[0].h1_img : '../../resources/img/Maroon_Bells.jpg' %>" class="img-fluid rounded-start" style="max-width: 560px; max-height: 480px;" alt="...">
-                    </div>
-                </div>
-            </div>
-        <% } %>
-
-        <% if((profile[0].hobby2 != null))  { %>
-            <div class="card mb-3" style="max-width: 560px; max-height: 480px; background-color:#2B4B80;">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <h3 class="card-title" style="color:white"><%= profile[0].hobby2 ? profile[0].hobby2 : 'Activity 2' %></h3>
-                            <p class="card-text" style="color:white"><%= profile[0].h2_caption ? profile[0].h2_caption : 'Caption for Activity two.' %></p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="<%= profile[0].h2_img ? 'data:image/png;base64,' + profile[0].h2_img : '../../resources/img/Maroon_Bells.jpg' %>" class="img rounded-start" style="max-width: 560px; max-height: 480px;" alt="...">
-                    </div>
-                </div>
-            </div>
-        <% } %>
-
-        <% if(profile[0].hobby3 != null)  { %>
-            <div class="card mb-3" style="max-width: 560px; max-height: 480px; background-color:#2B4B80;">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <h3 class="card-title" style="color:white"><%= profile[0].hobby3 ? profile[0].hobby3 : 'Activity 2' %></h3>
-                            <p class="card-text" style="color:white"><%= profile[0].h3_caption ? profile[0].h3_caption : 'Caption for Activity two.' %></p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="<%= profile[0].h3_img ? 'data:image/png;base64,' + profile[0].h3_img : '../../resources/img/Maroon_Bells.jpg' %>" class="img rounded-start" style="max-width: 560px; max-height: 480px;" alt="...">
-                    </div>
-                </div>
-            </div>
-        <% } %> 
-    </div>
-</div>
-
-</div>
-
-
-</div>
-
-
-
--->

@@ -31,6 +31,7 @@ INSERT INTO users(
 
     career_position,
     career_organization,
+    career_duration,
     experience,
     aspirations,
 
@@ -71,6 +72,7 @@ VALUES(
 
     'Vice President of Membership',
     'Alpha Kappa Psi',
+    'Currently Working',
     'This role has enhanced my ability to work and manage teams. I also learned a lot about software development through this website I created.',
     'I aspire to master computer science such that I may use my talent for good',
 
