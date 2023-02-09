@@ -101,6 +101,23 @@
                                         <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Committee</button></td>
                                     </form>
                                 </tr>
+                                <% if(profile[0].brother === true) { %>
+                                    <tr>
+                                        <form action="/update_profile/family" method="POST">
+                                            <td><h5 style="color:black; text-align: center;"> Family </h5></td>
+                                            <td><select class="form-select" id="family" name="family">
+                                                <option selected>Which Family?</option>
+                                                <option value="Antosh">Antosh</option>
+                                                <option value="Coleman">Coleman</option>
+                                                <option value="Cooley">Cooley</option>
+                                                <option value="Gates">Gates</option>
+                                                <option value="RK">RK</option>
+                                                <option value="Rizer">Rizer</option>
+                                            </select></td>
+                                            <td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Family</button></td>
+                                        </form>
+                                    </tr>
+                                <% } %>
                             </tbody>
                         </table>
                     </div>

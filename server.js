@@ -69,7 +69,8 @@ const user = {
 
 /* ADMIN */
 const admin = {
-    edit_id:undefined
+    edit_id:undefined,
+    temp_id:undefined
 }
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
@@ -85,22 +86,68 @@ app.get('/register', (req, res) => {            // navigate to register page
 app.get('/login', (req, res) => {               // navigate to the login page
     res.render("pages/login");
 });
+app.get("/pre-register", (req, res) => {              // terminate the session
+    res.render("pages/pre-register");
+});
 app.get("/logout", (req, res) => {              // terminate the session
     req.session.destroy();
     res.render("pages/login");
 });
 /* POST REGISTER : rediredct to login ---------------------------------------------- */
 /* NEED TO IMPLIMENT CONSTRAINT WHERE USERNAMES ARE THE SAME */
-app.post('/register', async (req, res) => {
+// app.post('/register', async (req, res) => {
+
+//     const hash = await bcrypt.hash(req.body.password, 8);
+//     const query = `
+//     INSERT INTO
+//         users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, pfp_img, background)
+//     VALUES
+//         ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);`;
+
+//     db.none(query, [req.body.username, hash, req.body.username, false, '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, '', '../../resources/img/River_Bridge.jpg'])
+//         .then((data) => {
+//             req.session.user = {
+//                 username:req.body.username,
+//                 brother_interviews: 0,
+//                 admin:false,
+//                 points: 0,
+//                 pfp_img:undefined
+//             }
+
+//             req.session.admin = {
+//                 edit_id:undefined
+//             }
+
+//             req.session.save();
+//             res.redirect("/login");
+//         })
+//         .catch((error) => {
+//             console.log("\n\nERROR: ", error.message || error);
+//             res.redirect("/register");
+//         });
+// });
+app.post('/pre-register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
-    const query = `
-    INSERT INTO
-        users(username, password, name, admin, class, major, committee, net_group, preliminary_forms, big_brother_mentor, getting_to_know_you, informational_interviews, resume, domingos, brother_interviews, points, pfp_img, background)
-    VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);`;
+    const query = ` INSERT INTO pre_users(username, password, intent) VALUES('${req.body.username}', '${hash}', '${req.body.intent}');`;
 
-    db.none(query, [req.body.username, hash, req.body.username, false, '', '', '', '', 'false', 'false', 'false', 'false', '', 0, 0, 0, '', '../../resources/img/River_Bridge.jpg'])
+    db.none(query)
+        .then((data) => {
+            res.redirect("/pre-register");
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+            res.redirect("/register");
+        });
+});
+app.post('/register', async (req, res) => {
+
+    const temp_id = req.body.temp_id;
+    const query = `
+    INSERT INTO users(username, password, admin, background)
+    VALUES($1, $2, $3, $4);`;
+
+    db.none(query, [req.body.username, req.body.password, 'false', '../../resources/img/Maroon_Bells.jpg'])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
@@ -111,16 +158,55 @@ app.post('/register', async (req, res) => {
             }
 
             req.session.admin = {
-                edit_id:undefined
+                edit_id:undefined,
+                temp_id: req.body.temp_id
             }
 
             req.session.save();
-            res.redirect("/login");
+            console.log("USER APPROVED: (pre-registration): ", req.body.username);
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
             res.redirect("/register");
         });
+});
+/* ------------------------------------------------------------------------------------ */
+app.post("/admin/delete-pre_user", (req, res) => {
+
+    const query = `SELECT * FROM pre_users ORDER BY temp_id ASC;`
+
+    /* Execute Task */
+    db.task("delete-pre_user", (task) => {
+
+        return task.batch([
+            db.none(
+                `DELETE FROM pre_users WHERE temp_id = $1;`,
+                [parseInt(req.body.temp_id)]
+            ), // END OF db.none
+            task.any(query, [req.session.user.username])
+        ]) //END OF task.batch
+    })  // END OF db.task
+    .then(([, users]) => {
+        console.log("ADMIN:  BATCH SUCCESS\n\n");
+        //console.info(users);
+        res.redirect("/admin/approve_user");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect("/admin");
+    })
+});
+app.delete('/remove_temp', (req, res) => {
+    const query = 'DELETE FROM pre_users WHERE temp_id = $1;'
+    db.one(query, [req.session.admin.temp_id])
+        .then((client) => {
+            res.redirect('/admin/approve_user')
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+            res.redirect("/register");
+        });
+
 });
 /* POST LOGIN : redirect to register ? survey? ------------------------------------- */
 app.post('/login', async (req, res) => {
@@ -203,7 +289,6 @@ app.get("/profile", (req, res) => {
 
     db.any(query)
         .then((profile) => {
-            console.log(profile);
             res.render("pages/profile", {profile});
         })
         .catch((error) => {
@@ -362,6 +447,18 @@ app.post("/update_profile/committee", (req, res) => {
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
 
+/* Family --------------------------------------------*/
+app.post("/update_profile/family", (req, res) => {
+
+    const query = `UPDATE users SET family = '${req.body.family}' WHERE user_id = ${req.session.user.user_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (FAMILY): \n", req.session.user.username, " TO ", req.body.family);
+            res.redirect("/update_profile");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
 
 
 
@@ -376,7 +473,7 @@ app.post("/update_profile/picture", upload.single('profile_img') ,(req, res) => 
     const query = `UPDATE users SET pfp_img = $1 WHERE user_id = $2;`;
     db.none(query, values)
         .then((update) => { req.session.user.pfp_img = values[0]; req.session.save();
-            console.log("\n\nSuccessful Update: (PFP)\n", req.session.user);
+            console.log("\n\nSuccessful Update: (PFP)\n");
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -553,6 +650,7 @@ app.post("/update_profile/background", (req, res) => {   /* UPLOAD PARAMETER ALL
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (BACKGROUND): \n", req.body.background);
+            res.redirect("/update_profile");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -881,6 +979,17 @@ app.post("/update_profile/committee-admin", (req, res) => {
     db.none(query)
         .then((update) => { req.session.save();
             console.log("\n\nSuccessful Update (COMMITTEE): \n", req.session.admin.edit_id, " TO ", req.body.committee);
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
+
+/* Family --------------------------------------------*/
+app.post("/update_profile/family-admin", (req, res) => {
+
+    const query = `UPDATE users SET family = '${req.body.family}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (FAMILY): \n", req.session.admin.edit_id, " TO ", req.body.family);
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
@@ -1411,11 +1520,11 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 
     const query = `
     INSERT INTO
-        brother_interviews(username, brother, family, proof)
+        brother_interviews(username, brother, family, description, proof)
     VALUES
-        ('${req.session.user.username}', $1, $2, $3);`;
+        ('${req.session.user.username}', $1, $2, $3, $4);`;
 
-    db.none(query, [req.body.brother, req.body.family, req.file.buffer.toString('base64')])
+    db.none(query, [req.body.brother, req.body.family, req.body.description, req.file.buffer.toString('base64')])
         .then((update) => {
 
             /* INDICATE SESSION INCRIMENT -- Updated later -> /update_users */
@@ -1570,6 +1679,28 @@ app.post("/admin/delete-announcement", (req, res) => {
         console.log(err);
         res.redirect("/admin");
     })
+});
+/* ------------------------------------------------------------------------------------ */
+app.get("/admin/approve_user", (req, res) => {
+
+    if(req.session.user.admin === 'false') {
+        res.redirect("pages/home");
+    }
+    
+    const query = `SELECT * FROM pre_users ORDER BY temp_id ASC;`;
+
+    db.any(query)
+        .then((admin) => {
+            
+            res.render("pages/admin/approve_user", {
+                admin: admin,
+                action: "approve",
+                remove: "delete"
+            });
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
 });
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin/management", (req, res) => {

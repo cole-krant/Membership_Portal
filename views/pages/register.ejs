@@ -3,7 +3,7 @@
 <main class="d-flex align-items-center" style="height: 100vh">
   
     <!-- REGISTRATION FORM -->
-    <form action="/register" method="POST">
+    <form action="/pre-register" method="POST">
     <section class="text-center text-lg-start" class="register">
       <div class="row g-0 d-flex align-items-center register-page-container d-flex justify-content-center" style="width: 100%">
         <div class="col-lg-8 card-container d-flex justify-content-center">
@@ -12,7 +12,7 @@
 
             <form>
                 <!-- USERNAME INPUT -->
-                <div class="form-outline mb-4">
+                <div class="form-outline">
 
                     <input type="text" id="form2Example1" class="form-control" name="username"/>
                     <label class="form-label" for="form2Example1">   Username   </label>
@@ -20,11 +20,17 @@
                 </div>
 
                 <!-- PASSWORD input -->
-                <div class="form-outline mb-4">
+                <div class="form-outline">
 
                     <input type="password" id="form2Example2" class="form-control" name="password"/>
                     <label class="form-label" for="form2Example2">   Password   </label>
 
+                </div>
+
+                <div class="form-outline">
+
+                    <textarea class="form-control input-lg" height="100px" type="text" placeholder="Write a short statement about who you are and your relationship to our Gamma Zeta Chapter" name="intent" required></textarea>
+                    <label class="form-label" for="form2Example2">   Intent   </label>
                 </div>
 
                 <!-- REROUTE TO LOGIN -->
@@ -32,6 +38,11 @@
                 <!-- SUBMIT button -->
                 <button type="submit" class="btn btn-primary button">   Create Account   </button>
             </form>
+
+            <br>
+            <br>
+            <br>
+            <br>
 
             </div>
         </div>

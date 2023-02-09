@@ -5,7 +5,7 @@ CREATE TABLE users(
     username VARCHAR(50) NOT NULL,
 	password CHAR(60) NOT NULL,
 	name VARCHAR(50),
-	admin BOOLEAN,
+	admin BOOLEAN NOT NULL,
 	class VARCHAR(10),					-- freshman, sophomore, junior or senior
 	major VARCHAR(50),					-- major
 	committee VARCHAR(50),				-- chapter committee
@@ -22,6 +22,7 @@ CREATE TABLE users(
 	-- Status --
 	brother BOOLEAN,
 	pledge BOOLEAN,
+	family VARCHAR(50),
 
 	-- Community --
 	view_id INT,
@@ -35,7 +36,7 @@ CREATE TABLE users(
 	-- Statistics --
 	domingos INT,
 	brother_interviews INT,
-	points INT NOT NULL,
+	points INT,
 
 	-- Hobbies --
 	hobby1 VARCHAR(40),
@@ -87,6 +88,7 @@ CREATE TABLE brother_interviews(
 	username VARCHAR(50) NOT NULL,
 	brother VARCHAR(50) NOT NULL,
 	family VARCHAR(20) NOT NULL,
+	description VARCHAR(400) NOT NULL,
 	proof TEXT NOT NULL
 );
 
@@ -109,4 +111,11 @@ CREATE TABLE announcements(
 CREATE TABLE admin(
 	admin_id SERIAL PRIMARY KEY,
 	edit_id INT NOT NULL
+);
+
+CREATE TABLE pre_users(
+	temp_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+	intent VARCHAR(400) NOT NULL,
+	password CHAR(60) NOT NULL
 );

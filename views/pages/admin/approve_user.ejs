@@ -1,0 +1,71 @@
+<%- include ('../../partials/header') %> 
+<%- include ('../../partials/menu') %>
+
+<main>
+    <header>
+
+    </header>
+    <body>
+
+        <div class = "col-md-auto text-center text-black">
+            <div class="card m-1 bg-white rounded" size="50%">
+    
+                <!-- Yesterday CARD -->
+                <div class="card-header">
+                  <h1 style="color:black"> APPROVE USERS </h1>
+                  <p> Use this page to monitor incoming registrations. Must be approved. </p>
+                  <a href="/admin">Return to Admin</a>
+                </div>
+                <div class="card-body">
+                    <!-- TABLE DEFINITION -->
+                    <table class="table" size="s">
+                        <!-- TABLE HEADER -->
+                        <thead>
+                            <th>ID</th>
+                            <th>USERNAME</th>
+                            <th>Intent</th>
+                        </thead>
+                        <!-- TABLE BODY -->
+                        <tbody>
+                        <!-- Loop for each exercise -->
+                            <%
+                                var pseudo = '';
+                                admin.forEach(admin => {
+                                    pseudo = pseudo + '<tr>';
+                                        /* USER DATA */
+                                        pseudo = pseudo + '<form> <td>'  + admin.temp_id + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.intent + '</td> </form>';
+    
+                                        /* STATISTICS */
+                                        pseudo = pseudo + '<td>';
+                                            if(locals.action == "approve") {
+                                                pseudo = pseudo + '<form action = "/register" method = "POST">';
+                                                    pseudo = pseudo + '<td><button type = "submit" class = "btn btn-primary">Approve</button></td>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "temp_id" value = "' + admin.temp_id + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "username" value = "' + admin.username + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "password" value = "' + admin.password + '"></input>';
+                                                pseudo = pseudo + '</form>';
+                                            }
+                                            if(locals.remove == "delete") {
+                                                pseudo = pseudo + '<form action = "/admin/delete-pre_user" method = "POST">';
+                                                    pseudo = pseudo + '<td><button type = "submit" class = "btn btn-outline-danger">Delete</button></td>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "temp_id" value = "' + admin.temp_id + '"></input>';
+                                                pseudo = pseudo + '</form>';
+                                            }
+                                        pseudo = pseudo + '</td>';
+                                    pseudo = pseudo + '</tr>';
+                                }) 
+                            %>
+                            <%- pseudo %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</main>
+
+
+<%- include ('../../partials/footer') %>
