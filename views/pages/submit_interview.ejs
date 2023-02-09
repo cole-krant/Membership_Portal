@@ -14,18 +14,12 @@
               text-align: center;
               background-color: #2B4B80;
               max-width: 400px;
-              height: 400px;
+              height: 800px;
               box-shadow: 10px 10px 3px;
               font-family: 'Verdana', sans-serif;
               color: white;
             }
         </style>
-        <script>
-            const active = [
-
-            ]
-
-        </script>
     </header>
     <body class="flatiron_bg">
 
@@ -41,15 +35,36 @@
                             <div class="card-body py-5 px-md-5 login-card">
                                 <h2> Brother Interview Submission </h2>
                     
+                                <script>
+                                    active_brothers = [];
+                                    index = 0
+                                    bridge.forEach(bridge => {
+                                        active_brothers[index] = bridge.username;
+                                        index++;
+                                    });
+                        
+                                </script>
+
                                 <!-- BROTHER INPUT -->
                                 <select class="form-select" id="brother" name="brother">
                                     <option selected>Select Brother...</option>
-                                    <option value="Cole Krant">Cole Krant</option>
-                                    <option value="Antosh">Antosh</option>
-                                    <option value="Antosh">Antosh</option>
-                                    <option value="Antosh">Antosh</option>
-                                    <option value="Antosh">Antosh</option>
-                                    <option value="Antosh">Antosh</option>
+
+                                    <%          
+                                        active_brothers = [];
+                                        index = 0
+                                        bridge.forEach(bridge => {
+                                            
+                                            active_brothers[index] = bridge.username;
+                                            console.log(active_brothers[index]);
+                                            index++;
+                                        });
+                                        
+                                        
+                                        index = 0 
+                                    %>
+                                    <% while(index < active_brothers.length) { %>
+                                        <option value="<%= active_brothers[index] %>"><%= active_brothers[index] %></option>
+                                    <% index++; } %>
                                 </select>
                     
                                 <!-- FAMILY input -->
@@ -64,7 +79,9 @@
                                 </select>
 
                                 <br>
-                                <h5>Submit Proof</h5>
+                                <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a summary of what you did together" name="description" required></textarea>
+
+                                <br>
                                 <input class="form-control" type="file" id="proof" name="proof">
                     
                                 <button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button>

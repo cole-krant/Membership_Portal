@@ -88,7 +88,7 @@ CREATE TABLE brother_interviews(
 	username VARCHAR(50) NOT NULL,
 	brother VARCHAR(50) NOT NULL,
 	family VARCHAR(20) NOT NULL,
-	description VARCHAR(400) NOT NULL,
+	description VARCHAR(1200) NOT NULL,
 	proof TEXT NOT NULL
 );
 
@@ -117,5 +117,6 @@ CREATE TABLE pre_users(
 	temp_id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
 	intent VARCHAR(400) NOT NULL,
+	membership_status VARCHAR(8) NOT NULL,
 	password CHAR(60) NOT NULL
 );

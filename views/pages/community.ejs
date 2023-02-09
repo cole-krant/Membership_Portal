@@ -5,7 +5,7 @@
   <header>
     <style>
       .campus_bg {
-        background-image: url('../../resources/img/Campus_Birdseye.jpeg');
+        background-image: url('../../resources/img/CU_Campus.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover
@@ -31,8 +31,7 @@
     <body class="campus_bg">
 
       <div sytle="max-width:100%; height: 800px;">
-        <br>
-        <br>
+    
         <br>
         <br>
         <br>
@@ -40,16 +39,7 @@
         <h3 style="color:white; text-align: center;">Gamma Zeta Chapter</h3>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
 
 
 
@@ -74,7 +64,7 @@
                 count_col = count_col + 1;
                 image = community.pfp_img ? "data:image/png;base64," + community.pfp_img : '../../resources/pfp/Default_Avatar.jpg';
                 pseudo = pseudo + '<div class="w3-quarter">';
-                  pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px;">';
+                  pseudo = pseudo + '<div class="card mb-3" style="background-color:#2B4B80; max-width:300px">';
                     pseudo = pseudo + '<div class="col">';
                       pseudo = pseudo + '<form action="/community/view_id" method="POST">';
                         pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';

@@ -35,14 +35,12 @@
                             image = "data:image/png;base64," + brothers.proof;
                             pseudo = pseudo + '<div class="w3-quarter" style="padding:10px">';                     // create a card
                                 pseudo = pseudo + '<div class="card-group">';
-                                    pseudo = pseudo + '<div class="card" style="background-color:black;">';
-                                        pseudo = pseudo + '<img src="' + image + '" width="60%" height="60%" class="card-img-top" alt="Profile Picture">';
+                                    pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                                        pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
                                         pseudo = pseudo + '<div class="card-body">';
-                                            pseudo = pseudo + '<h2 style="color:white; text-align:left;">' + brothers.brother + ', ' + brothers.family +  '</h2>';
-                                            pseudo = pseudo + '<p class="title">' + brothers.description + '</p>';
-                                        
+                                            pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + brothers.brother + ', ' + brothers.family +  '</h2>';
+                                            pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + brothers.description + '</p>';
                                         pseudo = pseudo + '</div>';
-                                    
                                     pseudo = pseudo + '</div>';
                                 pseudo = pseudo + '</div>';
                             pseudo = pseudo + '</div>';
@@ -54,11 +52,15 @@
         
                             count_col = count_col + 1;                                  // incriment count
                             image = "data:image/png;base64," + brothers.proof;
-                            pseudo = pseudo + '<div class="w3-quarter">';               // same row, input card
-                                pseudo = pseudo + '<div class="w3-circle" style="background-color:#2B4B80">'
-                                    pseudo = pseudo + '<img src="' + image + '" width="60%" height="60%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                                    pseudo = pseudo + '<h1>' + brothers.brother + '</h1>';
-                                    pseudo = pseudo + '<p class="title">' + brothers.family + '</p>';
+                            pseudo = pseudo + '<div class="w3-quarter" style="padding:10px">';               // same row, input card
+                                pseudo = pseudo + '<div class="card-group">';
+                                    pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                                        pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
+                                        pseudo = pseudo + '<div class="card-body">';
+                                            pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + brothers.brother + ', ' + brothers.family +  '</h2>';
+                                            pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + brothers.description + '</p>';
+                                        pseudo = pseudo + '</div>';
+                                    pseudo = pseudo + '</div>';
                                 pseudo = pseudo + '</div>';
                             pseudo = pseudo + '</div>';
         
@@ -70,11 +72,15 @@
                             image = "data:image/png;base64," + brothers.proof;
                             pseudo = pseudo + '</div>';         // close the card
                             pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
-                            pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                                pseudo = pseudo + '<div class="w3-circle" style="background-color:#2B4B80">'
-                                    pseudo = pseudo + '<img src="' + image + '" width="60%" height="60%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                                    pseudo = pseudo + '<h1>' + brothers.brother + '</h1>';
-                                    pseudo = pseudo + '<p class="title">' + brothers.family + '</p>';
+                            pseudo = pseudo + '<div class="w3-quarter" style="padding:10px">';                     // create a card
+                                pseudo = pseudo + '<div class="card-group">';
+                                    pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                                        pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
+                                        pseudo = pseudo + '<div class="card-body">';
+                                            pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + brothers.brother + ', ' + brothers.family +  '</h2>';
+                                            pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + brothers.description + '</p>';
+                                        pseudo = pseudo + '</div>';
+                                    pseudo = pseudo + '</div>';
                                 pseudo = pseudo + '</div>';
                             pseudo = pseudo + '</div>';
                             start = count_col;                  // indicate new row

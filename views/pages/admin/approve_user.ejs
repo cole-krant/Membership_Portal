@@ -23,6 +23,7 @@
                         <thead>
                             <th>ID</th>
                             <th>USERNAME</th>
+                            <th>Membership Status</th>
                             <th>Intent</th>
                         </thead>
                         <!-- TABLE BODY -->
@@ -35,6 +36,7 @@
                                         /* USER DATA */
                                         pseudo = pseudo + '<form> <td>'  + admin.temp_id + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.username + '</td> </form>';
+                                        pseudo = pseudo + '<form> <td>'  + admin.membership_status + '</td> </form>';
                                         pseudo = pseudo + '<form> <td>'  + admin.intent + '</td> </form>';
     
                                         /* STATISTICS */
@@ -45,6 +47,7 @@
                                                     pseudo = pseudo + '<input type = "hidden" name = "temp_id" value = "' + admin.temp_id + '"></input>';
                                                     pseudo = pseudo + '<input type = "hidden" name = "username" value = "' + admin.username + '"></input>';
                                                     pseudo = pseudo + '<input type = "hidden" name = "password" value = "' + admin.password + '"></input>';
+                                                    pseudo = pseudo + '<input type = "hidden" name = "membership_status" value = "' + admin.membership_status + '"></input>';
                                                 pseudo = pseudo + '</form>';
                                             }
                                             if(locals.remove == "delete") {

@@ -510,7 +510,7 @@
                                     <form enctype="multipart/form-data" action="/update_profile/resume" method="POST">
                                         <td style="width:15%"><h5 style="color:black; text-align: center;"> Resume </h5></td>
                                         <td><input class="w3-input w3-border" type="file" name="resume" id="resume" required></td>
-                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Experience</button></td>
+                                        <td style="max-width:5%"><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Save Resume</button></td>
                                     </form>
                                 </tr>
                                 <tr>
@@ -584,6 +584,30 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+
+    <% if(profile[0].admin) { %>
+        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+            <div class="card" style="background-color:white; max-width: 50%;">
+            
+                <div class="card-body">
+                
+                    <div class="card-footer">
+                        <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
+        
+                            <button class="btn default" style="background-color: rgb(4, 125, 153);">
+                                <h5 style="color:white" class="card-text">ADMINISTRATION</h5>
+                            </button>
+                            
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    <% } %>
 
   </body>
 </main>

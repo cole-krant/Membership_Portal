@@ -70,7 +70,7 @@ const user = {
 /* ADMIN */
 const admin = {
     edit_id:undefined,
-    temp_id:undefined
+    temp_id:undefined,
 }
 
 /* NAVIGATION ROUTES -------------------------------------------------------------- */
@@ -129,7 +129,7 @@ app.get("/logout", (req, res) => {              // terminate the session
 app.post('/pre-register', async (req, res) => {
 
     const hash = await bcrypt.hash(req.body.password, 8);
-    const query = ` INSERT INTO pre_users(username, password, intent) VALUES('${req.body.username}', '${hash}', '${req.body.intent}');`;
+    const query = ` INSERT INTO pre_users(username, password, intent, membership_status) VALUES('${req.body.username}', '${hash}', '${req.body.intent}', '${req.body.membership_status}');`;
 
     db.none(query)
         .then((data) => {
@@ -142,12 +142,24 @@ app.post('/pre-register', async (req, res) => {
 });
 app.post('/register', async (req, res) => {
 
+    var brother, pledge;
+
+    if(req.body.membership_status == 'Brother') {
+        brother = 'true'
+        pledge = 'false'
+    }
+    else if(req.body.memberhsip_status == 'Pledge') {
+        pledge = 'true'
+        brother = 'false'
+    }
+
+
     const temp_id = req.body.temp_id;
     const query = `
-    INSERT INTO users(username, password, admin, background)
-    VALUES($1, $2, $3, $4);`;
+    INSERT INTO users(username, password, admin, background, brother, pledge)
+    VALUES($1, $2, $3, $4, $5, $6);`;
 
-    db.none(query, [req.body.username, req.body.password, 'false', '../../resources/img/Maroon_Bells.jpg'])
+    db.none(query, [req.body.username, req.body.password, 'false', '../../resources/img/Maroon_Bells.jpg', brother, pledge])
         .then((data) => {
             req.session.user = {
                 username:req.body.username,
@@ -1479,9 +1491,9 @@ app.get("/bridge", (req, res) => {
 /* SUBMIT_INTERVIEW PAGE --------------------------------------------------------- */
 app.get("/submit_interview", (req, res) => {
 
-    const query = `SELECT * FROM users WHERE username = $1;`;
+    const query = `SELECT * FROM users WHERE brother = ${true};`;
 
-    db.any(query, [req.session.user.username])
+    db.any(query)
         .then((bridge) => {
             res.render("pages/submit_interview", {bridge});
         })
@@ -1594,7 +1606,7 @@ app.get("/ranking", (req, res) => {
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin", (req, res) => {
 
-    if(req.session.user.admin === false) {
+    if(req.session.user.admin === 'false') {
         res.redirect("pages/home");
     }
     
