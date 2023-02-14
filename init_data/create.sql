@@ -4,57 +4,50 @@ CREATE TABLE users(
 	-- User Data --
     username VARCHAR(50) NOT NULL,
 	password CHAR(60) NOT NULL,
-	name VARCHAR(50),
 	admin BOOLEAN NOT NULL,
 	class VARCHAR(10),					-- freshman, sophomore, junior or senior
-	major VARCHAR(50),					-- major
-	committee VARCHAR(50),				-- chapter committee
-	net_group VARCHAR(50),				-- weekly networking group
 	
-	-- Contact Info --
-	bio VARCHAR(600),
+	-- VARCHAR 50 ALIGNMENT --
+	name VARCHAR(50),
 	school_email VARCHAR(50),
 	personal_email VARCHAR(50),
 	professional_email VARCHAR(50),
 	linkedin VARCHAR(50),
+	family VARCHAR(50),
+	committee VARCHAR(50),				-- chapter committee
+	net_group VARCHAR(50),				-- weekly networking group
+	major VARCHAR(50),
+	background VARCHAR(50),
 	phone VARCHAR(20),
 
-	-- Status --
+	-- INT BOOL DATA --
+	domingos INT,
+	brother_interviews INT,
+	points INT,
+	view_id INT,
 	brother BOOLEAN,
 	pledge BOOLEAN,
-	family VARCHAR(50),
-
-	-- Community --
-	view_id INT,
-
-	-- Assignments --
 	preliminary_forms BOOLEAN,
 	big_brother_mentor BOOLEAN,
 	getting_to_know_you BOOLEAN,
 	informational_interviews BOOLEAN,
 
-	-- Statistics --
-	domingos INT,
-	brother_interviews INT,
-	points INT,
-
-	-- Hobbies --
+	-- VARCHAR 40 ALIGNMENT --
 	hobby1 VARCHAR(40),
 	hobby2 VARCHAR(40),
 	hobby3 VARCHAR(40),
-	h1_caption VARCHAR(400),
-	h2_caption VARCHAR(400),
-	h3_caption VARCHAR(400),
-
-	-- Career --
 	career_position VARCHAR(40),
 	career_organization VARCHAR(40),
 	career_duration VARCHAR(40),
+
+	bio VARCHAR(600),
+	h1_caption VARCHAR(600),
+	h2_caption VARCHAR(600),
+	h3_caption VARCHAR(600),
+
+	-- Career --
 	experience VARCHAR(800),
 	aspirations VARCHAR(800),
-
-	-- Profile Page Background --
-	background VARCHAR(50),
 
 	-- Preferences Aligned Data--
 	likes VARCHAR(800),
@@ -106,8 +99,8 @@ CREATE TABLE announcements(
 	announcement_id SERIAL PRIMARY KEY,
 	time DATE NOT NULL,
 	username VARCHAR(50) NOT NULL,
-	subject VARCHAR(50) NOT NULL,
-	announcement VARCHAR(800) NOT NULL,
+	subject VARCHAR(200) NOT NULL,
+	announcement VARCHAR(1400) NOT NULL,
 	pfp_img TEXT
 );
 

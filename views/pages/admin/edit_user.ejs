@@ -32,7 +32,7 @@
                       <button class="nav-link" id=" bio-tab" data-bs-toggle="tab" data-bs-target="#bio-tab-pane" type="button" role="tab" aria-controls="bio-tab-pane" aria-selected="false">Bio</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="preferences" data-bs-toggle="tab" data-bs-target="#preferences-tab-pane" type="button" role="tab" aria-controls="preferences-tab-pane" aria-selected="false">Preferences</button>
+                      <button class="nav-link" id="preferences" data-bs-toggle="tab" data-bs-target="#preferences-tab-pane" type="button" role="tab" aria-controls="preferences-tab-pane" aria-selected="false">Pref.</button>
                   </li>
                   <li class="nav-item" role="presentation">
                       <button class="nav-link" id="hobbies" data-bs-toggle="tab" data-bs-target="#hobbies-tab-pane" type="button" role="tab" aria-controls="hobbies-tab-pane" aria-selected="false">Hobbies</button>
@@ -41,14 +41,17 @@
                       <button class="nav-link" id="background" data-bs-toggle="tab" data-bs-target="#background-tab-pane" type="button" role="tab" aria-controls="background-tab-pane" aria-selected="false">Background</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="interview" data-bs-toggle="tab" data-bs-target="#interview-tab-pane" type="button" role="tab" aria-controls="interview-tab-pane" aria-selected="false">Favorite Interview</button>
+                      <button class="nav-link" id="interview" data-bs-toggle="tab" data-bs-target="#interview-tab-pane" type="button" role="tab" aria-controls="interview-tab-pane" aria-selected="false">Fav Interview</button>
                   </li>
                   <li class="nav-item" role="presentation">
                       <button class="nav-link" id="career" data-bs-toggle="tab" data-bs-target="#career-tab-pane" type="button" role="tab" aria-controls="career-tab-pane" aria-selected="false">Career</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="true">Gallery</button>
+                      <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#gallery-tab-pane" type="button" role="tab" aria-controls="gallery-tab-pane" aria-selected="false">Gallery</button>
                   </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="gallery" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button" role="tab" aria-controls="admin-tab-pane" aria-selected="false">Admin</button>
+                </li>
               </ul>
               <div class="tab-content" id="myTabContent">
                   <!-- BASIC INFO SELECTION -->
@@ -592,10 +595,44 @@
                           </table>
                       </div>
                   </div>
+                  <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" aria-labelledby="admin-info" tabindex="0">
+
+                    <div class="card mb-3">
+                        <table class="table">
+                            <thead>
+                                <br>
+                                <h3 style="color:black">ADMINISTRATION</h3>
+                                <p style="color:red">Only use this to navigate  </p>
+                                <br>
+                            </thead>
+                            <tbody>
+                                <form action="/edit_user/admin" method="POST">  
+                
+                                    <tr>
+                                        <td><h5 style="color:black; text-align: left;"> Make Admin </h5></td>
+                                        <td style="width:60%">
+                                            <select class="form-select" id="admin" name="admin">
+                                                <option selected>Choose?</option>
+                                                <option value="true">True</option>
+                                                <option value="false">False</option>
+                                            </select>
+                                        </td>
+                                        <td><td><button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button></td></td>
+                                    </tr>
+                
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>
+    
+                  </div>
               </div>
           </div>
       </div>
   
+
+
+
     </body>
   </main>
 

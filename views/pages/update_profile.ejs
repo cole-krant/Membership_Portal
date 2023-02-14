@@ -582,32 +582,33 @@
                     </div>
                 </div>
             </div>
+            <% if(profile[0].admin) { %>
+                <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
+                    <div class="card" style="background-color:white;">
+                    
+                        <div class="card-body">
+                        
+                            <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
+            
+                                <button class="btn btn-warning">
+                                    <h5 style="color:white" class="card-text">ADMINISTRATION</h5>
+                                </button>
+                                
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
 
-    <br>
+
     <br>
 
-    <% if(profile[0].admin) { %>
-        <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
-            <div class="card" style="background-color:white; max-width: 50%;">
-            
-                <div class="card-body">
-                
-                    <div class="card-footer">
-                        <a class="nav-link active" aria-current="page" href="/admin" style="color:whitesmoke">
-        
-                            <button class="btn default" style="background-color: rgb(4, 125, 153);">
-                                <h5 style="color:white" class="card-text">ADMINISTRATION</h5>
-                            </button>
-                            
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    <% } %>
+    <br>
+
+
 
   </body>
 </main>

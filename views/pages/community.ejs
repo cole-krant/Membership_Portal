@@ -61,7 +61,7 @@
                     pseudo = pseudo + '<div class="col">';
                       pseudo = pseudo + '<form action="/community/view_id" method="POST">';
                         pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
-                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + community.name + '</h3></button>';
+                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + (community.name ? community.name : community.username) + '</h3><h5 style="color:white">' + ((community.brother === true) ? "Brother" : "Pledge") + '</h5></button>';
                       pseudo = pseudo + '</form>';
                     pseudo = pseudo + '</div>';
                   pseudo = pseudo + '</div>';
@@ -79,7 +79,7 @@
                     pseudo = pseudo + '<div class="col">';
                       pseudo = pseudo + '<form action="/community/view_id" method="POST">';
                         pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
-                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + community.name + '</h3></button>';
+                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + (community.name ? community.name : community.username) + '</h3><h5 style="color:white">' + ((community.brother === true) ? "Brother" : "Pledge") + '</h5></button>';
                       pseudo = pseudo + '</form>';
                     pseudo = pseudo + '</div>';
                   pseudo = pseudo + '</div>';
@@ -98,7 +98,7 @@
                       pseudo = pseudo + '<div class="col">';
                         pseudo = pseudo + '<form action="/community/view_id" method="POST">';
                         pseudo = pseudo + '<input type="hidden" value="' + community.user_id +'" name="view_id" id="view_id">';
-                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + community.name + '</h3></button>';
+                        pseudo = pseudo + '<button class="btn btn-blue" action="/profile"><img src="' + image +'" class="w3-circle w3-hover-opacity" width="50%" height="50%" alt="Profile Picture"><h3>' + (community.name ? community.name : community.username) + '</h3><h5 style="color:white">' + ((community.brother === true) ? "Brother" : "Pledge") + '</h5></button>';
                       pseudo = pseudo + '</form>';
                       pseudo = pseudo + '</div>';
                     pseudo = pseudo + '</div>';

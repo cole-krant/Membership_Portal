@@ -142,41 +142,29 @@ app.post('/pre-register', async (req, res) => {
             res.redirect("/register");
         });
 });
-app.post('/register', async (req, res) => {
-
+function get_membership(membership_status) {
     var brother, pledge;
 
-    if(req.body.membership_status == 'Brother') {
-        brother = 'true'
-        pledge = 'false'
+    if(membership_status === 'Brother') {
+        brother = 'true';
+        pledge = 'false';
     }
-    else if(req.body.memberhsip_status == 'Pledge') {
-        pledge = 'true'
-        brother = 'false'
+    if(membership_status === 'Pledge') {
+        pledge = 'true';
+        brother = 'false';
     }
+    return brother, pledge;
+}
+app.post('/register', async (req, res) => {
 
+    var brother, pledge = get_membership(req.body.membership_status);
 
-    const temp_id = req.body.temp_id;
     const query = `
     INSERT INTO users(username, password, admin, background, brother, pledge)
     VALUES($1, $2, $3, $4, $5, $6);`;
 
     db.none(query, [req.body.username, req.body.password, 'false', '../../resources/img/Maroon_Bells.jpg', brother, pledge])
         .then((data) => {
-            req.session.user = {
-                username:req.body.username,
-                brother_interviews: 0,
-                brother:req.body.brother,
-                pledge:req.body.pledge,
-                admin:false,
-                points: 0,
-                pfp_img:undefined
-            }
-
-            req.session.admin = {
-                edit_id:undefined,
-                temp_id: req.body.temp_id
-            }
 
             req.session.save();
             console.log("USER APPROVED: (pre-registration): ", req.body.username);
@@ -240,14 +228,17 @@ app.post('/login', async (req, res) => {
             if (match) {
                 req.session.user = {
                     user_id: client.user_id,
-                    username: req.body.username,
+                    username: client.username,
                     brother_interviews: client.brother_interviews,
+                    brother: client.brother,
+                    pledge: client.pledge,
+                    admin: client.admin,
                     points: client.points,
-                    pfp_img: client.pfp_img
                 }
-
+    
                 req.session.admin = {
-                    edit_id:undefined
+                    edit_id:undefined,
+                    temp_id: undefined
                 }
                 
                 req.session.save();
@@ -407,12 +398,25 @@ app.post("/community/view_id", (req, res) => {
  */
 
 
+/* CREATE ADMIN --------------------------------------------*/
+app.post("/edit_user/admin", (req, res) => {
 
+    const query = `UPDATE users SET admin = '${req.body.admin}' WHERE user_id = ${req.session.admin.edit_id};`;
+    db.none(query)
+        .then((update) => { req.session.save();
+            console.log("\n\nSuccessful Update (ADMIN): \n", req.body.admin, " TO ", req.body.admin.edit_id);
+            // res.redirect("/update_profile");
+        })
+        .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
+});
 
 
 /* -----------------------------------------------------------------------------------  */
 /*                                  BASIC INFO                                          */
 /* -----------------------------------------------------------------------------------  */
+
+
+
 /* DISPLAY NAME --------------------------------------------*/
 app.post("/update_profile/name", (req, res) => {
 
@@ -731,7 +735,7 @@ app.post("/update_profile/fav_interview", upload.single('fav_interview_img'), (r
 
     db.none(query, values)
         .then((update) => { req.session.save();
-            console.log("\n\nSuccessful Update: \n", req.session.user);
+            console.log("\n\nSuccessful Update: \n");
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1521,9 +1525,14 @@ app.get("/submit_networking", (req, res) => {
 /* GET INTERVIEWS -------------------------------------------------------------------- */
 app.get("/interviews", (req, res) => {
 
-    var q;
-    
-    const query = q;
+    var append = '';
+    if(req.session.user.brother) {
+        append = ' brother = $1;';
+    }
+    if(req.session.user.pledge) {
+        append = ' username = $1;'
+    }
+    const query = `SELECT * FROM brother_interviews WHERE` + append;
     console.log(query);
 
     db.any(query, [req.session.user.username])
