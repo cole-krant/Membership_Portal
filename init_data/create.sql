@@ -85,6 +85,7 @@ CREATE TABLE users(
 
 CREATE TABLE brother_interviews(
 	interview_id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
 	username VARCHAR(50) NOT NULL,
 	brother VARCHAR(50) NOT NULL,
 	family VARCHAR(20) NOT NULL,
@@ -94,8 +95,10 @@ CREATE TABLE brother_interviews(
 
 CREATE TABLE networking_groups(
 	net_id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
 	username VARCHAR(50) NOT NULL,
 	group_week VARCHAR(50) NOT NULL,
+	description VARCHAR(1200) NOT NULL,
 	proof TEXT NOT NULL
 );
 

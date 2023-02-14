@@ -4,19 +4,19 @@
 <main>
   <header>
     <style>
-      .campus_bg {
-        background-image: url('../../resources/img/Campus_Birdseye.jpeg');
+      .networking {
+        background-image: url('../../resources/img/networking.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover
       }
     </style>
   </header>
-    <body class="campus_bg">
+    <body class="networking">
     <!-- MyNetworking-->
       <div class="w3-container w3-padding-64 w3-center">
-        <h1>My Weekly Networking Groups</h1>
-        <h3>Gamma Zeta Chapter</h3>
+        <h1 class="modernist" style="color:black; text-align: center;"><strong>My Weekly Networking Groups</strong></h1>
+        <h3 class="modernist-small" style="color:black; text-align: center;"><%= username %></h3>
         <%
           var count_col = 0;      // variable to limit 4 cards per row
           var start = 0;          // variable to limit 4 cards per row
@@ -32,10 +32,16 @@
 
                 count_col = count_col + 1;
                 image = "data:image/png;base64," + net_groups.proof;
-                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                pseudo = pseudo + '<img src="' + image +'" width="60%" height="60%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + net_groups.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + net_groups.group_week + '</p>';
+                pseudo = pseudo + '<div class="w3-quarter"  style="padding:10px">';                     // create a card
+                  pseudo = pseudo + '<div class="card-group">';
+                      pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                          pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
+                            pseudo = pseudo + '<div class="card-body">';
+                              pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + net_groups.group_week +  '</h2>';
+                              pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + net_groups.description + '</p>';
+                          pseudo = pseudo + '</div>';
+                      pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
 
                 index++;
@@ -45,10 +51,16 @@
 
                 count_col = count_col + 1;                                        // incriment count
                 image = "data:image/png;base64," + net_groups.proof;
-                pseudo = pseudo + '<div class="w3-quarter">';                     // same row, input card
-                pseudo = pseudo + '<img src="' + image +'" width="60%" height="60%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + net_groups.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + net_groups.group_week + '</p>';
+                pseudo = pseudo + '<div class="w3-quarter" style="padding:10px">';                     // same row, input card
+                  pseudo = pseudo + '<div class="card-group">';
+                      pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                          pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
+                            pseudo = pseudo + '<div class="card-body">';
+                              pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + net_groups.group_week +  '</h2>';
+                              pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + net_groups.description + '</p>';
+                          pseudo = pseudo + '</div>';
+                      pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
 
                 index++;
@@ -59,10 +71,16 @@
                 image = "data:image/png;base64," + net_groups.proof;
                 pseudo = pseudo + '</div>';                                       // close the card
                 pseudo = pseudo + '<div class="w3-row">';                         // begin the row row
-                pseudo = pseudo + '<div class="w3-quarter">';                     // create a card
-                pseudo = pseudo + '<img src="' + image +'" width="60%" height="60%" class="w3-circle w3-hover-opacity" alt="Profile Picture">';
-                pseudo = pseudo + '<h1>' + net_groups.username + '</h1>';
-                pseudo = pseudo + '<p class="title">' + net_groups.group_week + '</p>';
+                pseudo = pseudo + '<div class="w3-quarter" style="padding:10px">';                     // create a card
+                  pseudo = pseudo + '<div class="card-group">';
+                      pseudo = pseudo + '<div class="card" style="background-color:white;">';
+                          pseudo = pseudo + '<img src="' + image + '" width="500px" height="500px" class="card-img-top" alt="Profile Picture">';
+                            pseudo = pseudo + '<div class="card-body">';
+                              pseudo = pseudo + '<h2 style="color:#2B4B80; text-align:left;">' + net_groups.group_week +  '</h2>';
+                              pseudo = pseudo + '<p class="title" style="color:#2B4B80; text-align:left;">' + net_groups.description + '</p>';
+                          pseudo = pseudo + '</div>';
+                      pseudo = pseudo + '</div>';
+                  pseudo = pseudo + '</div>';
                 pseudo = pseudo + '</div>';
                 start = count_col;                  // indicate new row
                 count_cmp = count_cmp + 4;          // set new ceiling

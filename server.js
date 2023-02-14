@@ -60,6 +60,8 @@ app.use(
 const user = {
     user_id:undefined,
     username:undefined,
+    brother:undefined,
+    pledge:undefined,
     brother_interviews:undefined,
     admin:undefined,
     points:undefined,
@@ -164,6 +166,8 @@ app.post('/register', async (req, res) => {
             req.session.user = {
                 username:req.body.username,
                 brother_interviews: 0,
+                brother:req.body.brother,
+                pledge:req.body.pledge,
                 admin:false,
                 points: 0,
                 pfp_img:undefined
@@ -1517,11 +1521,27 @@ app.get("/submit_networking", (req, res) => {
 /* GET INTERVIEWS -------------------------------------------------------------------- */
 app.get("/interviews", (req, res) => {
 
-    const query = `SELECT * FROM brother_interviews WHERE username = '${req.session.user.username}';`;
+    var q;
+    
+    const query = q;
+    console.log(query);
 
     db.any(query, [req.session.user.username])
         .then((brothers) => {
-            res.render("pages/interviews", {brothers});
+            res.render("pages/interviews", {brothers, username: req.session.user.username});
+        })
+        .catch((error) => {
+            console.log("\n\nERROR: ", error.message || error);
+        })
+});
+/* GET INTERVIEWS -------------------------------------------------------------------- */
+app.get("/all_interviews", (req, res) => {
+
+    const query = `SELECT * FROM brother_interviews;`;
+
+    db.any(query, [req.session.user.username])
+        .then((brothers) => {
+            res.render("pages/all_interviews", {brothers});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1532,9 +1552,9 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 
     const query = `
     INSERT INTO
-        brother_interviews(username, brother, family, description, proof)
+        brother_interviews(user_id, username, brother, family, description, proof)
     VALUES
-        ('${req.session.user.username}', $1, $2, $3, $4);`;
+        (${req.session.user.user_id}, '${req.session.user.username}', $1, $2, $3, $4);`;
 
     db.none(query, [req.body.brother, req.body.family, req.body.description, req.file.buffer.toString('base64')])
         .then((update) => {
@@ -1556,11 +1576,11 @@ app.post("/submit_interview/post", upload.single('proof'), (req, res) => {
 /* GET BRIDGE -------------------------------------------------------------------- */
 app.get("/networking", (req, res) => {
 
-    const query = `SELECT * FROM networking_groups WHERE username = '${req.session.user.username}';`;
+    const query = `SELECT * FROM networking_groups WHERE user_id = '${req.session.user.user_id}';`;
 
     db.any(query, [req.session.user.username])
         .then((net_groups) => {
-            res.render("pages/networking", {net_groups});
+            res.render("pages/networking", {net_groups, username: req.session.user.username});
         })
         .catch((error) => {
             console.log("\n\nERROR: ", error.message || error);
@@ -1571,11 +1591,11 @@ app.post("/submit_networking/post", upload.single('proof'), (req, res) => {
 
     const query = `
     INSERT INTO
-        networking_groups(username, group_week, proof)
+        networking_groups(user_id, username, group_week, description, proof)
     VALUES
-        ('${req.session.user.username}', $1, $2);`;
+        (${req.session.user.user_id}, '${req.session.user.username}', '${req.body.group_week}', '${req.body.description}', '${req.file.buffer.toString('base64')}');`;
 
-    db.none(query, [req.body.group_week, req.file.buffer.toString('base64')])
+    db.none(query)
         .then((update) => {
 
             req.session.user.points = req.session.user.points + 2;
@@ -1588,20 +1608,6 @@ app.post("/submit_networking/post", upload.single('proof'), (req, res) => {
             console.log("\n\nERROR: ", error.message || error);
         })
 
-});
-/* GET RANKING -------------------------------------------------------------------- */
-app.get("/ranking", (req, res) => {
-
-    const query = `SELECT * FROM users ORDER BY points DESC;`;
-
-    db.any(query)
-        .then((ranking) => {
-            res.render("pages/ranking", {ranking});
-        })
-        .catch((error) => {
-            console.log("\n\nERROR: ", error.message || error);
-        })
-    
 });
 /* ------------------------------------------------------------------------------------ */
 app.get("/admin", (req, res) => {

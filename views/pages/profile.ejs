@@ -171,43 +171,51 @@
 
                     <!-- PREFERENCES -->
                     <% if(profile[0].likes != null) { %>
-                        <div class="card-group" style="padding: 5px; padding-bottom: 30px; ">
-                            <div class="card" style="background-color:#2B4B80;  border-radius: 60px; padding:10px;">
+                        <div class="card-group" style="padding-bottom: 30px;">
+                            <div class="card" style="background-color:#2B4B80; border-radius: 20px;">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col" style="background-color:#3964aa; border-radius: 60px; padding:10px;">
-                                            <div class="row" style="padding: 5px; padding-bottom: 8px;">
+                                        <div class="col">
+                                            <div class="row">
         
-                                                <div class="col" style="background-color:white; border-radius: 60px;">
-                                                    <h1 style="color:green;">Likes</h1>
-                                                    <p style="color:green;"><%= profile[0].likes %></p>
+                                                <div class="col" style="background-color:rgba(0, 128, 0, 0.671); border-radius: 20px;">
+                                                    <h1 style="color:white;">Likes</h1>
+                                                    <p style="color:white;"><%= profile[0].likes %></p>
                                                     <br>
                                                 </div>
                                                 <br>
-                                                <div class="col" style="background-color:white; border-radius: 60px;">
-                                                    <h1 style="color:red;">Dislikes</h1>
-                                                    <p style="color:red;"><%= profile[0].dislikes %></p>
+                                                <div class="col" style="background-color:rgba(255, 0, 0, 0.5); border-radius: 20px; padding-left: 10px;">
+                                                    <h1 style="color:white;">Dislikes</h1>
+                                                    <p style="color:white;"><%= profile[0].dislikes %></p>
                                                     <br>
                                                 </div>
-                                            </div>
-                                            <div class="row" style="padding: 5px; padding-bottom: 8px;">
-                                                
-                                                <div class="col" style=" padding: 10px;">
-                                                    <div class="container" style="background-color:white; border-radius: 60px;">
-                                                        <br>
-                                                        <h3 style="color:#2B4B80; align-self: left;">"<%= profile[0].quote %>"</h3>
-                                                        <h5 style="color:#2B4B80; align-self: right;"> - <%= profile[0].name %></h5>
-                                                        <br>
-                                                    </div>
-                                                </div>
-        
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    <% } %> 
+                    <% } %>
+                    
+                    <!-- QUOTE -->
+                    <% if(profile[0].quote != null) { %>
+                        <div class="card-group">
+                            <div class="card" style="background-color:white; border-radius: 10px;">
+                                <div class="card-body">
+                                    <div class="row">
+                                                
+                                        <div class="col">
+                                            <div class="container">
+                                                <h3 style="color:#2B4B80; align-self: left;">"<%= profile[0].quote %>" - <%= profile[0].name %></h3>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
 
                     <% if(profile[0].fav_interview_brother != null) { %>
                         <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
@@ -238,25 +246,25 @@
                     <!-- CAREER -->
                     <% if(profile[0].career_position != null) { %>
                         <div class="card-group" style="padding: 5px; padding-bottom: 30px;">
-                            <div class="card" style="background-color:#2B4B80; border-radius: 60px; padding:10px;">
+                            <div class="card" style="padding:10px; background-color:white; border-radius: 10px;">
                                 <div class="card-body" style="padding: 5px; padding-bottom: 8px;">
-                                    <div class="card-footer" style="background-color:white; border-radius: 60px; padding:10px;">
+                                    <div class="card-footer">
                                         <br>
                                         <div class="row">
-                                            <h1 style="color:#2B4B80; text-align: center;"><%= profile[0].career_position %></h1>
+                                            <h1 style="color:#2B4B80; text-align: left;"><%= profile[0].career_position %></h1>
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].career_organization %>, <%= profile[0].career_duration %></h5>
+                                                <h5 style="color:#2B4B80; text-align: left;"><%= profile[0].career_organization %>, <%= profile[0].career_duration %></h5>
                                             </div>
                                         </div>
+                                        <hr class="solid">
+                                        <h1 style="color:#2B4B80; text-align: left;">Experience</h1>
+                                        <h5 style="color:#2B4B80; text-align: left;"><%= profile[0].experience %></h5>
                                         <br>
-                                        <h1 style="color:#2B4B80; text-align: center;">Experience</h1>
-                                        <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].experience %></h5>
+                                        <h1 style="color:#2B4B80; text-align: left;">Aspirations</h1>
+                                        <h5 style="color:#2B4B80; text-align: left;"><%= profile[0].aspirations %></h5>
                                         <br>
-                                        <h1 style="color:#2B4B80; text-align: center;">Aspirations</h1>
-                                        <h5 style="color:#2B4B80; text-align: center;"><%= profile[0].aspirations %></h5>
-                                        <br style="height:50%;">
                                     </div>
                                 </div>
                             </div>

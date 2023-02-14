@@ -33,8 +33,8 @@
                         <div class="col-lg-8 card-container d-flex justify-content-center">
                         
                             <div class="card-body py-5 px-md-5 login-card">
-                                <h2> Brother Interview Submission </h2>
-                    
+                                <h2> Brother Interviews </h2>
+                                
                                 <script>
                                     active_brothers = [];
                                     index = 0
@@ -66,7 +66,7 @@
                                         <option value="<%= active_brothers[index] %>"><%= active_brothers[index] %></option>
                                     <% index++; } %>
                                 </select>
-                    
+                                <br>
                                 <!-- FAMILY input -->
                                 <select class="form-select" id="family" name="family">
                                     <option selected>Which Family?</option>
@@ -83,7 +83,7 @@
 
                                 <br>
                                 <input class="form-control" type="file" id="proof" name="proof">
-                    
+                                <br>
                                 <button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button>
                     
                             </div>

@@ -31,7 +31,7 @@
 
         <div class="container">
 
-            <form enctype="multipart/form-data" action="/submit_interview/post" method="POST">  
+            <form enctype="multipart/form-data" action="/submit_networking/post" method="POST">  
 
 
                 <section class="text-center text-lg-start" class="Login">
@@ -56,8 +56,12 @@
                                 </select>
                     
                                 <br>
+                                <textarea class="form-control input-lg" height="20px" type="text" placeholder="Write a summary of what you did together" name="description" required></textarea>
+
+                                <br>
                                 <input class="form-control" type="file" id="proof" name="proof">
                     
+                                <br>
                                 <button action="submit" class="btn default" style="background-color: rgb(4, 125, 153); color: white">Submit</button>
                     
                             </div>
