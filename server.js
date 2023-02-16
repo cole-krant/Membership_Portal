@@ -1,7 +1,7 @@
 /* DATABASE INITIALIZATION ------------------------------------------------------ */
 /* INCLUDES */
 const express = require('express');
-const app = express();
+// const app = express();
 const bodyParser = require('body-parser');
 const pgp = require('pg-promise')();
 const session = require("express-session");
@@ -14,6 +14,28 @@ const multer = require('multer');
 const upload = multer({storage:multer.memoryStorage()});
 
 const PORT = 80;
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCPtfiqGgZxkZf_fkeGRLcxxvM_OyCVMlU",
+  authDomain: "membership-portal--gamma-zeta.firebaseapp.com",
+  projectId: "membership-portal--gamma-zeta",
+  storageBucket: "membership-portal--gamma-zeta.appspot.com",
+  messagingSenderId: "625236994516",
+  appId: "1:625236994516:web:3c0d687cd852abeca4ce41",
+  measurementId: "G-ZWP1MGX2W1"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 /* DATABSE CONFIGURATION */
 const dbConfig = {
