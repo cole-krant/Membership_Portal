@@ -26,11 +26,9 @@ The Software Development Team will have access to:
  
  ## *Recognition*
  #### Software Development Team
- * Roman Lynch, Scholar of Computer Science
- * Will Dravenstrott, Scholar of Computer Science
  * Cole Krant, Website Owner
  
- #### Bridge Education Committee
+ #### Bridge Education Committee (Administration)
  * Katie McDonald, Bridge Educator
  * Nathan Brown, Committee Coordinator
  * Emma Kochenderfer, Professional Development Coordinator
