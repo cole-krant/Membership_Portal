@@ -1950,5 +1950,7 @@ app.post("/admin/edit_user/post", (req, res) => {
         })
 });
 /* ------------------------------------------------------------------------------------ */
-app.listen(3000);
-console.log("Server is listening on port 3000\n\n");
+const port = process.env.PORT || 3001
+app.listen(port, () => {
+    console.log(`Sever listening on port ${port}`);
+});
