@@ -4,7 +4,7 @@ services:
     image: postgres:14
     env_file: .env
     expose:
-      - '5432'
+      - '3000'
     volumes:
       - Membership_Portal:/var/lib/postgresql/data
       - ./init_data:/docker-entrypoint-initdb.d
