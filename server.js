@@ -16,7 +16,7 @@ const upload = multer({storage:multer.memoryStorage()});
 /* DATABSE CONFIGURATION */
 const dbConfig = {
     host: 'db',
-    port: 5432,
+    port: process.env.PORT,
     database: process.env.POSTGRES_DB,
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
