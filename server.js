@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const multer = require('multer');
 const upload = multer({storage:multer.memoryStorage()});
 
+require('dotenv').config();
+
 /* DATABSE CONFIGURATION */
 const dbConfig = {
     host: 'db',
