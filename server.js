@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const multer = require('multer');
 const upload = multer({storage:multer.memoryStorage()});
 
-require('dotenv').config();
+// require('dotenv').config();
 
 /* DATABSE CONFIGURATION */
 const dbConfig = {
@@ -879,21 +879,6 @@ app.post("/update_profile/g6_img", upload.single('g6_img') ,(req, res) => {   /*
         })
         .catch((error) => { console.log("\n\nERROR: ", error.message || error); })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
